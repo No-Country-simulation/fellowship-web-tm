@@ -191,7 +191,7 @@ function ComoFuncionaContent({ defaultProfile = "talento" }: ComoFuncionaProps) 
                   "flex-1 text-center py-2 px-5 text-sm font-semibold rounded-full cursor-pointer transition-all duration-200",
                   activeTab === tab.id
                     ? "bg-[#9A9A9A] dark:bg-zinc-600 text-white shadow-sm"
-                    : "text-neutral-700 dark:text-zinc-300 hover:text-neutral-955 dark:hover:text-white hover:bg-neutral-400/10 dark:hover:bg-zinc-700/20"
+                    : "text-neutral-700 dark:text-zinc-300 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-400/10 dark:hover:bg-zinc-700/20"
                 )}
               >
                 {tab.label}
@@ -202,7 +202,7 @@ function ComoFuncionaContent({ defaultProfile = "talento" }: ComoFuncionaProps) 
       </div>
 
       {/* Main card box with 2 columns layout */}
-      <div className="border border-neutral-750 dark:border-zinc-700/80 bg-[#B3B3B3] dark:bg-zinc-900/65 rounded-[24px] p-6 md:p-12 shadow-lg transition-colors duration-300">
+      <div className="border border-neutral-700 dark:border-zinc-700/80 bg-[#B3B3B3] dark:bg-zinc-900/65 rounded-[24px] p-6 md:p-12 shadow-lg transition-colors duration-300">
         <div
           className={cn(
             "grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 transition-all duration-200 ease-in-out",
@@ -227,7 +227,7 @@ function ComoFuncionaContent({ defaultProfile = "talento" }: ComoFuncionaProps) 
               </h3>
 
               {/* Description */}
-              <p className="text-neutral-850 dark:text-zinc-200 text-sm md:text-[15px] leading-relaxed max-w-lg">
+              <p className="text-neutral-800 dark:text-zinc-200 text-sm md:text-[15px] leading-relaxed max-w-lg">
                 {content.description}
               </p>
             </div>
@@ -245,7 +245,7 @@ function ComoFuncionaContent({ defaultProfile = "talento" }: ComoFuncionaProps) 
               </Button>
               <Button
                 variant="outline"
-                className="h-12 px-6 border-2 border-neutral-700/60 dark:border-zinc-750 bg-neutral-200/40 dark:bg-zinc-800/20 text-neutral-900 dark:text-zinc-200 hover:bg-neutral-200/80 dark:hover:bg-zinc-800/60 rounded-xl font-bold cursor-pointer transition-all active:translate-y-px"
+                className="h-12 px-6 border-2 border-neutral-700/60 dark:border-zinc-700 bg-neutral-200/40 dark:bg-zinc-800/20 text-neutral-900 dark:text-zinc-200 hover:bg-neutral-200/80 dark:hover:bg-zinc-800/60 rounded-xl font-bold cursor-pointer transition-all active:translate-y-px"
                 asChild
               >
                 <a href="#faq">{content.ctaSecondary}</a>
@@ -264,7 +264,7 @@ function ComoFuncionaContent({ defaultProfile = "talento" }: ComoFuncionaProps) 
                 }}
               >
                 {/* Step number badge */}
-                <div className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-600/35 dark:border-zinc-650 bg-neutral-100/50 dark:bg-zinc-800 text-base md:text-lg font-black text-neutral-800 dark:text-zinc-150 shrink-0 select-none shadow-sm">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-600/35 dark:border-zinc-600 bg-neutral-100/50 dark:bg-zinc-800 text-base md:text-lg font-black text-neutral-800 dark:text-zinc-200 shrink-0 select-none shadow-sm">
                   {step.number}
                 </div>
 
