@@ -2,6 +2,7 @@ import HeroSection from "@/components/organisms/HeroSection";
 import EmpresasCarousel from "@/components/organisms/EmpresasCarousel";
 import ShowcaseSection from "@/components/organisms/ShowcaseSection";
 import ParadigmaSection from "@/components/organisms/ParadigmaSection";
+import QuePuedeSimularse from "@/components/sections/QuePuedeSimularse";
 import ComoFunciona from "@/components/sections/ComoFunciona";
 import CasoOracle from "@/components/sections/CasoOracle";
 import Testimonios from "@/components/sections/Testimonios";
@@ -14,6 +15,7 @@ export default function Home() {
       <EmpresasCarousel />
       <ShowcaseSection />
       <ParadigmaSection />
+      <QuePuedeSimularse />
       <ComoFunciona />
       <CasoOracle />
       <Testimonios />
