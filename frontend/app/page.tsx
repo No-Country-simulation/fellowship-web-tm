@@ -4,6 +4,7 @@ import ShowcaseSection from "@/components/organisms/ShowcaseSection";
 import ParadigmaSection from "@/components/organisms/ParadigmaSection";
 import QuePuedeSimularse from "@/components/sections/QuePuedeSimularse";
 import EvidenciaConductual from "@/components/sections/EvidenciaConductual";
+import CasosDeUso from "@/components/sections/CasosDeUso";
 import ComoFunciona from "@/components/sections/ComoFunciona";
 import CasoOracle from "@/components/sections/CasoOracle";
 import Testimonios from "@/components/sections/Testimonios";
@@ -18,6 +19,7 @@ export default function Home() {
       <ParadigmaSection />
       <QuePuedeSimularse />
       <EvidenciaConductual />
+      <CasosDeUso />
       <ComoFunciona />
       <CasoOracle />
       <Testimonios />
