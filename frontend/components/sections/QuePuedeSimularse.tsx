@@ -1,4 +1,4 @@
-import React from "react";
+
 
 interface Category {
   id: string;
@@ -77,7 +77,6 @@ export default function QuePuedeSimularse() {
       className="w-full bg-[#090a15] py-20 md:py-28 text-white border-t border-b border-white/10"
     >
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
-        {/* Badge with horizontal gradient line */}
         <div className="flex items-center gap-3 mb-6 select-none">
           <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
           <span className="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase">
