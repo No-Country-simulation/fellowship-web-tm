@@ -7,6 +7,7 @@ import EvidenciaConductual from "@/components/sections/EvidenciaConductual";
 import CasosDeUso from "@/components/sections/CasosDeUso";
 import ComoFunciona from "@/components/sections/ComoFunciona";
 import CasoOracle from "@/components/sections/CasoOracle";
+import ComparisonTable from "@/components/sections/ComparisonTable";
 import Testimonios from "@/components/sections/Testimonios";
 import Footer from "@/components/sections/Footer";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <CasosDeUso />
       <ComoFunciona />
       <CasoOracle />
+      <ComparisonTable />
       <Testimonios />
       <Footer />
     </main>
