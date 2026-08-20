@@ -5,10 +5,9 @@ import ParadigmaSection from "@/components/organisms/ParadigmaSection";
 import QuePuedeSimularse from "@/components/sections/QuePuedeSimularse";
 import EvidenciaConductual from "@/components/sections/EvidenciaConductual";
 import CasosDeUso from "@/components/sections/CasosDeUso";
-import ComoFunciona from "@/components/sections/ComoFunciona";
 import CasoOracle from "@/components/sections/CasoOracle";
 import ComparisonTable from "@/components/sections/ComparisonTable";
-import Testimonios from "@/components/sections/Testimonios";
+import FraseSection from "@/components/sections/FraseSection";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -21,10 +20,9 @@ export default function Home() {
       <QuePuedeSimularse />
       <EvidenciaConductual />
       <CasosDeUso />
-      <ComoFunciona />
       <CasoOracle />
       <ComparisonTable />
-      <Testimonios />
+      <FraseSection />
       <Footer />
     </main>
   );
