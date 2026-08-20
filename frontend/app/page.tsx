@@ -23,13 +23,13 @@ export default function Home() {
       <StatsSection />
       <LiveSimulation />
       <SimulationDefinition />
-      <FAQSection />
-       <QuePuedeSimularse />
+      <QuePuedeSimularse />
       <EvidenciaConductual />
       <CasosDeUso />
       <CasoOracle />
       <ComparisonTable />
       <FraseSection />
+      <FAQSection />
       <Footer />
     </main>
   );
