@@ -78,7 +78,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
           {/* Card 1 */}
           <div className="bg-[#0c0d21]/20 border border-white/5 rounded-2xl p-6 flex flex-col justify-between h-[160px] hover:border-white/10 transition-all duration-300">
             <div className="flex items-center gap-2 select-none">
-              <div className="h-[1.5px] w-4 bg-[#FF0094] rounded-full shrink-0" />
+              <div className="h-[1.5px] w-4 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
               <span className="text-[9px] font-bold tracking-[0.25em] text-zinc-500 uppercase">PROBLEMA</span>
             </div>
             <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-7">
@@ -111,7 +111,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
           {/* Card 4 */}
           <div className="bg-[#0c0d21]/20 border border-white/5 rounded-2xl p-6 flex flex-col justify-between h-[160px] hover:border-white/10 transition-all duration-300">
             <div className="flex items-center gap-2 select-none">
-              <div className="h-[1.5px] w-4 bg-[#02BEEF] rounded-full shrink-0" />
+              <div className="h-[1.5px] w-4 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
               <span className="text-[9px] font-bold tracking-[0.25em] text-zinc-500 uppercase">RESULTADO</span>
             </div>
             <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-7 ">
@@ -128,7 +128,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               "Con No Country dejamos de evaluar CVs y empezamos a ver personas resolviendo problemas reales."
             </p>
             <div className="flex items-center gap-3">
-              <Avatar className="h-9 w-9 rounded-full border border-white/10 bg-gradient-to-br from-[#FF0094] to-[#02BEEF] flex items-center justify-center p-[1px]">
+              <Avatar className="h-9 w-9 rounded-full border border-white/10">
                 <AvatarImage src="/amanda-gelumbauskas.png" alt="Amanda Gelumbauskas" />
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   AG
@@ -147,7 +147,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               "Volvimos cuatro veces porque los datos de ejecución nos daban una señal que ningún assessment tradicional podía darnos."
             </p>
             <div className="flex items-center gap-3">
-              <Avatar className="h-9 w-9 rounded-full border border-white/10 bg-gradient-to-br from-[#02BEEF] to-[#FF0094] flex items-center justify-center p-[1px]">
+              <Avatar className="h-9 w-9 rounded-full border border-white/10">
                 <AvatarImage src="/christian-velaszo-arganaraz.jpg" alt="Christian Velasco" />
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   CV

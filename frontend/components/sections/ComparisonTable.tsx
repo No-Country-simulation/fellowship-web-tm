@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   Table,
   TableBody,
@@ -13,9 +14,9 @@ interface RowData {
   id: string;
   method: string | React.ReactNode;
   observes: string;
-  contextReal: boolean | "blue-check";
-  sustained: boolean | "blue-check";
-  evidence: boolean;
+  contextReal: boolean | "pink" | "turquoise";
+  sustained: boolean | "pink" | "turquoise";
+  evidence: boolean | "pink" | "turquoise";
   highlighted?: boolean;
 }
 
@@ -56,40 +57,45 @@ const rows: RowData[] = [
     id: "internship",
     method: "Pasantía",
     observes: "Desempeño post-contratación",
-    contextReal: "blue-check",
-    sustained: "blue-check",
+    contextReal: "pink",
+    sustained: "pink",
     evidence: false,
   },
   {
     id: "nocountry",
     method: (
-      <span className="font-black tracking-tight text-[15px] select-none">
-        <span className="text-[#FF0094]">No</span>
-        <span className="text-[#02BEEF]">Country</span>
-      </span>
+      <div className="flex items-center select-none">
+        <Image
+          src="/icon.png"
+          alt="No Country"
+          width={100}
+          height={32}
+          className="object-contain h-[22px] w-auto"
+        />
+      </div>
     ),
     observes: "Comportamiento en ejecución real",
-    contextReal: true,
-    sustained: true,
-    evidence: true,
+    contextReal: "turquoise",
+    sustained: "turquoise",
+    evidence: "turquoise",
     highlighted: true,
   },
 ];
 
 export default function ComparisonTable() {
-  const renderMark = (value: boolean | "blue-check") => {
-    if (value === true) {
+  const renderMark = (value: boolean | "pink" | "turquoise") => {
+    if (value === "pink") {
       return (
         <span className="text-[#FF0094] font-black text-lg select-none">✓</span>
       );
     }
-    if (value === "blue-check") {
+    if (value === "turquoise" || value === true) {
       return (
         <span className="text-[#02BEEF] font-black text-lg select-none">✓</span>
       );
     }
     return (
-      <span className="text-zinc-300/70 font-bold text-base select-none">✕</span>
+      <span className="text-zinc-400 font-extrabold text-base select-none">✕</span>
     );
   };
 
@@ -124,19 +130,19 @@ export default function ComparisonTable() {
             <Table className="min-w-[800px] w-full border-collapse">
               <TableHeader className="bg-zinc-50/50">
                 <TableRow className="border-b border-zinc-100 hover:bg-transparent">
-                  <TableHead className="text-[10px] font-extrabold tracking-wider text-zinc-400 uppercase py-4 px-6 h-auto text-left">
+                  <TableHead className="text-[11px] font-black tracking-widest text-zinc-600 uppercase py-4 px-6 h-auto text-left">
                     MÉTODO
                   </TableHead>
-                  <TableHead className="text-[10px] font-extrabold tracking-wider text-zinc-400 uppercase py-4 px-6 h-auto text-left">
+                  <TableHead className="text-[11px] font-black tracking-widest text-zinc-600 uppercase py-4 px-6 h-auto text-left">
                     QUÉ OBSERVA
                   </TableHead>
-                  <TableHead className="text-[10px] font-extrabold tracking-wider text-zinc-400 uppercase py-4 px-6 h-auto text-center">
+                  <TableHead className="text-[11px] font-black tracking-widest text-zinc-600 uppercase py-4 px-6 h-auto text-center">
                     CONTEXTO REAL
                   </TableHead>
-                  <TableHead className="text-[10px] font-extrabold tracking-wider text-zinc-400 uppercase py-4 px-6 h-auto text-center">
+                  <TableHead className="text-[11px] font-black tracking-widest text-zinc-600 uppercase py-4 px-6 h-auto text-center">
                     SOSTENIDO EN EL TIEMPO
                   </TableHead>
-                  <TableHead className="text-[10px] font-extrabold tracking-wider text-zinc-400 uppercase py-4 px-6 h-auto text-center">
+                  <TableHead className="text-[11px] font-black tracking-widest text-zinc-600 uppercase py-4 px-6 h-auto text-center">
                     EVIDENCIA ANTES DE CONTRATAR
                   </TableHead>
                 </TableRow>
