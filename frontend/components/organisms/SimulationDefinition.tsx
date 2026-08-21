@@ -10,7 +10,7 @@ export default function SimulationDefinition() {
   return (
     <section id="simulacion" className="bg-white text-black px-4 md:px-8 py-20">
       <div className="max-w-[1300px] mx-auto">
-        <div className="text-center mb-14">
+        <div className="mb-14">
           <div className="inline-flex items-center gap-2 text-sm font-bold text-[#6b7280] uppercase tracking-widest">
             <span className="inline-block w-5 h-1 rounded bg-linear-to-r from-[#ff00a0] to-[#00d1ff]" />
             Simulación Laboral
