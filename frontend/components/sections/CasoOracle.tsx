@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export interface CasoOracleProps {
@@ -129,7 +130,14 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             </p>
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9 rounded-full border border-white/10">
-                <AvatarImage src="/amanda-gelumbauskas.png" alt="Amanda Gelumbauskas" />
+                <AvatarImage src="/amanda-gelumbauskas.png" alt="Amanda Gelumbauskas" asChild>
+                  <Image
+                    src="/amanda-gelumbauskas.png"
+                    alt="Amanda Gelumbauskas"
+                    width={36}
+                    height={36}
+                  />
+                </AvatarImage>
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   AG
                 </AvatarFallback>
@@ -148,7 +156,14 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             </p>
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9 rounded-full border border-white/10">
-                <AvatarImage src="/christian-velaszo-arganaraz.jpg" alt="Christian Velasco" />
+                <AvatarImage src="/christian-velaszo-arganaraz.jpg" alt="Christian Velasco" asChild>
+                  <Image
+                    src="/christian-velaszo-arganaraz.jpg"
+                    alt="Christian Velasco"
+                    width={36}
+                    height={36}
+                  />
+                </AvatarImage>
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   CV
                 </AvatarFallback>
