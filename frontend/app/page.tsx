@@ -1,6 +1,4 @@
 import EmpresasCarousel from "@/components/organisms/EmpresasCarousel";
-import ShowcaseSection from "@/components/organisms/ShowcaseSection";
-import ParadigmaSection from "@/components/organisms/ParadigmaSection";
 import QuePuedeSimularse from "@/components/sections/QuePuedeSimularse";
 import EvidenciaConductual from "@/components/sections/EvidenciaConductual";
 import CasosDeUso from "@/components/sections/CasosDeUso";
@@ -19,7 +17,6 @@ export default function Home() {
     <main className="flex flex-col bg-[#05040b]">
       <EmpresasCarousel />
       <HeroSection />
-
       <StatsSection />
       <LiveSimulation />
       <SimulationDefinition />

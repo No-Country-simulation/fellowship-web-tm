@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export interface CasoOracleProps {
   className?: string;
@@ -33,7 +33,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             <div className="hidden lg:block h-8 w-[1px] bg-white/10" />
             <div className="flex items-center gap-6 select-none">
               <img src="/logos/oracle.png" alt="Oracle" className="h-[15px] md:h-[18px] opacity-90 object-contain" />
-              <img src="/logos/alura.png" alt="Alura" className="h-[16px] md:h-[19px] opacity-90 object-contain" />
+              <img src="/logos/alura.png" alt="Alura" className="h-[64px] md:h-[72px] opacity-90 object-contain" />
               <img src="/logos/one.png" alt="ONE Next Education" className="h-[28px] md:h-[32px] opacity-90 object-contain" />
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               <div className="h-[1.5px] w-4 bg-[#FF0094] rounded-full shrink-0" />
               <span className="text-[9px] font-bold tracking-[0.25em] text-zinc-500 uppercase">PROBLEMA</span>
             </div>
-            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-1">
+            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-7">
               ONE necesitaba validar talento técnico a gran escala, más allá del CV.
             </p>
           </div>
@@ -92,7 +92,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               <div className="h-[1.5px] w-4 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
               <span className="text-[9px] font-bold tracking-[0.25em] text-zinc-500 uppercase">ECOSISTEMA</span>
             </div>
-            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-1">
+            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-1 ">
               Talento, equipos, empresas y referidos conectados en el mismo ciclo de evidencia.
             </p>
           </div>
@@ -103,7 +103,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               <div className="h-[1.5px] w-4 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
               <span className="text-[9px] font-bold tracking-[0.25em] text-zinc-500 uppercase">OBSERVACIÓN</span>
             </div>
-            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-1">
+            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-7 ">
               Comportamiento, colaboración y ejecución bajo presión real.
             </p>
           </div>
@@ -114,7 +114,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               <div className="h-[1.5px] w-4 bg-[#02BEEF] rounded-full shrink-0" />
               <span className="text-[9px] font-bold tracking-[0.25em] text-zinc-500 uppercase">RESULTADO</span>
             </div>
-            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-1">
+            <p className="text-xs md:text-[13px] text-zinc-300 font-medium leading-relaxed mb-7 ">
               Talento identificado por evidencia, no por credenciales.
             </p>
           </div>
@@ -129,6 +129,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             </p>
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9 rounded-full border border-white/10 bg-gradient-to-br from-[#FF0094] to-[#02BEEF] flex items-center justify-center p-[1px]">
+                <AvatarImage src="/amanda-gelumbauskas.png" alt="Amanda Gelumbauskas" />
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   AG
                 </AvatarFallback>
@@ -147,6 +148,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             </p>
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9 rounded-full border border-white/10 bg-gradient-to-br from-[#02BEEF] to-[#FF0094] flex items-center justify-center p-[1px]">
+                <AvatarImage src="/christian-velaszo-arganaraz.jpg" alt="Christian Velasco" />
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   CV
                 </AvatarFallback>

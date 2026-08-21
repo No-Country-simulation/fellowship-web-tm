@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 const empresas = [
-  { src: "/alura.png", alt: "Alura" },
-  { src: "/angola.png", alt: "Angola" },
-  { src: "/anima.png", alt: "Anima" },
-  { src: "/oracle.png", alt: "Oracle" },
-  { src: "/pmi.png", alt: "PMI" },
-  { src: "/visent.png", alt: "Visent" },
+  { src: "/logos/alura.png", alt: "Alura" },
+  { src: "/logos/angola.png", alt: "Angola" },
+  { src: "/logos/anima.png", alt: "Anima" },
+  { src: "/logos/oracle.png", alt: "Oracle" },
+  { src: "/logos/pmi.png", alt: "PMI" },
+  { src: "/logos/visent.png", alt: "Visent" },
 ];
 
 export default function EmpresasCarousel() {
