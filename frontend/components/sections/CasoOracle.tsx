@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export interface CasoOracleProps {
   className?: string;
@@ -129,6 +129,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             </p>
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9 rounded-full border border-white/10 bg-gradient-to-br from-[#FF0094] to-[#02BEEF] flex items-center justify-center p-[1px]">
+                <AvatarImage src="/amanda-gelumbauskas.png" alt="Amanda Gelumbauskas" />
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   AG
                 </AvatarFallback>
@@ -147,6 +148,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             </p>
             <div className="flex items-center gap-3">
               <Avatar className="h-9 w-9 rounded-full border border-white/10 bg-gradient-to-br from-[#02BEEF] to-[#FF0094] flex items-center justify-center p-[1px]">
+                <AvatarImage src="/christian-velaszo-arganaraz.jpg" alt="Christian Velasco" />
                 <AvatarFallback className="bg-zinc-950 text-white text-[11px] font-bold rounded-full w-full h-full flex items-center justify-center">
                   CV
                 </AvatarFallback>
