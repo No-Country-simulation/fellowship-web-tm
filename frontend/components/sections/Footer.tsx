@@ -108,7 +108,7 @@ export default function Footer({ className }: FooterProps) {
             <ul className="space-y-2.5 text-sm font-medium">
               <li>
                 <Link
-                  href="/talento"
+                  href="/para-talento"
                   className="text-zinc-400 hover:text-white transition-colors duration-200 block py-0.5"
                 >
                   Simulaciones abiertas
@@ -142,7 +142,7 @@ export default function Footer({ className }: FooterProps) {
             <ul className="space-y-2.5 text-sm font-medium">
               <li>
                 <Link
-                  href="/empresas/contratar"
+                  href="/para-empresas/contratar"
                   className="text-zinc-400 hover:text-white transition-colors duration-200 block py-0.5"
                 >
                   Contratar graduados

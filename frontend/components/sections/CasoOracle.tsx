@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Quote } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export interface CasoOracleProps {
@@ -20,38 +21,14 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    id: "jorge-cobo",
-    name: "Jorge Cobo",
-    role: "Founder",
-    company: "Viamatica",
-    quote:
-      "“El nivel de innovación y la calidad de los prototipos desarrollados en solo 4 días fue impresionante. No Country ha creado un ecosistema único para conectar talento con desafíos reales.”",
-    image: "/jorge-cobo.jpg",
-    companyLogo: "/logos/viamatica-logo.png",
-    fallbackInitials: "JC",
-    logoClass: "h-6 md:h-8 max-w-[110px] opacity-90",
-  },
-  {
-    id: "jorge-portalanza",
-    name: "Jorge Portalanza",
-    role: "Gerente de Proyecto",
-    company: "Viamatica",
-    quote:
-      "“La capacidad de los equipos para entregar soluciones funcionales de IA en tiempo récord demostró el nivel de talento que existe en Ecuador. Identificamos varios perfiles que se alinean con nuestras necesidades de transformación digital.”",
-    image: "/jorge-portalanza.jpg",
-    companyLogo: "/logos/viamatica-logo.png",
-    fallbackInitials: "JP",
-    logoClass: "h-6 md:h-8 max-w-[110px] opacity-90",
-  },
-  {
     id: "amanda-gelumbauskas",
     name: "Amanda Gelumbauskas",
     role: "LATAM Head of Oracle One Education",
     company: "Oracle",
     quote:
       "“La calidad de los proyectos y el nivel de colaboración que vimos en los equipos fue excepcional. No Country ha creado un modelo único para identificar talento real.”",
-    image: "/amanda-gelumbauskas.png",
-    companyLogo: "/logos/oracle.png",
+    image: "/amanda-gelumbauskas-2.jpg",
+    companyLogo: "/logos/one.png",
     fallbackInitials: "AG",
     logoClass: "h-5 md:h-6 max-w-[90px] opacity-80",
   },
@@ -86,6 +63,14 @@ export default function CasoOracle({ className }: CasoOracleProps) {
           <span className="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase">
             CASO DE ÉXITO
           </span>
+          <a
+            href="https://www.oracle.com/latam/education/oracle-next-education/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] text-zinc-500 hover:text-[#02BEEF] underline underline-offset-2 transition-colors ml-2 normal-case tracking-normal font-normal"
+          >
+            Verificado en oracle.com
+          </a>
         </div>
 
         {/* Title and Logos Block */}
@@ -194,40 +179,45 @@ export default function CasoOracle({ className }: CasoOracleProps) {
           </div>
         </div>
 
-        {/* Testimonials Quotes Grid (4 Cards in 2x2 layout) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Testimonials Quotes Grid (2 featured decision-maker cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="bg-[#0c0d21]/20 border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between hover:border-white/10 transition-all duration-300 group"
+              className="relative overflow-hidden bg-[#0c0d21]/40 border border-white/10 rounded-3xl p-8 md:p-10 flex flex-col justify-between hover:border-white/20 transition-all duration-300 group"
             >
+              {/* Top accent bar */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FF0094] to-[#02BEEF]" />
+
+              {/* Decorative large quote mark */}
+              <Quote className="absolute -top-2 -right-2 w-24 h-24 text-white/[0.04] rotate-180 pointer-events-none" />
+
               {/* Quote text */}
-              <p className="text-sm md:text-[15px] text-zinc-200 italic font-medium leading-relaxed mb-8">
+              <p className="relative text-xl md:text-2xl text-zinc-100 italic font-medium leading-snug mb-10">
                 {t.quote}
               </p>
-
               {/* Author Footer */}
-              <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-10 w-10 rounded-full border border-white/10 shrink-0">
+              <div className="relative flex items-center justify-between pt-5 border-t border-white/10">
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-14 w-14 md:h-16 md:w-16 rounded-full border-2 border-white/10 shrink-0">
                     <AvatarImage src={t.image} alt={t.name} asChild>
                       <Image
                         src={t.image}
                         alt={t.name}
-                        width={40}
-                        height={40}
+                        width={64}
+                        height={64}
                         className="object-cover"
                       />
                     </AvatarImage>
-                    <AvatarFallback className="bg-zinc-950 text-white text-xs font-bold rounded-full w-full h-full flex items-center justify-center">
+                    <AvatarFallback className="bg-zinc-950 text-white text-base font-bold rounded-full w-full h-full flex items-center justify-center">
                       {t.fallbackInitials}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <span className="text-xs md:text-sm font-bold text-white">
+                    <span className="text-sm md:text-base font-bold text-white">
                       {t.name}
                     </span>
-                    <span className="text-[10px] md:text-xs text-zinc-400 mt-0.5">
+                    <span className="text-xs md:text-sm text-zinc-400 mt-0.5">
                       {t.role}, <span className="text-zinc-300 font-semibold">{t.company}</span>
                     </span>
                   </div>
