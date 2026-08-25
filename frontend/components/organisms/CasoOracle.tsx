@@ -27,7 +27,7 @@ const testimonials: Testimonial[] = [
     company: "Oracle",
     quote:
       "“La calidad de los proyectos y el nivel de colaboración que vimos en los equipos fue excepcional. No Country ha creado un modelo único para identificar talento real.”",
-    image: "/amanda-gelumbauskas-2.jpg",
+    image: "/people/amanda-gelumbauskas-2.jpg",
     companyLogo: "/logos/one.png",
     fallbackInitials: "AG",
     logoClass: "h-5 md:h-6 max-w-[90px] opacity-80",
@@ -39,7 +39,7 @@ const testimonials: Testimonial[] = [
     company: "Alura",
     quote:
       "“Ver a los equipos trabajar en tiempo real nos dio una perspectiva invaluable sobre cómo colaboran y resuelven problemas. Identificamos varios candidatos que se alinean perfectamente con nuestra cultura.”",
-    image: "/christian-velaszo-arganaraz.jpg",
+    image: "/people/christian-velaszo-arganaraz.jpg",
     companyLogo: "/logos/alura.png",
     fallbackInitials: "CV",
     logoClass: "h-14 md:h-18 max-w-[160px] opacity-100",

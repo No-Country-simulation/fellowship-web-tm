@@ -33,7 +33,7 @@ export default function Footer({ className }: FooterProps) {
           <div className="lg:col-span-2 flex flex-col space-y-5 pr-0 lg:pr-8">
             <Link href="/" className="inline-block self-start group">
               <Image
-                src="/icon.png"
+                src="/logos/NoCountry.png"
                 alt="No Country Logo"
                 width={160}
                 height={48}
