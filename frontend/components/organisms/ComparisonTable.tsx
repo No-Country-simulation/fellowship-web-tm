@@ -66,7 +66,7 @@ const rows: RowData[] = [
     method: (
       <div className="flex items-center select-none">
         <Image
-          src="/icon.png"
+          src="/logos/NoCountry.png"
           alt="No Country"
           width={100}
           height={32}

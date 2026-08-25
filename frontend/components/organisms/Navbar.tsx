@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:h-16">
           <Link href="/" className="justify-self-start">
             <Image
-              src="/icon.png"
+              src="/logos/NoCountry.png"
               alt="No Country"
               width={120}
               height={40}
@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="md:hidden flex items-center justify-between h-16">
           <Link href="/">
             <Image
-              src="/icon.png"
+              src="/logos/NoCountry.png"
               alt="No Country"
               width={100}
               height={32}

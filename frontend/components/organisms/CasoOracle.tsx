@@ -27,7 +27,7 @@ const testimonials: Testimonial[] = [
     company: "Oracle",
     quote:
       "“La calidad de los proyectos y el nivel de colaboración que vimos en los equipos fue excepcional. No Country ha creado un modelo único para identificar talento real.”",
-    image: "/amanda-gelumbauskas-2.jpg",
+    image: "/people/amanda-gelumbauskas-2.jpg",
     companyLogo: "/logos/one.png",
     fallbackInitials: "AG",
     logoClass: "h-5 md:h-6 max-w-[90px] opacity-80",
@@ -39,7 +39,7 @@ const testimonials: Testimonial[] = [
     company: "Alura",
     quote:
       "“Ver a los equipos trabajar en tiempo real nos dio una perspectiva invaluable sobre cómo colaboran y resuelven problemas. Identificamos varios candidatos que se alinean perfectamente con nuestra cultura.”",
-    image: "/christian-velaszo-arganaraz.jpg",
+    image: "/people/christian-velaszo-arganaraz.jpg",
     companyLogo: "/logos/alura.png",
     fallbackInitials: "CV",
     logoClass: "h-14 md:h-18 max-w-[160px] opacity-100",
@@ -81,7 +81,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
           <div className="flex items-center gap-5">
             <div className="hidden lg:block h-8 w-[1px] bg-white/10" />
             <div className="flex items-center gap-6 select-none">
-              <img src="/logos/oracle.png" alt="Oracle" className="h-[15px] md:h-[18px] opacity-90 object-contain" />
+              <img src="/logos/oracle.png" alt="Oracle" className="h-[64px] md:h-[72px] opacity-90 object-contain" />
               <img src="/logos/alura.png" alt="Alura" className="h-[64px] md:h-[72px] opacity-90 object-contain" />
               <img src="/logos/one.png" alt="ONE Next Education" className="h-[28px] md:h-[32px] opacity-90 object-contain" />
             </div>

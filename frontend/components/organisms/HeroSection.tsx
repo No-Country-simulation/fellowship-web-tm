@@ -13,7 +13,7 @@ export default function HeroSection() {
       {/* Mapa de fondo */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/map.png"
+          src="/brand/map.png"
           alt="Mapa global de simulaciones laborales"
           fill
           priority
