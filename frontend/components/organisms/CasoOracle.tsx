@@ -81,7 +81,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
           <div className="flex items-center gap-5">
             <div className="hidden lg:block h-8 w-[1px] bg-white/10" />
             <div className="flex items-center gap-6 select-none">
-              <img src="/logos/oracle.png" alt="Oracle" className="h-[15px] md:h-[18px] opacity-90 object-contain" />
+              <img src="/logos/oracle.png" alt="Oracle" className="h-[64px] md:h-[72px] opacity-90 object-contain" />
               <img src="/logos/alura.png" alt="Alura" className="h-[64px] md:h-[72px] opacity-90 object-contain" />
               <img src="/logos/one.png" alt="ONE Next Education" className="h-[28px] md:h-[32px] opacity-90 object-contain" />
             </div>
