@@ -54,7 +54,7 @@ const equipos = [
 
 export default function LiveSimulation() {
   return (
-    <section id="live" className="bg-[#040414] px-4 md:px-8 py-14">
+    <section id="live" className="bg-[#000115] px-4 md:px-8 py-14">
       <div className="max-w-[1300px] mx-auto">
         <div className="mb-2">
           <div className="inline-flex items-center gap-2 text-[13px] font-bold text-[#9ca3af]">

@@ -13,7 +13,7 @@ import FAQSection from "@/components/organisms/FAQSection";
 
 export default function Home() {
   return (
-    <main className="flex flex-col bg-[#05040b]">
+    <main className="flex flex-col bg-[#000115]">
       <EmpresasCarousel />
       <HeroSection />
       <LiveSimulation />

@@ -1,16 +1,12 @@
 const stats = [
-  { valor: "30,000+", label: "TALENTS", color: "text-[#ff00a0]" },
-  { valor: "5000+", label: "TEAMS", color: "text-[#00d1ff]" },
-  {
-    valor: "100+",
-    label: "COUNTRIES",
-    color: "bg-linear-to-r from-[#ff00a0] to-[#00d1ff] bg-clip-text text-transparent",
-  },
+  { valor: "30,000+", label: "TALENTS", color: "text-[#ff0094]" },
+  { valor: "5000+", label: "TEAMS", color: "text-[#02BEEF]" },
+  { valor: "100+", label: "COUNTRIES", color: "text-[#c06ecf]" },
 ];
 
 export default function StatsSection() {
   return (
-    <section className="bg-[#040414] px-4 py-12 pb-20">
+    <section className="bg-[#000115] px-4 py-12 pb-20">
       <div className="max-w-[1300px] mx-auto border-t border-[#1c1b29] pt-10 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-0">
         {stats.map((stat, idx) => (
           <div
