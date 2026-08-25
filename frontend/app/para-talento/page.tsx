@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Diferencias from "@/components/organisms/Diferencias";
 
 export default function ParaTalentoPage() {
   return (
@@ -57,6 +58,7 @@ export default function ParaTalentoPage() {
           </div>
         </div>
       </div>
+      <Diferencias />
     </main>
   );
 }
