@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { label: "Para Talento", href: "/#talento" },
+  { label: "Para Talento", href: "/para-talento" },
   { label: "Para empresas", href: "/#empresas" },
   { label: "Simulación Laboral", href: "/#simulacion" },
   { label: "Casos", href: "/#casos" },
