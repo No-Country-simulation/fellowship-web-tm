@@ -5,7 +5,7 @@ const empresas = [
   { src: "/logos/angola.png", alt: "Angola" },
   { src: "/logos/anima.png", alt: "Anima" },
   { src: "/logos/one.png", alt: "ONE" },
-  { src: "/logos/oracle.png", alt: "Oracle" },
+  { src: "/logos/oracle_v2.png", alt: "Oracle" },
   { src: "/logos/pmi.png", alt: "PMI" },
   { src: "/logos/visent.png", alt: "Visent" },
 ];
@@ -31,7 +31,7 @@ export default function EmpresasCarousel() {
                 alt={empresa.alt}
                 width={120}
                 height={40}
-                className="object-contain h-12 md:h-14 w-auto"
+                className="object-contain h-8 md:h-10 w-auto"
               />
             </div>
           ))}
@@ -49,7 +49,7 @@ export default function EmpresasCarousel() {
                 alt={empresa.alt}
                 width={120}
                 height={40}
-                className="object-contain h-12 md:h-14 w-auto"
+                className="object-contain h-8 md:h-10 w-auto"
               />
             </div>
           ))}
