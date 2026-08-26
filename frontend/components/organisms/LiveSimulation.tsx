@@ -75,11 +75,11 @@ export default function LiveSimulation() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#00d1ff]" />
               <span className="font-bold text-lg">Simulación Laboral — Semana 3 de 5</span>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex md:flex-wrap gap-2 overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 pb-1 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {badges.map((badge) => (
                 <span
                   key={badge.texto}
-                  className={`px-3 py-1 rounded-full text-xs font-bold border ${badge.clase}`}
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold border ${badge.clase}`}
                 >
                   {badge.texto}
                 </span>
@@ -88,7 +88,7 @@ export default function LiveSimulation() {
           </div>
 
           {/* Barra de progreso */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-8">
             <div className="flex-1 h-1.5 bg-[#2d2b40] rounded-full overflow-hidden">
               <div
                 className="h-full w-[60%] bg-linear-to-r from-[#ff00a0] to-[#00d1ff] rounded-full"
@@ -97,23 +97,25 @@ export default function LiveSimulation() {
             <span className="text-[#6b7280] font-semibold text-sm">60% del ciclo completado</span>
           </div>
 
-          {/* Lista de equipos */}
-          <div className="flex flex-col">
+          {/* Lista de equipos — carrusel horizontal en mobile, filas en desktop */}
+          <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-3 md:gap-0 -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {equipos.map((equipo) => (
               <div
                 key={equipo.nombre}
-                className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 py-5 border-b border-[#1c1b29] last:border-b-0"
+                className="shrink-0 w-[248px] snap-start rounded-xl border border-[#1c1b29] bg-[#0f0f1a] p-4 flex flex-col gap-2.5
+                  md:w-auto md:shrink md:snap-none md:rounded-none md:border-0 md:bg-transparent md:p-0
+                  md:flex-row md:items-center md:justify-between md:gap-3 md:py-5 md:border-b md:border-[#1c1b29] md:last:border-b-0"
               >
-                <div className="flex flex-col min-w-[140px]">
+                <div className="flex flex-col md:min-w-[140px]">
                   <span className="font-bold text-sm">{equipo.nombre}</span>
                   <span className="text-[13px] text-[#6b7280]">{equipo.rol}</span>
                 </div>
 
-                <div className="font-medium text-sm flex-1 min-w-[160px] text-white/90">
+                <div className="font-medium text-sm md:flex-1 md:min-w-[160px] text-white/90">
                   {equipo.proyecto}
                 </div>
 
-                <div className="flex items-center gap-5 text-[#9ca3af] text-sm flex-wrap">
+                <div className="flex items-center gap-3 md:gap-5 text-[#9ca3af] text-sm flex-wrap">
                   <div className="flex items-center">
                     {equipo.iniciales.map((inicial, i) => (
                       <div
@@ -134,6 +136,9 @@ export default function LiveSimulation() {
               </div>
             ))}
           </div>
+          <p className="md:hidden text-center text-[11px] text-[#6b7280] mt-2">
+            ← Deslizá para ver los demás equipos →
+          </p>
 
           {/* Footer */}
           <div className="text-center text-[#9ca3af] pt-6 mt-6 border-t border-[#1c1b29] font-medium">
