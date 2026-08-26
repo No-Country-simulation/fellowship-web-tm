@@ -2,6 +2,7 @@ import Link from "next/link";
 import Diferencias from "@/components/organisms/Diferencias";
 import GranDiferenciacion from "@/components/organisms/GranDiferenciacion";
 import EvidenciaEnVivo from "@/components/organisms/EvidenciaEnVivo";
+import ElMecanismo from "@/components/organisms/ElMecanismo";
 
 export default function ParaTalentoPage() {
   return (
@@ -64,6 +65,7 @@ export default function ParaTalentoPage() {
       <Diferencias />
       <GranDiferenciacion />
       <EvidenciaEnVivo />
+      <ElMecanismo />
     </main>
   );
 }
