@@ -1,4 +1,5 @@
 import { School, ListChecks, Timer, Briefcase } from "lucide-react";
+import { Reveal } from "@/components/ui/reveal";
 
 interface DiffCard {
   icon: React.ElementType;
@@ -51,49 +52,48 @@ export default function Diferencias() {
         </div>
 
         {/* Section Header */}
-        <div className="mb-8 md:mb-14">
+        <Reveal className="mb-8 md:mb-14">
           <h2 className="text-2xl md:text-[40px] font-bold text-zinc-900 tracking-tight leading-tight max-w-4xl">
             No es lo mismo que...
           </h2>
           <p className="mt-3 text-sm md:text-[15px] text-zinc-500">
             Pasá el mouse sobre cada card para ver la diferencia.
           </p>
-        </div>
+        </Reveal>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {diffCards.map((card) => {
+          {diffCards.map((card, i) => {
             const Icon = card.icon;
             return (
-              <div
-                key={card.tag}
-                className="p-[1.5px] bg-zinc-200/30 hover:bg-gradient-to-br hover:from-[#FF0094] hover:to-[#02BEEF] rounded-[20px] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex group"
-              >
-                <div className="relative bg-[#f8f9fa] group-hover:bg-white rounded-[19px] p-5 md:p-7 flex flex-col justify-between min-h-[190px] md:min-h-[260px] h-full w-full overflow-hidden transition-all duration-300">
-                  <div>
-                    {/* Badge */}
-                    <div className="flex items-center gap-2 mb-3 md:mb-5 select-none">
-                      <Icon
-                        className="w-4 h-4 text-[#FF0094] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
-                        strokeWidth={2.25}
-                      />
-                      <span className="text-[10px] font-bold tracking-[0.2em] text-[#02BEEF] uppercase">
-                        {card.tag}
-                      </span>
+              <Reveal key={card.tag} delay={i * 80}>
+                <div className="h-full p-[1.5px] bg-zinc-200/30 hover:bg-gradient-to-br hover:from-[#FF0094] hover:to-[#02BEEF] rounded-[20px] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex group">
+                  <div className="relative bg-[#f8f9fa] group-hover:bg-white rounded-[19px] p-5 md:p-7 flex flex-col justify-between min-h-[190px] md:min-h-[260px] h-full w-full overflow-hidden transition-all duration-300">
+                    <div>
+                      {/* Badge */}
+                      <div className="flex items-center gap-2 mb-3 md:mb-5 select-none">
+                        <Icon
+                          className="w-4 h-4 text-[#FF0094] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+                          strokeWidth={2.25}
+                        />
+                        <span className="text-[10px] font-bold tracking-[0.2em] text-[#02BEEF] uppercase">
+                          {card.tag}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-base md:text-[18px] font-bold text-zinc-900 tracking-tight leading-snug transition-transform duration-300 group-hover:-translate-y-1">
+                        {card.title}
+                      </h3>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-base md:text-[18px] font-bold text-zinc-900 tracking-tight leading-snug transition-transform duration-300 group-hover:-translate-y-1">
-                      {card.title}
-                    </h3>
+                    {/* Detail — se desliza hacia arriba al hacer hover */}
+                    <p className="text-xs md:text-sm text-zinc-500 leading-relaxed mt-2 md:mt-3 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                      {card.detail}
+                    </p>
                   </div>
-
-                  {/* Detail — se desliza hacia arriba al hacer hover */}
-                  <p className="text-xs md:text-sm text-zinc-500 leading-relaxed mt-2 md:mt-3 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
-                    {card.detail}
-                  </p>
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>

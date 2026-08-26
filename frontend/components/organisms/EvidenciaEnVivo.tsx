@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Gauge, Users, Star, CheckCircle2, MessageSquare, Clock } from "lucide-react";
+import { Reveal } from "@/components/ui/reveal";
 
 function QuoteColumn({
   icon,
@@ -188,23 +189,26 @@ export default function EvidenciaEnVivo() {
     <section className="w-full bg-[#f2f2f5] py-12 md:py-28 text-[#0a0a0f]">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-4 md:mb-6 select-none">
-          <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
-          <span className="text-xs font-bold tracking-[0.2em] text-[#8a8a94] uppercase">
-            04 — La evidencia, en vivo
-          </span>
-        </div>
-        <h2 className="text-2xl md:text-[40px] font-bold tracking-tight leading-tight max-w-2xl">
-          Así se ve <span className="bg-gradient-to-r from-[#FF0094] to-[#02BEEF] bg-clip-text text-transparent">tu resultado</span> al terminar
-        </h2>
-        <p className="mt-3 text-sm md:text-[15px] text-[#55555f] max-w-xl">
-          No es una nota ni un certificado. Al cerrar la simulación, cada participante ve exactamente esto.
-        </p>
+        <Reveal>
+          <div className="flex items-center gap-3 mb-4 md:mb-6 select-none">
+            <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
+            <span className="text-xs font-bold tracking-[0.2em] text-[#8a8a94] uppercase">
+              04 — La evidencia, en vivo
+            </span>
+          </div>
+          <h2 className="text-2xl md:text-[40px] font-bold tracking-tight leading-tight max-w-2xl">
+            Así se ve <span className="bg-gradient-to-r from-[#FF0094] to-[#02BEEF] bg-clip-text text-transparent">tu resultado</span> al terminar
+          </h2>
+          <p className="mt-3 text-sm md:text-[15px] text-[#55555f] max-w-xl">
+            No es una nota ni un certificado. Al cerrar la simulación, cada participante ve exactamente esto.
+          </p>
+        </Reveal>
 
         {/* Mockup del dashboard real */}
+        <Reveal delay={150} className="mt-10 md:mt-12">
         <div
           ref={cardRef}
-          className="mt-10 md:mt-12 bg-[#080911] border border-white/10 rounded-[18px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+          className="bg-[#080911] border border-white/10 rounded-[18px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
         >
           {/* Topbar */}
           <div className="flex gap-1.5 px-4 md:px-5 py-3.5 border-b border-white/5">
@@ -314,10 +318,13 @@ export default function EvidenciaEnVivo() {
             </div>
           </div>
         </div>
+        </Reveal>
 
-        <p className="mt-7 max-w-xl font-bold text-[17px] md:text-[20px] leading-snug">
-          Ningún dato se carga a mano. Se construye solo, a medida que el equipo trabaja.
-        </p>
+        <Reveal delay={250}>
+          <p className="mt-7 max-w-xl font-bold text-[17px] md:text-[20px] leading-snug">
+            Ningún dato se carga a mano. Se construye solo, a medida que el equipo trabaja.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

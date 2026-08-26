@@ -1,40 +1,10 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
+import { Reveal } from "@/components/ui/reveal";
 
 export default function Closing() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section className="w-full bg-[#F9F9F9] py-24 md:py-36">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div
-          ref={ref}
-          className="max-w-[680px] transition-all duration-700 ease-out"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-          }}
-        >
+        <Reveal className="max-w-[680px]">
           <span className="block text-[13px] font-bold tracking-[0.2em] uppercase text-[#8a8a94] mb-4">
             Esto último es importante
           </span>
@@ -45,7 +15,7 @@ export default function Closing() {
             </span>{" "}
             mientras ocurre.
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
