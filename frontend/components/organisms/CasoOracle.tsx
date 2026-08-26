@@ -193,7 +193,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
               <Quote className="absolute -top-2 -right-2 w-24 h-24 text-white/[0.04] rotate-180 pointer-events-none" />
 
               {/* Quote text */}
-              <p className="relative text-xl md:text-2xl text-zinc-100 italic font-medium leading-snug mb-10">
+              <p className="relative text-base md:text-lg text-zinc-100 italic font-medium leading-snug mb-10">
                 {t.quote}
               </p>
               {/* Author Footer */}
