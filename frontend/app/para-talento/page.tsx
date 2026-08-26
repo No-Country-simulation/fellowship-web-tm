@@ -4,6 +4,8 @@ import GranDiferenciacion from "@/components/organisms/GranDiferenciacion";
 import EvidenciaEnVivo from "@/components/organisms/EvidenciaEnVivo";
 import ElMecanismo from "@/components/organisms/ElMecanismo";
 import Closing from "@/components/organisms/Closing";
+import CTAFinal from "@/components/organisms/CTAFinal";
+import Footer from "@/components/organisms/Footer";
 
 export default function ParaTalentoPage() {
   return (
@@ -68,6 +70,8 @@ export default function ParaTalentoPage() {
       <EvidenciaEnVivo />
       <ElMecanismo />
       <Closing />
+      <CTAFinal />
+      <Footer />
     </main>
   );
 }
