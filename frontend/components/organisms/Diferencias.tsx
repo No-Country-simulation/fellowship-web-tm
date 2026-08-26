@@ -56,7 +56,7 @@ export default function Diferencias() {
           <h2 className="text-2xl md:text-[40px] font-bold text-zinc-900 tracking-tight leading-tight max-w-4xl">
             No es lo mismo que...
           </h2>
-          <p className="mt-3 text-sm md:text-[15px] text-zinc-500">
+          <p className="hidden md:block mt-3 text-sm md:text-[15px] text-zinc-500">
             Pasá el mouse sobre cada card para ver la diferencia.
           </p>
         </Reveal>
@@ -88,7 +88,7 @@ export default function Diferencias() {
                     </div>
 
                     {/* Detail — se desliza hacia arriba al hacer hover */}
-                    <p className="text-xs md:text-sm text-zinc-500 leading-relaxed mt-2 md:mt-3 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                    <p className="text-xs md:text-sm text-zinc-500 leading-relaxed mt-2 md:mt-3 max-md:opacity-100 max-md:translate-y-0 md:opacity-0 md:translate-y-3 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300 ease-out">
                       {card.detail}
                     </p>
                   </div>
