@@ -130,6 +130,86 @@
   <Footer />
   ```
 
+## Reveal (utilidad compartida)
+- **Descripción:** Componente compartido de animación de entrada (fade-in + slide-up) al hacer scroll, usando `IntersectionObserver`. Se dispara una sola vez cuando el elemento entra en pantalla. Acepta un `delay` en milisegundos para escalonar la aparición de varios elementos en una misma grilla.
+- **Props:** `children: React.ReactNode`, `delay?: number` (default `0`), `className?: string`.
+- **Dependencias:** Ninguna externa (usa `react` — `useEffect`, `useRef`, `useState`).
+- **Ubicación:** `@/components/ui/reveal` (no `organisms`, es una utilidad de UI reutilizable).
+- **Uso:**
+  ```tsx
+  import { Reveal } from "@/components/ui/reveal";
+  <Reveal delay={80}>
+    <h2>Contenido que aparece al hacer scroll</h2>
+  </Reveal>
+  ```
+- **Importante:** `Reveal` controla `transform`/`opacity` por `style` inline en su propio `div`. Si el contenido de adentro necesita su propio efecto de `hover` con `transform` (ej. `hover:-translate-y-1`), ese hover tiene que ir en un `div`/`Link` hijo separado, nunca en el mismo `className` que se le pasa a `Reveal` — si no, el `style` inline de `Reveal` pisa el hover de Tailwind. Ver `Diferencias.tsx`, `GranDiferenciacion.tsx` o `CTAFinal.tsx` como ejemplo del patrón correcto.
+
+---
+
+## Componentes de "Simulación Laboral — El Paradigma"
+
+Sección de la página `/simulacion-laboral/paradigma` (aún sin ruta creada — actualmente se previsualizan montados en otra página). Comprende desde "03 — Comparación directa" hasta el CTA final; la mitad superior de esa página (Hero, El Gap, Qué es, Tesis, Tiempo, Contraste) la arma otro integrante del equipo.
+
+### Diferencias
+- **Descripción:** "03 — Comparación directa". Sección de fondo claro que compara la simulación laboral con Bootcamp, Assessment, Hackathon y Pasantía en 4 cards. Cada card muestra un ícono y, al pasar el mouse, revela el texto de la diferencia deslizándolo hacia arriba.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (íconos `School`, `ListChecks`, `Timer`, `Briefcase`), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Diferencias from "@/components/organisms/Diferencias";
+  <Diferencias />
+  ```
+
+### GranDiferenciacion
+- **Descripción:** "Cuatro propiedades que solo aparecen en simulación" (Tiempo, Contexto, Equipo, Emergencia). Sección de fondo oscuro con 4 cards, cada una con un color de acento distinto (rosa, cyan, violeta, verde) que crece al hacer hover. La card "Emergencia" tiene un glow adicional.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import GranDiferenciacion from "@/components/organisms/GranDiferenciacion";
+  <GranDiferenciacion />
+  ```
+
+### EvidenciaEnVivo
+- **Descripción:** "04 — La evidencia, en vivo". Sección de fondo claro con un mockup del dashboard de resultado final de la simulación: 6 métricas con conteo animado y barra de progreso, comparación de 13 soft skills (peer review vs. autoevaluación) con barras animadas, y dos columnas de quotes (fortalezas / áreas de mejora). Las animaciones se disparan con `IntersectionObserver` al entrar en pantalla.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (íconos de métricas), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import EvidenciaEnVivo from "@/components/organisms/EvidenciaEnVivo";
+  <EvidenciaEnVivo />
+  ```
+
+### ElMecanismo
+- **Descripción:** "05 — El mecanismo". Sección de fondo oscuro con un stepper de 4 pasos (Kick-off, Ejecución, Peer review, Demo Day): la línea de progreso se completa y los círculos se activan en cascada al entrar en pantalla, cada uno con un color sólido distinto en una progresión rosa → cyan. Debajo, 3 chips con los datos que captura la plataforma.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ElMecanismo from "@/components/organisms/ElMecanismo";
+  <ElMecanismo />
+  ```
+
+### Closing
+- **Descripción:** Frase de cierre ("No es un CV. Es evidencia observable mientras ocurre.") sobre fondo claro, con fade-in al hacer scroll.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Closing from "@/components/organisms/Closing";
+  <Closing />
+  ```
+
+### CTAFinal
+- **Descripción:** CTA de cierre con los 3 caminos por audiencia (Para talento, Para empresas, Para instituciones), cada card linkeando a la ruta real correspondiente (`/para-talento`, `/para-empresas/contratar`, `/para-empresas/empleabilidad`).
+- **Props:** Ninguna.
+- **Dependencias:** `next/link`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import CTAFinal from "@/components/organisms/CTAFinal";
+  <CTAFinal />
+  ```
+
 ---
 
 **Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design. Los componentes `ShowcaseSection` y `ParadigmaSection` fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.

@@ -1,9 +1,16 @@
 import Link from "next/link";
+import Diferencias from "@/components/organisms/Diferencias";
+import GranDiferenciacion from "@/components/organisms/GranDiferenciacion";
+import EvidenciaEnVivo from "@/components/organisms/EvidenciaEnVivo";
+import ElMecanismo from "@/components/organisms/ElMecanismo";
+import Closing from "@/components/organisms/Closing";
+import CTAFinal from "@/components/organisms/CTAFinal";
+import Footer from "@/components/organisms/Footer";
 
 export default function ParaTalentoPage() {
   return (
-    <main className="bg-[#000115] text-white min-h-screen px-4 md:px-8 py-16 md:py-24">
-      <div className="max-w-[1300px] mx-auto">
+    <main className="bg-[#000115] text-white min-h-screen">
+      <div className="max-w-[1300px] mx-auto px-4 md:px-8 py-16 md:py-24">
         <div className="inline-flex items-center gap-2 text-[13px] font-bold text-[#9ca3af] mb-6">
           <span className="h-1.5 w-1.5 rounded-full bg-[#ff0094]" />
           PARA TALENTO
@@ -57,6 +64,14 @@ export default function ParaTalentoPage() {
           </div>
         </div>
       </div>
+
+      <Diferencias />
+      <GranDiferenciacion />
+      <EvidenciaEnVivo />
+      <ElMecanismo />
+      <Closing />
+      <CTAFinal />
+      <Footer />
     </main>
   );
 }
