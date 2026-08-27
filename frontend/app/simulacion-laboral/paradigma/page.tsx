@@ -12,7 +12,7 @@ import Closing from "@/components/organisms/Closing";
 import CTAFinal from "@/components/organisms/CTAFinal";
 import Footer from "@/components/organisms/Footer";
 
-export default function ParaTalentoPage() {
+export default function ParadigmaPage() {
   return (
     <main className="flex flex-col bg-[#000115]">
       <HeroParadigma />

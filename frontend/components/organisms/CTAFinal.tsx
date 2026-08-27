@@ -13,7 +13,7 @@ const paths: PathCard[] = [
     tag: "Para talento",
     desc: "Demostrá cómo trabajás en equipo bajo presión real.",
     cta: "Participar",
-    href: "/para-talento",
+    href: "/simulacion-laboral/paradigma",
   },
   {
     tag: "Para empresas",

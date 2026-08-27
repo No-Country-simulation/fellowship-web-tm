@@ -201,7 +201,7 @@ Sección de la página `/simulacion-laboral/paradigma` (aún sin ruta creada —
   ```
 
 ### CTAFinal
-- **Descripción:** CTA de cierre con los 3 caminos por audiencia (Para talento, Para empresas, Para instituciones), cada card linkeando a la ruta real correspondiente (`/para-talento`, `/para-empresas/contratar`, `/para-empresas/empleabilidad`).
+- **Descripción:** CTA de cierre con los 3 caminos por audiencia (Para talento, Para empresas, Para instituciones), cada card linkeando a la ruta real correspondiente (`/simulacion-laboral/paradigma`, `/para-empresas/contratar`, `/para-empresas/empleabilidad`).
 - **Props:** Ninguna.
 - **Dependencias:** `next/link`, `@/components/ui/reveal`.
 - **Uso:**
