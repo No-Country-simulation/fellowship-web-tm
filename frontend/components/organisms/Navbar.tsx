@@ -53,15 +53,17 @@ export default function Navbar() {
             {navLinks.map((link) =>
               link.children ? (
                 <DropdownMenuPrimitive.Root key={link.label}>
-                  <DropdownMenuPrimitive.Trigger className="flex items-center gap-1 text-[15px] font-medium text-[#9ca3af] hover:text-white transition outline-none data-[state=open]:text-white whitespace-nowrap">
+                  <DropdownMenuPrimitive.Trigger className="group flex items-center gap-1 text-[15px] font-medium text-[#9ca3af] hover:text-white transition outline-none data-[state=open]:text-white whitespace-nowrap">
                     {link.label}
-                    <ChevronDown className="h-4 w-4" />
+                    <span className="inline-flex transition-transform duration-200 group-data-[state=open]:-rotate-180">
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
                   </DropdownMenuPrimitive.Trigger>
                   <DropdownMenuPrimitive.Portal>
                     <DropdownMenuPrimitive.Content
                       align="start"
                       sideOffset={16}
-                      className="min-w-[220px] rounded-lg border border-[#1c1b29] bg-[#000115] p-1.5 shadow-lg shadow-black/40"
+                      className="z-50 min-w-[220px] rounded-lg border border-[#1c1b29] bg-[#000115] p-1.5 shadow-lg shadow-black/40 origin-top data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2"
                     >
                       {link.children.map((child) => (
                         <DropdownMenuPrimitive.Item key={child.href} asChild>
@@ -133,9 +135,11 @@ export default function Navbar() {
                     className="flex items-center justify-between text-sm font-medium text-[#9ca3af] hover:text-white"
                   >
                     {link.label}
-                    <ChevronDown
-                      className={`h-4 w-4 transition-transform ${mobileSubOpen ? "rotate-180" : ""}`}
-                    />
+                    <span
+                      className={`inline-flex transition-transform duration-200 ${mobileSubOpen ? "-rotate-180" : ""}`}
+                    >
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
                   </button>
                   {mobileSubOpen && (
                     <div className="flex flex-col gap-3 pl-4 border-l border-[#1c1b29]">

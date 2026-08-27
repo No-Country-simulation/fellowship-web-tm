@@ -11,7 +11,8 @@ const flowNodes = [
 
 export default function HeroParadigma() {
   return (
-<section className="relative min-h-[calc(100vh-64px)] flex items-end pt-16 pb-12 overflow-hidden bg-[#000115]">      {/* Glows de fondo */}
+<section className="relative pt-16 pb-12 overflow-hidden bg-[#000115]">
+      {/* Glows de fondo */}
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[700px] bg-[radial-gradient(ellipse_at_center,rgba(255,0,148,0.18),transparent_65%)] blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 left-2/3 w-[700px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(2,190,239,0.13),transparent_65%)] blur-3xl pointer-events-none" />
 
