@@ -55,5 +55,3 @@ Las rutas usan slugs legibles en vez de IDs (`/para-empresas/contratar`, `/simul
 - Todo lo que depende de terceros (Wikipedia/Wikidata, backlinks, medir menciones en IA con Mentio, presencia en comunidades) queda fuera del alcance de código — es trabajo de contenido/marketing, no de este repo.
 
 ## Notas técnicas
-
-- ~~`app/para-talento/` quedó con un solo archivo `Page.tsx` vacío~~ — **resuelto**: se borró, no rompía nada porque ningún componente lo enlazaba (el contenido ya vive en `/simulacion-laboral/paradigma`).
