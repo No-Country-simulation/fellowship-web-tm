@@ -44,14 +44,4 @@ Las rutas usan slugs legibles en vez de IDs (`/para-empresas/contratar`, `/simul
 
 ---
 
-## Pendiente (del checklist original, no implementado todavía)
 
-- **Metadata en `/simulacion-laboral/*`** — las 4 páginas nuevas necesitan su propio `title`/`description`/`openGraph`, mismo patrón que ya se usa en `para-empresas/*`.
-- **FAQPage JSON-LD** — el `FAQSection` ya tiene contenido real (11 preguntas), falta envolverlo en su propio schema `FAQPage` para que Google pueda mostrarlo como rich snippet.
-- **Contenido basado en preguntas reales / comparaciones especializadas** (🟣 GEO) — evaluar si conviene expandir alguna de las páginas de `/simulacion-laboral/*` con más profundidad de contenido.
-- **Fecha de última actualización visible** (🟣 GEO) — no implementado.
-- **Accesibilidad (a11y)** (🟢 SEO + GEO) — no auditado todavía.
-- **Enlazado interno** (🟢 SEO + GEO) — no auditado todavía.
-- Todo lo que depende de terceros (Wikipedia/Wikidata, backlinks, medir menciones en IA con Mentio, presencia en comunidades) queda fuera del alcance de código — es trabajo de contenido/marketing, no de este repo.
-
-## Notas técnicas
