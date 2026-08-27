@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/organisms/Navbar";
+import { siteConfig } from "@/lib/seo";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -10,9 +11,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "No Country",
-  description:
-    "Simulaciones laborales que generan evidencia real de cómo trabaja el talento.",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
