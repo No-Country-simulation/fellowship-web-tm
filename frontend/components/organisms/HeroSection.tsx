@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 const stats = [
   { valor: "30,000+", label: "TALENTS", color: "text-[#ff0094]" },
@@ -9,19 +8,7 @@ const stats = [
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-[#000115] px-4 md:px-8 pt-16 md:pt-20 pb-16 overflow-hidden">
-      {/* Mapa de fondo */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/brand/map.png"
-          alt="Mapa global de simulaciones laborales"
-          fill
-          priority
-          className="object-cover opacity-100"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#000115]/60 via-[#000115]/20 to-[#000115]" />
-      </div>
-
+    <section className="relative px-4 md:px-8 pt-16 md:pt-20 pb-16 overflow-hidden">
       {/* Contenido principal */}
       <div className="relative z-10 max-w-[1300px] mx-auto">
         {/* Resplandor rosado detrás del texto */}

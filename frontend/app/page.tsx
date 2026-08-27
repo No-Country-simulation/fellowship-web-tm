@@ -1,3 +1,4 @@
+import Image from "next/image";
 import EmpresasCarousel from "@/components/organisms/EmpresasCarousel";
 import QuePuedeSimularse from "@/components/organisms/QuePuedeSimularse";
 import EvidenciaConductual from "@/components/organisms/EvidenciaConductual";
@@ -14,8 +15,24 @@ import FAQSection from "@/components/organisms/FAQSection";
 export default function Home() {
   return (
     <main className="flex flex-col bg-[#000115]">
-      <EmpresasCarousel />
-      <HeroSection />
+      <div className="relative bg-[#000115]">
+        {/* Mapa de fondo */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/brand/map.png"
+            alt="Mapa global de simulaciones laborales"
+            fill
+            priority
+            className="object-cover opacity-100"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#000115]/60 via-[#000115]/20 to-[#000115]" />
+        </div>
+
+        <div className="relative z-10">
+          <EmpresasCarousel />
+          <HeroSection />
+        </div>
+      </div>
       <LiveSimulation />
       <SimulationDefinition />
       <QuePuedeSimularse />

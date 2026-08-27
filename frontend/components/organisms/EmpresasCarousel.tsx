@@ -14,7 +14,7 @@ export default function EmpresasCarousel() {
   const marqueeLogos = [...empresas, ...empresas];
 
   return (
-    <section className="w-full py-10 md:py-14 bg-[#000115] overflow-hidden">
+    <section className="relative w-full py-10 md:py-14 overflow-hidden">
       <p className="text-center text-xs md:text-sm font-bold tracking-[2px] text-[#9ca3af] uppercase mb-8 px-4">
         Empresas que simulan con nosotros
       </p>

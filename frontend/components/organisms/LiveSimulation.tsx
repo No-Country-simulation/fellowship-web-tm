@@ -68,7 +68,7 @@ export default function LiveSimulation() {
           ejecutándose en este momento.
         </p>
 
-        <div className="bg-[#0c0c16] border border-[#1e1d2d] rounded-2xl p-6 md:p-8 shadow-2xl">
+        <div className="relative overflow-hidden bg-[#13131f] border border-[#2d2b40] rounded-2xl p-6 md:p-8 shadow-2xl">
           {/* Encabezado card */}
           <div className="flex flex-wrap justify-between items-center gap-4 mb-8">
             <div className="flex items-center gap-3">
