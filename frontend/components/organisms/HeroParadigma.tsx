@@ -27,19 +27,23 @@ export default function HeroParadigma() {
         <Reveal delay={100}>
           <h1 className="mt-6 font-extrabold tracking-tight leading-[1.05]">
             <span className="block text-[clamp(22px,3.2vw,32px)] font-bold text-white/90">
-              De las credenciales a la
+              Formar talento no es lo mismo que
             </span>
             <span className="block mt-1 text-[clamp(34px,5.6vw,54px)] bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">
-              evidencia observable.
+              demostrar cómo trabaja.
             </span>
           </h1>
         </Reveal>
 
         <Reveal delay={200}>
-          <p className="mt-6 max-w-xl text-base md:text-lg text-[#9CA3AF] leading-relaxed">
-            No es un curso, ni un test, ni un hackathon, ni una pasantía. Es la
-            única forma de ver cómo trabaja alguien antes de contratarlo.
-          </p>
+          <div className="mt-6 max-w-xl border-l-[3px] border-[#FF0094] bg-[rgba(255,0,148,0.06)] rounded-r-lg pl-6 pr-4 py-4">
+            <p className="text-base md:text-lg text-[#D1D5DB] leading-relaxed">
+              La Simulación Laboral crea un entorno de trabajo real donde los
+              participantes ejecutan, colaboran y toman decisiones durante un
+              período prolongado, generando evidencia observable de su
+              desempeño en contexto.
+            </p>
+          </div>
         </Reveal>
 
         <Reveal delay={300}>
@@ -66,17 +70,11 @@ export default function HeroParadigma() {
         <Reveal delay={400}>
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
-              href="#evidencia"
+              href="/simulacion-laboral/como-funciona"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium border border-[rgba(255,0,148,0.35)] text-[#FF0094] hover:bg-[rgba(255,0,148,0.2)] transition"
             >
-              Ver la evidencia
+              Ver cómo funciona
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
-            </Link>
-            <Link
-              href="#como-funciona"
-              className="inline-flex items-center px-6 py-3 rounded-md text-sm font-medium border border-[#2D2B40] text-white hover:bg-white/5 transition"
-            >
-              Cómo funciona
             </Link>
           </div>
         </Reveal>
