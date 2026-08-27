@@ -35,8 +35,9 @@ export default function Navbar() {
   return (
     <nav className="bg-[#000115] border-b border-[#1c1b29] px-4 md:px-8">
       <div className="max-w-[1300px] mx-auto">
-        <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:h-16">
-          <Link href="/" className="justify-self-start">
+        {/* Desktop */}
+        <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] md:items-center md:h-16 md:gap-8">
+          <Link href="/" className="shrink-0">
             <Image
               src="/logos/NoCountry.png"
               alt="No Country"
@@ -47,11 +48,12 @@ export default function Navbar() {
             />
           </Link>
 
-          <div className="flex items-center gap-8">
+          {/* Links centrados en la columna central */}
+          <div className="flex items-center justify-center gap-8 min-w-0">
             {navLinks.map((link) =>
               link.children ? (
                 <DropdownMenuPrimitive.Root key={link.label}>
-                  <DropdownMenuPrimitive.Trigger className="flex items-center gap-1 text-[15px] font-medium text-[#9ca3af] hover:text-white transition outline-none data-[state=open]:text-white">
+                  <DropdownMenuPrimitive.Trigger className="flex items-center gap-1 text-[15px] font-medium text-[#9ca3af] hover:text-white transition outline-none data-[state=open]:text-white whitespace-nowrap">
                     {link.label}
                     <ChevronDown className="h-4 w-4" />
                   </DropdownMenuPrimitive.Trigger>
@@ -78,7 +80,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href!}
-                  className="text-[15px] font-medium text-[#9ca3af] hover:text-white transition"
+                  className="text-[15px] font-medium text-[#9ca3af] hover:text-white transition whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -86,14 +88,16 @@ export default function Navbar() {
             )}
           </div>
 
+          {/* Login a la derecha, estilo correcto */}
           <Link
             href="/login"
-            className="justify-self-end border border-[#ff00a0] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#ff00a0] hover:text-black transition"
+            className="justify-self-end shrink-0 px-6 py-3 rounded-md text-sm font-medium transition bg-transparent text-[#FF0094] border border-[rgba(255,0,148,0.35)] hover:bg-[rgba(255,0,148,0.35)]"
           >
             Iniciar sesión
           </Link>
         </div>
 
+        {/* Mobile top bar */}
         <div className="md:hidden flex items-center justify-between h-16">
           <Link href="/">
             <Image
@@ -116,6 +120,7 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* Mobile menu */}
         {open && (
           <div className="md:hidden pb-4 flex flex-col gap-4">
             {navLinks.map((link) =>
@@ -161,10 +166,11 @@ export default function Navbar() {
                 </Link>
               )
             )}
+
             <Link
               href="/login"
               onClick={() => setOpen(false)}
-              className="text-sm font-semibold text-white"
+              className="mt-2 text-center px-6 py-3 rounded-md text-sm font-medium transition bg-transparent text-[#FF0094] border border-[rgba(255,0,148,0.35)] hover:bg-[rgba(255,0,148,0.35)]"
             >
               Iniciar sesión
             </Link>
