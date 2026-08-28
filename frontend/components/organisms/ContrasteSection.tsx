@@ -77,6 +77,15 @@ export default function ContrasteSection() {
             </div>
           ))}
         </div>
+
+        <Reveal delay={100}>
+          <div className="mt-10 border-l-[3px] border-[#FF0094] bg-[rgba(255,0,148,0.06)] rounded-r-lg pl-6 pr-4 py-4 max-w-2xl">
+            <p className="text-base md:text-lg font-semibold text-white leading-relaxed">
+              No reemplazamos la formación. Agregamos la capa de evidencia que
+              ocurre entre aprender y trabajar.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

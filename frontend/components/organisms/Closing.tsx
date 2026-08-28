@@ -9,11 +9,11 @@ export default function Closing() {
             Esto último es importante
           </span>
           <p className="font-extrabold text-[23px] md:text-[36px] leading-tight tracking-tight text-[#0a0a0f]">
-            No es un CV. Es{" "}
+            Observamos qué ocurre cuando{" "}
             <span className="bg-gradient-to-r from-[#FF0094] to-[#02BEEF] bg-clip-text text-transparent">
-              evidencia observable
-            </span>{" "}
-            mientras ocurre.
+              el trabajo empieza
+            </span>
+            .
           </p>
         </Reveal>
       </div>

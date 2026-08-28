@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import EmpresasCarousel from "@/components/organisms/EmpresasCarousel";
 import QuePuedeSimularse from "@/components/organisms/QuePuedeSimularse";
 import EvidenciaConductual from "@/components/organisms/EvidenciaConductual";
@@ -11,6 +12,24 @@ import HeroSection from "@/components/organisms/HeroSection";
 import LiveSimulation from "@/components/organisms/LiveSimulation";
 import SimulationDefinition from "@/components/organisms/SimulationDefinition";
 import FAQSection from "@/components/organisms/FAQSection";
+import { siteConfig } from "@/lib/seo";
+
+const title = "No Country — Simulaciones laborales que validan talento real";
+const description =
+  "Equipos ejecutan simulaciones laborales reales durante semanas. Empresas contratan talento validado por evidencia de comportamiento, no por CV.";
+
+export const metadata: Metadata = {
+  title: { absolute: title },
+  description,
+  alternates: { canonical: siteConfig.url },
+  openGraph: {
+    title,
+    description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+};
 
 export default function Home() {
   return (
