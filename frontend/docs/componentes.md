@@ -148,7 +148,67 @@
 
 ## Componentes de "Simulación Laboral — El Paradigma"
 
-Sección de la página `/simulacion-laboral/paradigma` (aún sin ruta creada — actualmente se previsualizan montados en otra página). Comprende desde "03 — Comparación directa" hasta el CTA final; la mitad superior de esa página (Hero, El Gap, Qué es, Tesis, Tiempo, Contraste) la arma otro integrante del equipo.
+Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero hasta el CTA final: Hero, El Gap, Qué es, Tesis, Tiempo, Contraste, Comparación directa, Gran diferenciación, Evidencia en vivo, El mecanismo, Closing y CTA final.
+
+### HeroParadigma
+- **Descripción:** Hero principal de la página "Simulación Laboral — El Paradigma". Incluye eyebrow, titular con gradiente, descripción, flujo de 4 pasos con iconos de `lucide-react` y CTAs.
+- **Props:** Ninguna.
+- **Dependencias:** `next/link`, `lucide-react`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import HeroParadigma from "@/components/organisms/HeroParadigma";
+  <HeroParadigma />
+  ```
+
+### GapSection
+- **Descripción:** Sección clara que muestra la brecha entre formación tradicional y simulación laboral. Incluye lista de métricas que puede medir un curso y pregunta disparadora con subrayado gradiente.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import GapSection from "@/components/organisms/GapSection";
+  <GapSection />
+  ```
+
+### ConceptSection
+- **Descripción:** Explica qué es una simulación laboral. Incluye descripción, párrafo de apoyo y ejemplo con avatares de roles.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ConceptSection from "@/components/organisms/ConceptSection";
+  <ConceptSection />
+  ```
+
+### TesisSection
+- **Descripción:** Bloque oscuro con frase destacada sobre formación vs ejecución. Usa borde izquierdo rosa.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import TesisSection from "@/components/organisms/TesisSection";
+  <TesisSection />
+  ```
+
+### TimeSection
+- **Descripción:** Sección clara con barras animadas que representan el avance semana a semana de una simulación. Incluye texto explicativo sobre la imposibilidad de fingir constancia.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal` y animaciones propias con `IntersectionObserver`.
+- **Uso:**
+  ```tsx
+  import TimeSection from "@/components/organisms/TimeSection";
+  <TimeSection />
+  ```
+
+### ContrasteSection
+- **Descripción:** Tabla comparativa animada entre formación tradicional y simulación laboral. Las filas se deslizan escalonadamente al entrar en pantalla. Incluye frase final con borde izquierdo rosa.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal` y animaciones propias con `IntersectionObserver`.
+- **Uso:**
+  ```tsx
+  import ContrasteSection from "@/components/organisms/ContrasteSection";
+  <ContrasteSection />
+  ```
 
 ### Diferencias
 - **Descripción:** "03 — Comparación directa". Sección de fondo claro que compara la simulación laboral con Bootcamp, Assessment, Hackathon y Pasantía en 4 cards. Cada card muestra un ícono y, al pasar el mouse, revela el texto de la diferencia deslizándolo hacia arriba.
