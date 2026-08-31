@@ -13,7 +13,7 @@ type NavLink = {
 };
 
 const navLinks: NavLink[] = [
-  { label: "Para empresas", href: "/#empresas" },
+  { label: "Home", href: "/" },
   {
     label: "Simulación Laboral",
     children: [
@@ -23,14 +23,29 @@ const navLinks: NavLink[] = [
       { label: "Qué insights genera", href: "/simulacion-laboral/que-insights-genera" },
     ],
   },
-  { label: "Casos", href: "/#casos" },
-  { label: "Showcase", href: "/#showcase" },
-  { label: "Manifiesto", href: "/#manifiesto" },
+  { label: "Para Talento", href: "/simulacion-laboral/paradigma" },
+  { label: "Para Instituciones", href: "/para-empresas/empleabilidad" },
+  {
+    label: "Para Empresas",
+    children: [
+      { label: "Contratar", href: "/para-empresas/contratar" },
+      { label: "Producto", href: "/para-empresas/producto" },
+      { label: "Expansión de tu marca", href: "/para-empresas/expansion" },
+    ],
+  },
+  {
+    label: "Sobre Nosotros",
+    children: [
+      { label: "Manifiesto", href: "/#manifiesto" },
+      { label: "Showcase", href: "/#showcase" },
+      { label: "Casos de Éxito", href: "/#casos" },
+    ],
+  },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [mobileSubOpen, setMobileSubOpen] = useState(false);
+  const [mobileSubOpen, setMobileSubOpen] = useState<string | null>(null);
 
   return (
     <nav className="bg-[#000115] border-b border-[#1c1b29] px-4 md:px-8">
@@ -130,18 +145,18 @@ export default function Navbar() {
                 <div key={link.label} className="flex flex-col gap-3">
                   <button
                     type="button"
-                    onClick={() => setMobileSubOpen(!mobileSubOpen)}
-                    aria-expanded={mobileSubOpen}
+                    onClick={() => setMobileSubOpen(mobileSubOpen === link.label ? null : link.label)}
+                    aria-expanded={mobileSubOpen === link.label}
                     className="flex items-center justify-between text-sm font-medium text-[#9ca3af] hover:text-white"
                   >
                     {link.label}
                     <span
-                      className={`inline-flex transition-transform duration-200 ${mobileSubOpen ? "-rotate-180" : ""}`}
+                      className={`inline-flex transition-transform duration-200 ${mobileSubOpen === link.label ? "-rotate-180" : ""}`}
                     >
                       <ChevronDown className="h-4 w-4" />
                     </span>
                   </button>
-                  {mobileSubOpen && (
+                  {mobileSubOpen === link.label && (
                     <div className="flex flex-col gap-3 pl-4 border-l border-[#1c1b29]">
                       {link.children.map((child) => (
                         <Link
@@ -149,7 +164,7 @@ export default function Navbar() {
                           href={child.href}
                           onClick={() => {
                             setOpen(false);
-                            setMobileSubOpen(false);
+                            setMobileSubOpen(null);
                           }}
                           className="text-sm font-medium text-[#9ca3af] hover:text-white"
                         >
