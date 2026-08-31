@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const stats = [
-  { valor: "30,000+", label: "TALENTS", color: "text-[#ff0094]" },
-  { valor: "5000+", label: "TEAMS", color: "text-[#02BEEF]" },
-  { valor: "100+", label: "COUNTRIES", color: "text-[#c06ecf]" },
+  { valor: "+5M", label: "TALENTOS VÍA ALIADOS", color: "text-[#ff0094]" },
+  { valor: "+10K", label: "EXPERIENCIAS COLABORATIVAS", color: "text-[#02BEEF]" },
+  { valor: "+50K", label: "SEMANAS DE COLABORACIÓN OBSERVADA", color: "text-[#c06ecf]" },
 ];
 
 export default function HeroSection() {
@@ -67,7 +67,7 @@ export default function HeroSection() {
               <div className={`text-4xl md:text-5xl font-extrabold ${stat.color}`}>
                 {stat.valor}
               </div>
-              <div className="text-[13px] font-bold text-[#6b7280] tracking-widest mt-2">
+              <div className="text-[13px] font-bold text-[#6b7280] tracking-widest mt-2 text-center max-w-[150px] leading-snug">
                 {stat.label}
               </div>
             </div>
