@@ -96,7 +96,7 @@ export default function CasoOracle({ className }: CasoOracleProps) {
         {/* Metrics Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-8 py-10 mt-6 border-b border-white/5">
           <div className="flex flex-col">
-            <span className="text-3xl md:text-[40px] font-black text-white leading-none tracking-tight">+1.200</span>
+            <span className="text-3xl md:text-[40px] font-black text-white leading-none tracking-tight">+2.500</span>
             <span className="text-[10px] font-extrabold tracking-widest text-zinc-500 mt-2.5 uppercase">PARTICIPANTES</span>
           </div>
           <div className="flex flex-col">
@@ -104,11 +104,11 @@ export default function CasoOracle({ className }: CasoOracleProps) {
             <span className="text-[10px] font-extrabold tracking-widest text-zinc-500 mt-2.5 uppercase">EDICIONES</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-3xl md:text-[40px] font-black text-white leading-none tracking-tight">15</span>
+            <span className="text-3xl md:text-[40px] font-black text-white leading-none tracking-tight">+25</span>
             <span className="text-[10px] font-extrabold tracking-widest text-zinc-500 mt-2.5 uppercase">PAÍSES</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-3xl md:text-[40px] font-black text-white leading-none tracking-tight">6</span>
+            <span className="text-3xl md:text-[40px] font-black text-white leading-none tracking-tight">30</span>
             <span className="text-[10px] font-extrabold tracking-widest text-zinc-500 mt-2.5 uppercase">SEMANAS</span>
           </div>
           <div className="flex flex-col col-span-2 sm:col-span-1">

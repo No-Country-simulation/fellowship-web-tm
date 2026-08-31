@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const stats = [
-  { valor: "30,000+", label: "TALENTS", color: "text-[#ff0094]" },
-  { valor: "5000+", label: "TEAMS", color: "text-[#02BEEF]" },
-  { valor: "100+", label: "COUNTRIES", color: "text-[#c06ecf]" },
+  { valor: "+5M", label: "TALENTOS VÍA ALIADOS", color: "text-[#ff0094]" },
+  { valor: "+10K", label: "EXPERIENCIAS COLABORATIVAS", color: "text-[#02BEEF]" },
+  { valor: "+50K", label: "SEMANAS DE COLABORACIÓN OBSERVADA", color: "text-[#c06ecf]" },
 ];
 
 export default function HeroSection() {
@@ -26,14 +26,12 @@ export default function HeroSection() {
                 Observá cómo trabaja el talento.
               </span>
               <span className="block mt-2 text-[clamp(34px,5.2vw,70px)] bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">
-                Antes de contratarlo.
+                Convertí formación en experiencia laboral observable.
               </span>
             </h1>
 
             <p className="text-lg text-[#9ca3af] leading-relaxed max-w-2xl">
-              No Country convierte experiencias reales de trabajo en equipo en
-              evidencia observable sobre cómo las personas ejecutan, colaboran
-              y resuelven problemas.
+              Infraestructura de Simulación Laboral para programas de formación e instituciones educativas.
             </p>
 
             <div className="flex flex-wrap gap-5 mt-2">
@@ -67,7 +65,7 @@ export default function HeroSection() {
               <div className={`text-4xl md:text-5xl font-extrabold ${stat.color}`}>
                 {stat.valor}
               </div>
-              <div className="text-[13px] font-bold text-[#6b7280] tracking-widest mt-2">
+              <div className="text-[13px] font-bold text-[#6b7280] tracking-widest mt-2 text-center max-w-[150px] leading-snug">
                 {stat.label}
               </div>
             </div>

@@ -42,7 +42,7 @@ export default function Footer({ className }: FooterProps) {
               />
             </Link>
             <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
-              La plataforma líder en simulación de trabajo real que potencia la inserción de talento calificado en LATAM.
+              Infraestructura de Simulación Laboral para programas de formación, instituciones y organizaciones que desarrollan talento.
             </p>
 
             {/* Social media links */}

@@ -14,9 +14,9 @@ import SimulationDefinition from "@/components/organisms/SimulationDefinition";
 import FAQSection from "@/components/organisms/FAQSection";
 import { siteConfig } from "@/lib/seo";
 
-const title = "No Country — Simulaciones laborales que validan talento real";
+const title = "Infraestructura de Simulación Laboral para Programas de Formación | No Country";
 const description =
-  "Equipos ejecutan simulaciones laborales reales durante semanas. Empresas contratan talento validado por evidencia de comportamiento, no por CV.";
+  "Convertí programas de formación en experiencias de trabajo observables. Simulación Laboral para crear equipos reales, observar colaboración y generar evidencia de empleabilidad.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
