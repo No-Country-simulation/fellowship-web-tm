@@ -86,9 +86,11 @@ const chartData = [
 ];
 
 const barChartData = [
-  { name: "Sim 1", performance: 55, fill: "rgba(20, 110, 120, 0.6)" },
-  { name: "Sim 2", performance: 73, fill: "rgba(14, 116, 144, 0.7)" },
-  { name: "Sim 3", performance: 82, fill: "#02BEEF" },
+  { name: "Sem 0", performance: 38, fill: "rgba(20, 100, 110, 0.55)" },
+  { name: "Sem 1", performance: 50, fill: "rgba(16, 108, 128, 0.65)" },
+  { name: "Sem 2", performance: 62, fill: "rgba(14, 116, 144, 0.75)" },
+  { name: "Sem 3", performance: 71, fill: "rgba(6, 150, 190, 0.9)" },
+  { name: "Sem 4", performance: 82, fill: "#02BEEF" },
 ];
 
 const CustomDot = (props: any) => {
@@ -334,8 +336,8 @@ export default function EvidenciaConductual() {
                         <span className="text-xs md:text-sm text-zinc-300 font-medium">1 producto funcional entregado</span>
                       </div>
                       <div className="flex gap-1.5 select-none shrink-0">
-                        <span className="text-[10px] font-bold text-zinc-300 bg-[#1c1e3a] px-2 py-0.5 rounded border border-white/10">JS</span>
-                        <span className="text-[10px] font-bold text-zinc-300 bg-[#1c1e3a] px-2 py-0.5 rounded border border-white/10">React</span>
+                        <span className="text-[10px] font-bold text-[#F7DF1E] bg-[#F7DF1E]/10 px-2 py-0.5 rounded border border-[#F7DF1E]/30">JS</span>
+                        <span className="text-[10px] font-bold text-[#61DAFB] bg-[#61DAFB]/10 px-2 py-0.5 rounded border border-[#61DAFB]/30">React</span>
                       </div>
                     </div>
 
@@ -345,10 +347,7 @@ export default function EvidenciaConductual() {
                         <span className="text-[#00F5A0] font-black text-base select-none">✓</span>
                         <span className="text-xs md:text-sm text-zinc-300 font-medium">Documentación técnica completa</span>
                       </div>
-                      {/* Notion Logo SVG */}
-                      <svg className="w-4 h-4 shrink-0 fill-current text-zinc-400" viewBox="0 0 24 24">
-                        <path d="M4.222 2.015L2.247 3.99c-.198.198-.247.543-.1.741l2.42 3.16.05-.05c-.15-.494-.05-.988.247-1.284L7.53 3.89c.3-.3.74-.346 1.086-.148l11.458 6.716c.395.247.395.692.148 1.037L10.3 22.954c-.247.395-.691.395-1.037.148L1.623 16.5c-.395-.247-.494-.691-.247-1.086l.691-.988c.247-.395.692-.395 1.087-.148l5.828 3.556L17.72 6.558 7.398 2.311c-.346-.148-.74-.1-.938.1L4.222 2.015z"/>
-                      </svg>
+                      <span className="text-[10px] font-bold text-white bg-white/10 px-2 py-0.5 rounded border border-white/25 shrink-0">Notion</span>
                     </div>
 
                     {/* Item 4 */}
@@ -357,14 +356,7 @@ export default function EvidenciaConductual() {
                         <span className="text-[#00F5A0] font-black text-base select-none">✓</span>
                         <span className="text-xs md:text-sm text-zinc-300 font-medium">Demo Day presentado ante el equipo referente</span>
                       </div>
-                      {/* Figma Logo SVG */}
-                      <svg className="w-4.5 h-6 shrink-0" viewBox="0 0 38 57" fill="none">
-                        <path d="M9.5 57C14.7467 57 19 52.7467 19 47.5V38H9.5C4.2533 38 0 42.2533 0 47.5C0 52.7467 4.2533 57 9.5 57Z" fill="#0ACF83"/>
-                        <path d="M0 28.5C0 23.2533 4.2533 19 9.5 19H19V38H9.5C4.2533 38 0 33.7467 0 28.5Z" fill="#A259FF"/>
-                        <path d="M0 9.5C0 4.2533 4.2533 0 9.5 0H19V19H9.5C4.2533 19 0 14.7467 0 9.5Z" fill="#F24E1E"/>
-                        <path d="M19 0H28.5C33.7467 0 38 4.2533 38 9.5C38 14.7467 33.7467 19 28.5 19H19V0Z" fill="#FF7262"/>
-                        <path d="M38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5Z" fill="#1ABC9C"/>
-                      </svg>
+                      <span className="text-[10px] font-bold text-[#A259FF] bg-[#A259FF]/10 px-2 py-0.5 rounded border border-[#A259FF]/30 shrink-0">Figma</span>
                     </div>
 
                   </div>
@@ -380,7 +372,7 @@ export default function EvidenciaConductual() {
                   <p className="text-xs text-zinc-500 mb-6">Cómo cambia el desempeño entre simulaciones.</p>
                   
                   {/* Columns chart using Shadcn / Recharts */}
-                  <div className="w-full h-60 max-w-[240px] mx-auto mt-4 select-none">
+                  <div className="w-full h-60 mt-4 select-none">
                     <ChartContainer config={chartConfig} className="w-full h-full aspect-auto">
                       <BarChart
                         data={barChartData}
@@ -401,7 +393,7 @@ export default function EvidenciaConductual() {
                         <Bar
                           dataKey="performance"
                           radius={[4, 4, 0, 0]}
-                          barSize={44}
+                          barSize={36}
                           isAnimationActive={false}
                         >
                           {barChartData.map((entry, index) => (

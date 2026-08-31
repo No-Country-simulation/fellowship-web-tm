@@ -26,14 +26,12 @@ export default function HeroSection() {
                 Observá cómo trabaja el talento.
               </span>
               <span className="block mt-2 text-[clamp(34px,5.2vw,70px)] bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">
-                Antes de contratarlo.
+                Convertí formación en experiencia laboral observable.
               </span>
             </h1>
 
             <p className="text-lg text-[#9ca3af] leading-relaxed max-w-2xl">
-              No Country convierte experiencias reales de trabajo en equipo en
-              evidencia observable sobre cómo las personas ejecutan, colaboran
-              y resuelven problemas.
+              Infraestructura de Simulación Laboral para programas de formación e instituciones educativas.
             </p>
 
             <div className="flex flex-wrap gap-5 mt-2">
