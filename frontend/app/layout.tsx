@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/organisms/Navbar";
+import Navbar from "@/components/organisms/shared/Navbar";
 import { siteConfig, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const dmSans = DM_Sans({

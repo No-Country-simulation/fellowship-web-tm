@@ -6,7 +6,7 @@
 - **Dependencias:** `next/link`, `next/image`, `react`.
 - **Uso:**
   ```tsx
-  import Navbar from "@/components/organisms/Navbar";
+  import Navbar from "@/components/organisms/shared/Navbar";
   <Navbar />
   ```
 
@@ -16,7 +16,7 @@
 - **Dependencias:** `next/link`.
 - **Uso:**
   ```tsx
-  import HeroSection from "@/components/organisms/HeroSection";
+  import HeroSection from "@/components/organisms/home/HeroSection";
   <HeroSection />
   ```
 
@@ -26,7 +26,7 @@
 - **Dependencias:** `next/image`.
 - **Uso:**
   ```tsx
-  import EmpresasCarousel from "@/components/organisms/EmpresasCarousel";
+  import EmpresasCarousel from "@/components/organisms/home/EmpresasCarousel";
   <EmpresasCarousel />
   ```
 
@@ -36,7 +36,7 @@
 - **Dependencias:** Ninguna externa.
 - **Uso:**
   ```tsx
-  import LiveSimulation from "@/components/organisms/LiveSimulation";
+  import LiveSimulation from "@/components/organisms/home/LiveSimulation";
   <LiveSimulation />
   ```
 
@@ -46,7 +46,7 @@
 - **Dependencias:** Ninguna externa.
 - **Uso:**
   ```tsx
-  import SimulationDefinition from "@/components/organisms/SimulationDefinition";
+  import SimulationDefinition from "@/components/organisms/home/SimulationDefinition";
   <SimulationDefinition />
   ```
 
@@ -56,7 +56,7 @@
 - **Dependencias:** Ninguna externa.
 - **Uso:**
   ```tsx
-  import QuePuedeSimularse from "@/components/organisms/QuePuedeSimularse";
+  import QuePuedeSimularse from "@/components/organisms/home/QuePuedeSimularse";
   <QuePuedeSimularse />
   ```
 
@@ -66,7 +66,7 @@
 - **Dependencias:** `lucide-react`, `recharts`, `@/components/ui/chart`, `@/lib/utils`.
 - **Uso:**
   ```tsx
-  import EvidenciaConductual from "@/components/organisms/EvidenciaConductual";
+  import EvidenciaConductual from "@/components/organisms/home/EvidenciaConductual";
   <EvidenciaConductual />
   ```
 
@@ -76,7 +76,7 @@
 - **Dependencias:** Ninguna externa.
 - **Uso:**
   ```tsx
-  import CasosDeUso from "@/components/organisms/CasosDeUso";
+  import CasosDeUso from "@/components/organisms/home/CasosDeUso";
   <CasosDeUso />
   ```
 
@@ -86,7 +86,7 @@
 - **Dependencias:** `next/image`, `@/components/ui/avatar`, `@/lib/utils`.
 - **Uso:**
   ```tsx
-  import CasoOracle from "@/components/organisms/CasoOracle";
+  import CasoOracle from "@/components/organisms/home/CasoOracle";
   <CasoOracle />
   ```
 
@@ -96,7 +96,7 @@
 - **Dependencias:** `next/image`, `@/components/ui/table`, `@/lib/utils`.
 - **Uso:**
   ```tsx
-  import ComparisonTable from "@/components/organisms/ComparisonTable";
+  import ComparisonTable from "@/components/organisms/home/ComparisonTable";
   <ComparisonTable />
   ```
 
@@ -106,7 +106,7 @@
 - **Dependencias:** Ninguna externa.
 - **Uso:**
   ```tsx
-  import FraseSection from "@/components/organisms/FraseSection";
+  import FraseSection from "@/components/organisms/home/FraseSection";
   <FraseSection />
   ```
 
@@ -116,7 +116,7 @@
 - **Dependencias:** Ninguna externa.
 - **Uso:**
   ```tsx
-  import FAQSection from "@/components/organisms/FAQSection";
+  import FAQSection from "@/components/organisms/home/FAQSection";
   <FAQSection />
   ```
 
@@ -126,7 +126,7 @@
 - **Dependencias:** `@/lib/utils`.
 - **Uso:**
   ```tsx
-  import Footer from "@/components/organisms/Footer";
+  import Footer from "@/components/organisms/shared/Footer";
   <Footer />
   ```
 
@@ -156,7 +156,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `next/link`, `lucide-react`, `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import HeroParadigma from "@/components/organisms/HeroParadigma";
+  import HeroParadigma from "@/components/organisms/simulacion-laboral/paradigma/HeroParadigma";
   <HeroParadigma />
   ```
 
@@ -166,7 +166,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import GapSection from "@/components/organisms/GapSection";
+  import GapSection from "@/components/organisms/simulacion-laboral/paradigma/GapSection";
   <GapSection />
   ```
 
@@ -176,7 +176,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import ConceptSection from "@/components/organisms/ConceptSection";
+  import ConceptSection from "@/components/organisms/simulacion-laboral/paradigma/ConceptSection";
   <ConceptSection />
   ```
 
@@ -186,7 +186,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import TesisSection from "@/components/organisms/TesisSection";
+  import TesisSection from "@/components/organisms/simulacion-laboral/paradigma/TesisSection";
   <TesisSection />
   ```
 
@@ -196,7 +196,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal` y animaciones propias con `IntersectionObserver`.
 - **Uso:**
   ```tsx
-  import TimeSection from "@/components/organisms/TimeSection";
+  import TimeSection from "@/components/organisms/simulacion-laboral/paradigma/TimeSection";
   <TimeSection />
   ```
 
@@ -206,7 +206,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal` y animaciones propias con `IntersectionObserver`.
 - **Uso:**
   ```tsx
-  import ContrasteSection from "@/components/organisms/ContrasteSection";
+  import ContrasteSection from "@/components/organisms/simulacion-laboral/paradigma/ContrasteSection";
   <ContrasteSection />
   ```
 
@@ -216,7 +216,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `lucide-react` (íconos `School`, `ListChecks`, `Timer`, `Briefcase`), `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import Diferencias from "@/components/organisms/Diferencias";
+  import Diferencias from "@/components/organisms/simulacion-laboral/paradigma/Diferencias";
   <Diferencias />
   ```
 
@@ -226,7 +226,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import GranDiferenciacion from "@/components/organisms/GranDiferenciacion";
+  import GranDiferenciacion from "@/components/organisms/simulacion-laboral/paradigma/GranDiferenciacion";
   <GranDiferenciacion />
   ```
 
@@ -236,7 +236,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `lucide-react` (íconos de métricas), `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import EvidenciaEnVivo from "@/components/organisms/EvidenciaEnVivo";
+  import EvidenciaEnVivo from "@/components/organisms/simulacion-laboral/paradigma/EvidenciaEnVivo";
   <EvidenciaEnVivo />
   ```
 
@@ -246,7 +246,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import ElMecanismo from "@/components/organisms/ElMecanismo";
+  import ElMecanismo from "@/components/organisms/simulacion-laboral/paradigma/ElMecanismo";
   <ElMecanismo />
   ```
 
@@ -256,7 +256,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import Closing from "@/components/organisms/Closing";
+  import Closing from "@/components/organisms/simulacion-laboral/paradigma/Closing";
   <Closing />
   ```
 
@@ -266,7 +266,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 - **Dependencias:** `next/link`, `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
-  import CTAFinal from "@/components/organisms/CTAFinal";
+  import CTAFinal from "@/components/organisms/shared/CTAFinal";
   <CTAFinal />
   ```
 
