@@ -1,7 +1,7 @@
-import SeisDimensiones from "@/components/organisms/SeisDimensiones";
-import LoQueSigue from "@/components/organisms/LoQueSigue";
-import Footer from "@/components/organisms/Footer";
-import CTAFinal from "@/components/organisms/CTAFinal";
+import SeisDimensiones from "@/components/organisms/simulacion-laboral/que-observamos/SeisDimensiones";
+import LoQueSigue from "@/components/organisms/simulacion-laboral/que-observamos/LoQueSigue";
+import Footer from "@/components/organisms/shared/Footer";
+import CTAFinal from "@/components/organisms/shared/CTAFinal";
 
 export default function QueObservamosPage() {
   return (
