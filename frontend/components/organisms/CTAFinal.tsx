@@ -31,7 +31,7 @@ const paths: PathCard[] = [
 
 export default function CTAFinal() {
   return (
-    <section className="w-full bg-[#000115] py-20 md:py-28">
+    <section className="w-full bg-[#000115] border-t border-white/10 py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Header */}
         <Reveal>
