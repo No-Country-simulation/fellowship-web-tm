@@ -1,4 +1,4 @@
-import HeroParadigma from "@/components/organisms/simulacion-laboral/paradigma/HeroParadigma";
+import HeroSL from "@/components/organisms/simulacion-laboral/HeroSL";
 import GapSection from "@/components/organisms/simulacion-laboral/paradigma/GapSection";
 import ConceptSection from "@/components/organisms/simulacion-laboral/paradigma/ConceptSection";
 import TesisSection from "@/components/organisms/simulacion-laboral/paradigma/TesisSection";
@@ -15,7 +15,7 @@ import Footer from "@/components/organisms/shared/Footer";
 export default function ParadigmaPage() {
   return (
     <main className="flex flex-col bg-[#000115]">
-      <HeroParadigma />
+      <HeroSL />
       <GapSection />
       <ConceptSection />
       <TesisSection />
