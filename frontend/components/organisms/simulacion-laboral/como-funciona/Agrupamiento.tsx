@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/ui/reveal";
 
-const teams = [
-  { color: "#FF0094", label: "Equipo A" },
-  { color: "#02BEEF", label: "Equipo B" },
-  { color: "#C06ECF", label: "Equipo C" },
-  { color: "#646CF6", label: "Equipo D" },
-  { color: "#0CFCA7", label: "Equipo E" },
-];
+const colors = ["#FF0094", "#02BEEF", "#C06ECF", "#646CF6", "#0CFCA7"];
 
 const chips = [
   "Multidisciplinarios",
@@ -18,12 +12,13 @@ const chips = [
   "Asignados aleatoriamente o bajo reglas definidas",
 ];
 
+// Orden visual: 1 → 5 → 4 → 3 → 2
 const nodes = [
-  { cx: 150, cy: 20 },
-  { cx: 262, cy: 100 },
-  { cx: 218, cy: 232 },
-  { cx: 82, cy: 232 },
-  { cx: 38, cy: 100 },
+  { cx: 150, cy: 20 },  // node 1
+  { cx: 262, cy: 100 }, // node 5
+  { cx: 218, cy: 232 }, // node 4
+  { cx: 82, cy: 232 },  // node 3
+  { cx: 38, cy: 100 },  // node 2
 ];
 
 const edges = nodes.map((_, i) => {
@@ -39,8 +34,11 @@ const edges = nodes.map((_, i) => {
 export default function Agrupamiento() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
-  const [teamIndex, setTeamIndex] = useState(0);
+  const [visibleNodes, setVisibleNodes] = useState<boolean[]>(Array(nodes.length).fill(false));
+  const [drawnEdges, setDrawnEdges] = useState<boolean[]>(Array(edges.length).fill(false));
+  const [nodeColors, setNodeColors] = useState<string[]>(Array(nodes.length).fill(colors[0]));
 
+  // Activar cuando entra en viewport
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
@@ -61,15 +59,49 @@ export default function Agrupamiento() {
     return () => observer.disconnect();
   }, []);
 
+  // Secuencia: primero nodos uno por uno, después líneas
   useEffect(() => {
     if (!started) return;
-    const interval = setInterval(() => {
-      setTeamIndex((prev) => (prev + 1) % teams.length);
-    }, 2600);
-    return () => clearInterval(interval);
+
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+
+    // Aparecen los nodos en orden numérico
+    nodes.forEach((_, i) => {
+      timeouts.push(
+        setTimeout(() => {
+          setVisibleNodes((prev) => prev.map((v, idx) => (idx === i ? true : v)));
+        }, 300 + i * 250)
+      );
+    });
+
+    // Después de que aparezcan todos, se dibujan las líneas
+    const totalNodeTime = 300 + nodes.length * 250;
+    timeouts.push(
+      setTimeout(() => {
+        setDrawnEdges(Array(edges.length).fill(true));
+      }, totalNodeTime)
+    );
+
+    return () => timeouts.forEach(clearTimeout);
   }, [started]);
 
-  const currentTeam = teams[teamIndex];
+  // Colores aleatorios por nodo, independientes
+  useEffect(() => {
+    if (!started) return;
+
+    const intervals = nodes.map((_, i) => {
+      return setInterval(() => {
+        setNodeColors((prev) => {
+          const next = [...prev];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          next[i] = randomColor;
+          return next;
+        });
+      }, 1000 + Math.random() * 1500);
+    });
+
+    return () => intervals.forEach(clearInterval);
+  }, [started]);
 
   return (
     <section className="bg-[#000115] text-white border-t border-[#1C1B29] py-24">
@@ -87,43 +119,51 @@ export default function Agrupamiento() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div ref={wrapRef} className="mt-12 flex flex-col md:flex-row items-center gap-10">
-            {/* Pentágono */}
-            <svg viewBox="0 0 300 280" className="w-56 md:w-64 flex-shrink-0">
-              {edges.map((edge, i) => (
-                <line
-                  key={`edge-${i}`}
-                  x1={edge.x1}
-                  y1={edge.y1}
-                  x2={edge.x2}
-                  y2={edge.y2}
-                  stroke={currentTeam.color}
-                  strokeWidth="1.5"
-                  opacity="0.55"
-                  style={{
-                    transition: "stroke 1s ease",
-                    strokeDashoffset: started ? "0" : "620",
-                  }}
-                  strokeDasharray="620"
-                />
-              ))}
+          <div ref={wrapRef} className="mt-12 flex justify-center">
+<svg viewBox="-20 -20 340 340" className="w-96 md:w-[36rem] flex-shrink-0">
+  <defs>
+<linearGradient
+  id="nc-line-grad"
+  gradientUnits="userSpaceOnUse"
+  x1="0" y1="0" x2="320" y2="0"
+>
+  <stop offset="0%" stopColor="#FF0094" />
+  <stop offset="100%" stopColor="#02BEEF" />
+</linearGradient>
+  </defs>
 
+  {edges.map((edge, i) => (
+    <line
+      key={`edge-${i}`}
+      x1={edge.x1}
+      y1={edge.y1}
+      x2={edge.x2}
+      y2={edge.y2}
+      stroke="url(#nc-line-grad)"
+      strokeWidth="6"
+      opacity={drawnEdges[i] ? 1 : 0}
+      strokeDasharray="400"
+      strokeDashoffset={drawnEdges[i] ? "0" : "400"}
+      style={{ transition: "stroke-dashoffset 0.8s ease, opacity 0.2s ease" }}
+    />
+  ))}
+
+              {/* Nodos */}
               {nodes.map((node, i) => (
                 <g
                   key={`node-${i}`}
                   style={{
-                    opacity: started ? 1 : 0,
-                    transform: started ? "scale(1)" : "scale(0.6)",
+                    opacity: visibleNodes[i] ? 1 : 0,
+                    transform: visibleNodes[i] ? "scale(1)" : "scale(0.4)",
                     transformOrigin: `${node.cx}px ${node.cy}px`,
-                    transition: `opacity .5s cubic-bezier(.2,.8,.2,1) ${i * 120}ms, transform .5s cubic-bezier(.2,.8,.2,1) ${i * 120}ms`,
+                    transition: "opacity 0.5s cubic-bezier(0.2,0.8,0.2,1), transform 0.5s cubic-bezier(0.2,0.8,0.2,1)",
                   }}
                 >
                   <circle
                     cx={node.cx}
                     cy={node.cy}
-                    r={26}
-                    fill={currentTeam.color}
-                    style={{ transition: "fill 1s ease" }}
+                    r={28}
+                    fill={nodeColors[i]}
                   />
                   <g transform={`translate(${node.cx},${node.cy})`} stroke="#fff" strokeWidth="1.8" fill="none">
                     <circle cx="0" cy="-5" r="5" fill="#fff" stroke="none" />
@@ -132,19 +172,6 @@ export default function Agrupamiento() {
                 </g>
               ))}
             </svg>
-
-            {/* Caption */}
-            <div className="max-w-sm">
-              <span
-                className="inline-block text-xs font-bold tracking-wide text-white px-4 py-2 rounded-full transition-colors duration-700"
-                style={{ backgroundColor: currentTeam.color }}
-              >
-                {currentTeam.label}
-              </span>
-              <p className="mt-4 text-[13.5px] text-[#9CA3AF] leading-relaxed">
-                Mismo pentágono, personas distintas. Cada color es una composición de equipo posible.
-              </p>
-            </div>
           </div>
         </Reveal>
 
