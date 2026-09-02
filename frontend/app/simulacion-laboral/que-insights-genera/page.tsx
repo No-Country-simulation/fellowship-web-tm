@@ -3,6 +3,8 @@ import ParticipanteEquipo from "@/components/organisms/simulacion-laboral/que-in
 import Cohorte from "@/components/organisms/simulacion-laboral/que-insights-genera/Cohorte";
 import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
+import Programa from "@/components/organisms/simulacion-laboral/que-insights-genera/Programa";
+import SenalAlInsight from "@/components/organisms/simulacion-laboral/que-insights-genera/SenalAlInsight";
 
 export default function QueInsightsGeneraPage() {
   return (
@@ -10,6 +12,8 @@ export default function QueInsightsGeneraPage() {
       <HeroSL />
       <ParticipanteEquipo />
       <Cohorte />
+      <Programa />
+      <SenalAlInsight />
       <CTAFinal />
       <Footer />
     </main>
