@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { siteConfig } from "@/lib/seo";
 import HeroSL from "@/components/organisms/simulacion-laboral/HeroSL";
 import GapSection from "@/components/organisms/simulacion-laboral/paradigma/GapSection";
 import ConceptSection from "@/components/organisms/simulacion-laboral/paradigma/ConceptSection";
@@ -11,6 +13,23 @@ import ElMecanismo from "@/components/organisms/simulacion-laboral/paradigma/ElM
 import Closing from "@/components/organisms/simulacion-laboral/paradigma/Closing";
 import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
+
+const title = "El paradigma de la Simulación Laboral";
+const description =
+  "Por qué el CV ya no alcanza: cómo la Simulación Laboral genera evidencia real de cómo trabaja el talento, en vez de promesas en un papel.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: `${siteConfig.url}/simulacion-laboral/paradigma` },
+  openGraph: {
+    title,
+    description,
+    url: `${siteConfig.url}/simulacion-laboral/paradigma`,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+};
 
 export default function ParadigmaPage() {
   return (
