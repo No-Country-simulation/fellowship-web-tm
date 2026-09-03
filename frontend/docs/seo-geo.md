@@ -14,16 +14,17 @@ Cada página define su propio `title`, `description` y URL canónica, en vez de 
 
 - `app/layout.tsx` — `metadataBase` + `title` con template (`%s | No Country`) que se aplica como fallback global.
 - `app/page.tsx` (home) — título, descripción y `alternates.canonical` propios.
-- `app/para-empresas/contratar/page.tsx` — idem.
-- `app/para-empresas/empleabilidad/page.tsx` — idem.
-- **Pendiente:** las 4 páginas de `/simulacion-laboral/*` (paradigma, como-funciona, que-insights-genera, que-observamos) todavía heredan el título genérico del layout.
+- `app/para-empresas/contratar/page.tsx` — idem (contenido todavía stub, description provisoria).
+- `app/para-empresas/empleabilidad/page.tsx` — idem (contenido todavía stub, description provisoria).
+- `app/simulacion-laboral/paradigma/page.tsx`, `como-funciona/page.tsx`, `que-insights-genera/page.tsx`, `que-observamos/page.tsx` — cada una con su propio title/description/canonical/openGraph.
 
 ### Schema.org / JSON-LD 🟢 SEO + GEO
 
-Información estructurada sobre la organización, para que buscadores e IA entiendan qué es No Country sin tener que inferirlo del texto.
+Información estructurada sobre la organización y el contenido, para que buscadores e IA entiendan de qué trata cada cosa sin tener que inferirlo del texto.
 
 - `lib/seo.ts` — define `organizationJsonLd` (`@type: Organization`) y `websiteJsonLd` (`@type: WebSite`).
 - `app/layout.tsx` — inyecta los dos como `<script type="application/ld+json">` en el `<body>`, disponibles en todas las páginas.
+- `components/organisms/home/FAQSection.tsx` — genera `faqJsonLd` (`@type: FAQPage`) a partir del mismo array `faqs` que renderiza el acordeón, así el schema nunca queda desincronizado del contenido visible. Solo vive en la Home, que es la única página con este componente.
 
 ### Open Graph / metadata social 🔵 SEO
 
@@ -32,7 +33,8 @@ Información estructurada sobre la organización, para que buscadores e IA entie
 
 ### Sitemap.xml 🔵 SEO
 
-- `app/sitemap.ts` — lista las rutas públicas reales: `/`, `/simulacion-laboral/paradigma`, `/para-empresas/contratar`, `/para-empresas/empleabilidad`. Se actualiza a mano cada vez que se agrega o renombra una ruta.
+- `app/sitemap.ts` — lista las rutas públicas con contenido real: `/`, `/simulacion-laboral/paradigma`, `/simulacion-laboral/como-funciona`, `/simulacion-laboral/que-observamos`, `/simulacion-laboral/que-insights-genera`.
+- **Criterio:** una URL entra al sitemap recién en el mismo commit en que la página tiene contenido real — no antes. Por eso `/para-empresas/contratar` y `/para-empresas/empleabilidad` (todavía `return null`) están afuera; se agregan cuando se les cargue contenido. Se actualiza a mano cada vez que se agrega, renombra, o completa una ruta.
 
 ### Robots.txt 🔵 SEO
 

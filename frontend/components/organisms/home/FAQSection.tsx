@@ -61,6 +61,19 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.pregunta,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.respuesta,
+    },
+  })),
+};
+
 function FAQItem({ pregunta, respuesta }: { pregunta: string; respuesta: string }) {
   const [open, setOpen] = useState(false);
 
@@ -94,6 +107,12 @@ function FAQItem({ pregunta, respuesta }: { pregunta: string; respuesta: string 
 export default function FAQSection() {
   return (
     <section id="faq" className="bg-[#000115] text-white px-4 md:px-8 py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-[42px] font-bold tracking-tight leading-tight text-center mb-12">
           Preguntas frecuentes
