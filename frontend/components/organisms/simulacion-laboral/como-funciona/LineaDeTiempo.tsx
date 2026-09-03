@@ -84,7 +84,7 @@ export default function LineaDeTiempo() {
   }, [started]);
 
   return (
-    <section className="w-full bg-[#F9F9F9] py-20 md:py-28 text-zinc-900">
+    <section className="w-full bg-[#F9F9F9] border-t border-[#ECECEC] py-20 md:py-28 text-zinc-900">
       <div className="max-w-[1120px] mx-auto px-4 md:px-8">
         <Reveal>
           <div className="flex items-center gap-3 mb-6 select-none">

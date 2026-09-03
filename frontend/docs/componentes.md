@@ -272,4 +272,82 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
 
 ---
 
-**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design. Los componentes `ShowcaseSection` y `ParadigmaSection` fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
+## Componentes de "Simulación Laboral — Qué observamos"
+
+Sección de la página `/simulacion-laboral/que-observamos`. Comprende las 6 dimensiones que se observan durante la ejecución y el cierre hacia las otras dos sub-páginas.
+
+### SeisDimensiones
+- **Descripción:** "Seis dimensiones". Selector de dimensiones tipo "stories": 6 tabs (Participación, Colaboración, Comunicación, Ejecución, Autonomía y toma de decisiones, Adaptación y trayectoria), cada uno con un ícono y una barra de progreso que se llena sola en 5.2s y avanza automáticamente a la siguiente dimensión (o se puede clickear para saltar directo). Al cambiar de dimensión, el panel hace fade-out/fade-in y el contenido (título, descripción, pregunta, chips y "Señal") entra en cascada.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import SeisDimensiones from "@/components/organisms/simulacion-laboral/que-observamos/SeisDimensiones";
+  <SeisDimensiones />
+  ```
+
+### LoQueSigue
+- **Descripción:** "Lo que sigue". Cierre de la página con dos tarjetas que linkean a `/simulacion-laboral/como-funciona` y `/simulacion-laboral/que-insights-genera`.
+- **Props:** Ninguna.
+- **Dependencias:** `next/link`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import LoQueSigue from "@/components/organisms/simulacion-laboral/que-observamos/LoQueSigue";
+  <LoQueSigue />
+  ```
+
+---
+
+## Componentes de "Simulación Laboral — Cómo funciona"
+
+Sección de la página `/simulacion-laboral/como-funciona`. Cubre la línea de tiempo de ejecución y las señales que se registran durante el proceso.
+
+### LineaDeTiempo
+- **Descripción:** "04 — La línea de tiempo". Cadena de 6 nodos SVG que van creciendo de tamaño (0 → 1 → 2 → 3 → 4 → ✓), conectados por líneas que se "dibujan" en cascada al entrar en viewport. Usa una progresión de color rosa → cian (marca NC) en vez de colores sueltos. Debajo, una leyenda de 3 etapas (Semana 0, Semanas 1 a 4, Cierre) y un pill con la duración típica.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import LineaDeTiempo from "@/components/organisms/simulacion-laboral/como-funciona/LineaDeTiempo";
+  <LineaDeTiempo />
+  ```
+
+### LoQueSeRegistra
+- **Descripción:** "05 — Lo que se registra". Chips de las señales que se registran durante la ejecución (Participación, Colaboración, Comunicación, Trayectoria, Entregables, Peer review), cada uno con un borde de color distinto, entrando en cascada. Debajo, dos tarjetas de cierre hacia `/simulacion-laboral/que-observamos` y `/simulacion-laboral/que-insights-genera`.
+- **Props:** Ninguna.
+- **Dependencias:** `next/link`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import LoQueSeRegistra from "@/components/organisms/simulacion-laboral/como-funciona/LoQueSeRegistra";
+  <LoQueSeRegistra />
+  ```
+
+---
+
+## Componentes de "Simulación Laboral — Qué insights genera"
+
+Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el programa conecta formación y trabajo, y cómo una señal se convierte en insight.
+
+### Programa
+- **Descripción:** "04 — Programa". Diagrama orbital: un hub central ("Simulación Laboral") conectado por spokes a 4 nodos (Learning, Knowledge, Evidence, Work), rodeado de un anillo punteado con gradiente rosa → cian. 5 puntos de colores orbitan continuamente alrededor del anillo usando animación SVG nativa (`<animateMotion>` sobre un `<mpath>`), sin depender de JS. Debajo, una leyenda con los 5 puntos de color y su significado.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Programa from "@/components/organisms/simulacion-laboral/que-insights-genera/Programa";
+  <Programa />
+  ```
+
+### SenalAlInsight
+- **Descripción:** "05 — De la señal al insight". Flujo vertical de 3 niveles (Signals → Patterns → Insights) que se revela en cascada al entrar en viewport: Signals muestra 7 chips neutros, Patterns muestra 6 chips coloreados por categoría (mismos acentos que `ElMecanismo`/`LoQueSeRegistra`), e Insights muestra 3 citas de ejemplo con borde izquierdo en gradiente y el tag "Ejemplo ilustrativo". Cierra con un disclaimer aclarando que son ejemplos ilustrativos, no inferencias automáticas del sistema.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import SenalAlInsight from "@/components/organisms/simulacion-laboral/que-insights-genera/SenalAlInsight";
+  <SenalAlInsight />
+  ```
+
+---
+
+**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
