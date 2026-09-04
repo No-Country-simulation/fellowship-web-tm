@@ -8,6 +8,7 @@ import LineaDeTiempo from "@/components/organisms/simulacion-laboral/como-funcio
 import LoQueSeRegistra from "@/components/organisms/simulacion-laboral/como-funciona/LoQueSeRegistra";
 import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
+import { getLastModified } from "@/lib/lastModified";
 
 const title = "Cómo funciona una Simulación Laboral";
 const description =
@@ -36,7 +37,12 @@ export default function ComoFuncionaPage() {
       <LineaDeTiempo />
       <LoQueSeRegistra />
       <CTAFinal />
-      <Footer />
+      <Footer
+        lastUpdated={{
+          date: getLastModified("app/simulacion-laboral/como-funciona/page.tsx"),
+          url: `${siteConfig.url}/simulacion-laboral/como-funciona`,
+        }}
+      />
     </main>
   );
 }

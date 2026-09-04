@@ -5,6 +5,7 @@ import SeisDimensiones from "@/components/organisms/simulacion-laboral/que-obser
 import LoQueSigue from "@/components/organisms/simulacion-laboral/que-observamos/LoQueSigue";
 import Footer from "@/components/organisms/shared/Footer";
 import CTAFinal from "@/components/organisms/shared/CTAFinal";
+import { getLastModified } from "@/lib/lastModified";
 
 const title = "Qué observamos en una Simulación Laboral";
 const description =
@@ -30,7 +31,12 @@ export default function QueObservamosPage() {
       <SeisDimensiones />
       <LoQueSigue />
       <CTAFinal />
-      <Footer />
+      <Footer
+        lastUpdated={{
+          date: getLastModified("app/simulacion-laboral/que-observamos/page.tsx"),
+          url: `${siteConfig.url}/simulacion-laboral/que-observamos`,
+        }}
+      />
     </main>
   );
 }

@@ -4,9 +4,16 @@ import { cn } from "@/lib/utils";
 
 export interface FooterProps {
   className?: string;
+  lastUpdated?: { date: Date; url: string };
 }
 
-export default function Footer({ className }: FooterProps) {
+export default function Footer({ className, lastUpdated }: FooterProps) {
+  const lastUpdatedLabel = lastUpdated
+    ? new Intl.DateTimeFormat("es", { month: "long", year: "numeric" }).format(
+        lastUpdated.date
+      )
+    : null;
+
   return (
     <footer
       id="footer"
@@ -15,6 +22,20 @@ export default function Footer({ className }: FooterProps) {
         className
       )}
     >
+      {lastUpdated && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              url: lastUpdated.url,
+              dateModified: lastUpdated.date.toISOString(),
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
+
       {/* Ambient background glows */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#FF0094]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 -right-32 w-96 h-96 bg-[#02BEEF]/10 rounded-full blur-3xl pointer-events-none" />
@@ -206,6 +227,7 @@ export default function Footer({ className }: FooterProps) {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row md:justify-between items-center gap-4">
           <span className="text-xs text-zinc-500 font-medium select-none text-center md:text-left">
             © 2026 No Country. Todos los derechos reservados.
+            {lastUpdatedLabel && <> · Actualizado en {lastUpdatedLabel}</>}
           </span>
           {/* Legal Links */}
           <div className="flex gap-6 text-xs font-medium text-zinc-400">
