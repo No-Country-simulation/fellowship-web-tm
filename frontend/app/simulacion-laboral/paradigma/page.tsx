@@ -13,6 +13,7 @@ import ElMecanismo from "@/components/organisms/simulacion-laboral/paradigma/ElM
 import Closing from "@/components/organisms/simulacion-laboral/paradigma/Closing";
 import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
+import { getLastModified } from "@/lib/lastModified";
 
 const title = "El paradigma de la Simulación Laboral";
 const description =
@@ -46,7 +47,12 @@ export default function ParadigmaPage() {
       <ElMecanismo />
       <Closing />
       <CTAFinal />
-      <Footer />
+      <Footer
+        lastUpdated={{
+          date: getLastModified("app/simulacion-laboral/paradigma/page.tsx"),
+          url: `${siteConfig.url}/simulacion-laboral/paradigma`,
+        }}
+      />
     </main>
   );
 }

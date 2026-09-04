@@ -12,6 +12,7 @@ import HeroSection from "@/components/organisms/home/HeroSection";
 import LiveSimulation from "@/components/organisms/home/LiveSimulation";
 import SimulationDefinition from "@/components/organisms/home/SimulationDefinition";
 import FAQSection from "@/components/organisms/home/FAQSection";
+import { getLastModified } from "@/lib/lastModified";
 import { siteConfig } from "@/lib/seo";
 
 const title = "Infraestructura de Simulación Laboral para Programas de Formación | No Country";
@@ -61,7 +62,9 @@ export default function Home() {
       <ComparisonTable />
       <FraseSection />
       <FAQSection />
-      <Footer />
+      <Footer
+        lastUpdated={{ date: getLastModified("app/page.tsx"), url: siteConfig.url }}
+      />
     </main>
   );
 }

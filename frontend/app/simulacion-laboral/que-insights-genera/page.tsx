@@ -7,6 +7,7 @@ import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
 import Programa from "@/components/organisms/simulacion-laboral/que-insights-genera/Programa";
 import SenalAlInsight from "@/components/organisms/simulacion-laboral/que-insights-genera/SenalAlInsight";
+import { getLastModified } from "@/lib/lastModified";
 
 const title = "Qué insights genera una Simulación Laboral";
 const description =
@@ -34,7 +35,12 @@ export default function QueInsightsGeneraPage() {
       <Programa />
       <SenalAlInsight />
       <CTAFinal />
-      <Footer />
+      <Footer
+        lastUpdated={{
+          date: getLastModified("app/simulacion-laboral/que-insights-genera/page.tsx"),
+          url: `${siteConfig.url}/simulacion-laboral/que-insights-genera`,
+        }}
+      />
     </main>
   );
 }
