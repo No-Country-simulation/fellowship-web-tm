@@ -24,14 +24,14 @@ export default function EmpresasCarousel() {
           {marqueeLogos.map((empresa, idx) => (
             <div
               key={`track1-${idx}`}
-              className="shrink-0 transition duration-300 hover:scale-105"
+              className="shrink-0 transition duration-300"
             >
               <Image
                 src={empresa.src}
                 alt={empresa.alt}
                 width={120}
                 height={40}
-                className="object-contain h-8 md:h-10 w-auto [filter:brightness(0)_invert(1)]"
+                className="object-contain h-8 md:h-10 w-auto opacity-100 grayscale brightness-200 hover:grayscale-0 hover:brightness-100 hover:opacity-100 transition duration-300"
               />
             </div>
           ))}
@@ -42,14 +42,14 @@ export default function EmpresasCarousel() {
           {marqueeLogos.map((empresa, idx) => (
             <div
               key={`track2-${idx}`}
-              className="shrink-0 transition duration-300 hover:scale-105"
+              className="shrink-0 transition duration-300"
             >
               <Image
                 src={empresa.src}
                 alt={empresa.alt}
                 width={120}
                 height={40}
-                className="object-contain h-8 md:h-10 w-auto [filter:brightness(0)_invert(1)]"
+                className="object-contain h-8 md:h-10 w-auto opacity-90 grayscale brightness-125 hover:grayscale-0 hover:brightness-100 hover:opacity-100 transition duration-300"
               />
             </div>
           ))}
