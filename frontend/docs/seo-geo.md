@@ -44,15 +44,15 @@ Información estructurada sobre la organización y el contenido, para que buscad
 
 Las rutas usan slugs legibles en vez de IDs (`/para-empresas/contratar`, `/simulacion-laboral/paradigma`), ya desde la reestructuración de rutas anterior.
 
-### Fecha de última actualización visible 🟣 GEO
+### Fecha de última actualización visible 🟣 GEO (idea #23)
 
 Tiene dos partes, para dos audiencias distintas: un texto visible (para el usuario) y un dato estructurado invisible (para buscadores/IA).
 
 - `lib/lastModified.ts` — `getLastModified(filePath)` corre `git log -1 --format=%cI -- <archivo>` en build/request time y devuelve la fecha real del último commit que tocó ese `page.tsx`. No hay que mantenerla a mano. Si git no está disponible (ej. build sin historial), cae a `new Date()` como fallback.
-- `components/ui/last-updated.tsx` — componente `<LastUpdated date url />` que renderiza:
-  - Texto visible: "Actualizado en {mes} {año}" (para el usuario, señal de confianza/vigencia).
-  - JSON-LD `WebPage` con `dateModified` en ISO (invisible, para Google/IA — es el dato estructurado que Geoptie detectó como faltante en la auditoría del 3 de septiembre).
-- Aplicado en Home y las 4 páginas de `/simulacion-laboral/*`, cada una con su propio archivo pasado a `getLastModified` (la fecha es específica de esa página, no global del sitio).
+- `components/organisms/shared/Footer.tsx` — acepta un prop opcional `lastUpdated: { date, url }`. Cuando se lo pasan, renderiza:
+  - Texto visible junto a la línea de copyright: "Actualizado en {mes} {año}" (para el usuario, señal de confianza/vigencia).
+  - JSON-LD `WebPage` con `dateModified` en ISO (invisible, para Google/IA — es el dato estructurado que Geoptie detectó como faltante en la auditoría del 3 de septiembre). Sin el prop, el footer se comporta igual que antes.
+- Aplicado en Home y las 4 páginas de `/simulacion-laboral/*`, cada una le pasa su propio archivo a `getLastModified` (la fecha es específica de esa página, no global del sitio).
 - **No aplicado** en `/para-empresas/contratar` y `/para-empresas/empleabilidad` — mismo criterio que el sitemap: no tiene sentido decir "actualizado" sobre una página sin contenido real.
 
 ---
