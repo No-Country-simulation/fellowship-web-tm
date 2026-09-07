@@ -3,30 +3,50 @@
 import { useEffect, useRef, useState } from "react";
 import { Gauge, Users, Star, CheckCircle2, MessageSquare, Clock } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+interface Review {
+  quote: string;
+  name: string;
+  role: string;
+  initials: string;
+}
 
 function QuoteColumn({
   icon,
   title,
   color,
-  quotes,
+  reviews,
 }: {
   icon: string;
   title: string;
   color: string;
-  quotes: string[];
+  reviews: Review[];
 }) {
   return (
     <div>
       <div className="text-[13.5px] font-bold mb-3.5" style={{ color }}>
         {icon} {title}
       </div>
-      {quotes.map((q) => (
-        <blockquote
-          key={q}
-          className="text-[13px] text-zinc-300 italic leading-relaxed py-3 border-b border-white/5 last:border-none"
+      {reviews.map((r) => (
+        <div
+          key={r.name + r.quote}
+          className="flex gap-3 py-3 border-b border-white/5 last:border-none"
         >
-          "{q}"
-        </blockquote>
+          <Avatar className="h-8 w-8 rounded-full border border-white/10 shrink-0">
+            <AvatarFallback className="bg-zinc-800 text-white text-[10.5px] font-bold rounded-full w-full h-full flex items-center justify-center">
+              {r.initials}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <blockquote className="text-[13px] text-zinc-300 italic leading-relaxed">
+              "{r.quote}"
+            </blockquote>
+            <p className="mt-1.5 text-[11.5px] text-zinc-500">
+              <span className="font-semibold text-zinc-400">{r.name}</span> · {r.role}
+            </p>
+          </div>
+        </div>
       ))}
     </div>
   );
@@ -76,31 +96,61 @@ interface Metric {
 }
 
 const skillsData: [string, number, number][] = [
-  ["Accountability", 9.6, 9.0],
-  ["Teamwork", 9.4, 9.0],
-  ["Communication", 9.4, 9.0],
-  ["Time Management", 9.4, 9.0],
-  ["Adaptability", 9.3, 9.0],
-  ["Critical Thinking", 9.3, 9.0],
-  ["Attention to Detail", 9.3, 9.0],
-  ["Empathy", 9.3, 9.0],
-  ["Problem Solving", 9.3, 9.0],
-  ["Conflict Resolution", 9.2, 9.0],
-  ["Creativity", 9.2, 9.0],
-  ["Resilience", 8.8, 9.0],
-  ["Leadership", 8.2, 9.0],
+  ["Accountability", 9.6, 8.4],
+  ["Teamwork", 9.4, 8.9],
+  ["Communication", 9.4, 7.8],
+  ["Time Management", 9.4, 8.0],
+  ["Adaptability", 9.3, 8.6],
+  ["Critical Thinking", 9.3, 9.1],
+  ["Attention to Detail", 9.3, 7.5],
+  ["Empathy", 9.3, 8.8],
+  ["Problem Solving", 9.3, 8.9],
+  ["Conflict Resolution", 9.2, 7.6],
+  ["Creativity", 9.2, 9.3],
+  ["Resilience", 8.8, 8.1],
+  ["Leadership", 8.2, 8.8],
 ];
 
-const fortalezas = [
-  "Muy comprometido con el equipo. Toma la iniciativa.",
-  "Fue un gusto trabajar en equipo, hubo ayuda y empatía en los momentos difíciles.",
-  "Posee mucho pensamiento crítico y sabe llevar al equipo.",
+const fortalezas: Review[] = [
+  {
+    quote: "Muy comprometido con el equipo. Toma la iniciativa.",
+    name: "Camila Duarte",
+    role: "PM",
+    initials: "CD",
+  },
+  {
+    quote: "Fue un gusto trabajar en equipo, hubo ayuda y empatía en los momentos difíciles.",
+    name: "Martín Aguirre",
+    role: "Backend Dev",
+    initials: "MA",
+  },
+  {
+    quote: "Posee mucho pensamiento crítico y sabe llevar al equipo.",
+    name: "Sofía Bianchi",
+    role: "UX Designer",
+    initials: "SB",
+  },
 ];
 
-const mejoras = [
-  "Reforzar la comunicación y la documentación en próximos proyectos.",
-  "Podría acompañar más de cerca a compañeros con menos experiencia.",
-  "Seguir trabajando la gestión del tiempo bajo presión.",
+const mejoras: Review[] = [
+  {
+    quote: "Reforzar la comunicación y la documentación en próximos proyectos.",
+    name: "Lucas Peralta",
+    role: "Frontend Dev",
+    initials: "LP",
+  },
+  {
+    quote: "Podría acompañar más de cerca a compañeros con menos experiencia.",
+    name: "Valeria Suárez",
+    role: "QA Tester",
+    initials: "VS",
+  },
+  {
+    quote: "Seguir trabajando la gestión del tiempo bajo presión.",
+    name: "Camila Duarte",
+    role: "PM",
+    initials: "CD",
+  },
 ];
 
 export default function EvidenciaEnVivo() {
@@ -165,6 +215,7 @@ export default function EvidenciaEnVivo() {
       color: "#646CF6",
       label: "Reuniones asistidas",
       content: <CountUp target={14} started={started} />,
+      sub: "durante 5 semanas",
     },
     {
       icon: MessageSquare,
@@ -193,7 +244,7 @@ export default function EvidenciaEnVivo() {
           <div className="flex items-center gap-3 mb-4 md:mb-6 select-none">
             <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
             <span className="text-xs font-bold tracking-[0.2em] text-[#8a8a94] uppercase">
-              04 — La evidencia, en vivo
+              04 La evidencia, en vivo
             </span>
           </div>
           <h2 className="text-2xl md:text-[40px] font-bold tracking-tight leading-tight max-w-2xl">
@@ -229,13 +280,17 @@ export default function EvidenciaEnVivo() {
             </div>
             <h3 className="mt-2.5 text-2xl md:text-[28px] font-extrabold">Resultado final</h3>
 
-            {/* Banner */}
-            <div className="mt-5 flex gap-3.5 p-4 md:p-5 border border-[#F5A623]/30 bg-[#F5A623]/[0.06] rounded-xl">
-              <span className="text-xl shrink-0">🏆</span>
+            {/* Perfil */}
+            <div className="mt-5 flex items-center gap-3.5 p-4 md:p-5 border border-white/10 bg-white/[0.03] rounded-xl">
+              <Avatar className="h-11 w-11 md:h-12 md:w-12 rounded-full border-2 border-white/10 shrink-0">
+                <AvatarFallback className="bg-gradient-to-br from-[#FF0094] to-[#02BEEF] text-white text-sm font-bold rounded-full w-full h-full flex items-center justify-center">
+                  VR
+                </AvatarFallback>
+              </Avatar>
               <div>
-                <b className="text-[14.5px]">Simulación finalizada.</b>
-                <p className="mt-1 text-[13px] text-zinc-400 leading-relaxed">
-                  Este resumen refleja tu actividad y participación — no es una nota de aprobación. Medimos presencia, colaboración y cómo te vieron tus compañeros.
+                <b className="text-[14.5px]">Valentina Ríos</b>
+                <p className="mt-0.5 text-[12.5px] text-zinc-400">
+                  UX/UI Designer · Argentina — estos son sus insights individuales de la simulación
                 </p>
               </div>
             </div>
@@ -313,8 +368,8 @@ export default function EvidenciaEnVivo() {
 
             {/* Áreas de fortaleza / mejora */}
             <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-5">
-              <QuoteColumn icon="★" title="Áreas de fortaleza" color="#0CFCA7" quotes={fortalezas} />
-              <QuoteColumn icon="↗" title="Áreas de mejora" color="#02BEEF" quotes={mejoras} />
+              <QuoteColumn icon="★" title="Áreas de fortaleza" color="#0CFCA7" reviews={fortalezas} />
+              <QuoteColumn icon="↗" title="Áreas de mejora" color="#02BEEF" reviews={mejoras} />
             </div>
           </div>
         </div>

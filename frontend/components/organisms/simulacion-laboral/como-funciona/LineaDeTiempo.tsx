@@ -33,7 +33,7 @@ const legend = [
     border: "#c4c4cc",
   },
   {
-    title: "Cierre",
+    title: "Demo Day y cierre",
     desc: "Peer review, entrega final y presentación de resultados.",
     border: "#FF0094",
   },

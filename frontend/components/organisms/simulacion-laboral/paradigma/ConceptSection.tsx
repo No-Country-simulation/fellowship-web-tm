@@ -8,7 +8,7 @@ export default function ConceptSection() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#939393]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF0094] shadow-[0_0_12px_#FF0094]" />
-              01 — El concepto
+              01 El concepto
             </div>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               Qué es{" "}
