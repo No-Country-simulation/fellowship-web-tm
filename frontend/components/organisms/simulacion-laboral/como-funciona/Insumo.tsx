@@ -17,7 +17,7 @@ const verbos = [
 const fuentes = [
   "Empresa",
   "Institución",
-  "Sector",
+  "Startup",
   "Caso ficcionalizado",
 ];
 
@@ -70,7 +70,7 @@ export default function Insumo() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#8a8a94]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF0094] shadow-[0_0_10px_#FF0094]" />
-              03 — El insumo
+              03 — El desafío
             </div>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               Un problema abierto. <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">No una respuesta correcta.</em>
