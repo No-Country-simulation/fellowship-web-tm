@@ -1,10 +1,11 @@
 import { Reveal } from "@/components/ui/reveal";
 
 const orbitNodes = [
-  { cx: 105, cy: 150, label: "Learning" },
-  { cx: 105, cy: 330, label: "Knowledge" },
-  { cx: 395, cy: 150, label: "Evidence" },
-  { cx: 395, cy: 330, label: "Work" },
+  { cx: 250, cy: 65, label: "Stakeholders" },
+  { cx: 407, cy: 179, label: "Evidence" },
+  { cx: 347, cy: 364, label: "Work" },
+  { cx: 153, cy: 364, label: "Knowledge" },
+  { cx: 93, cy: 179, label: "Learning" },
 ];
 
 const legend = [
@@ -124,7 +125,7 @@ export default function Programa() {
 
               {dotColors.map((color, i) => (
                 <circle key={color} r={7} fill={color} style={{ filter: "drop-shadow(0 0 4px currentColor)" }}>
-                  <animateMotion dur="9s" repeatCount="indefinite" begin={`${-i * 1.8}s`}>
+                  <animateMotion dur="14s" repeatCount="indefinite" begin={`${-i * 2.8}s`}>
                     <mpath href="#programaOrbitPath" />
                   </animateMotion>
                 </circle>
