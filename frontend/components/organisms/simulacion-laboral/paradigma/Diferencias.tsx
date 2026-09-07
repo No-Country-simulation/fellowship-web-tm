@@ -12,9 +12,9 @@ const diffCards: DiffCard[] = [
   {
     icon: School,
     tag: "Bootcamp",
-    title: "Enseña. No mide.",
+    title: "Enseña conocimientos, no observa",
     detail:
-      "Enseña habilidades técnicas. La simulación mide cómo se aplican bajo presión real, en equipo. Son complementarios, no competidores.",
+      "Forma en habilidades técnicas y blandas. La simulación mide cómo se aplican bajo presión real, en equipo. Son complementarios, no competidores.",
   },
   {
     icon: ListChecks,
@@ -25,7 +25,7 @@ const diffCards: DiffCard[] = [
   },
   {
     icon: Timer,
-    tag: "Hackathon",
+    tag: "Hackathon Tradicional",
     title: "48 horas no predicen 5 semanas.",
     detail:
       "Presión extrema y corta. Alguien puede brillar un fin de semana y desaparecer en la semana 3 de un proyecto real.",
@@ -47,7 +47,7 @@ export default function Diferencias() {
         <div className="flex items-center gap-3 mb-4 md:mb-6 select-none">
           <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
           <span className="text-xs font-bold tracking-[0.2em] text-zinc-400 uppercase">
-            03 — Comparación directa
+            03 Comparación directa
           </span>
         </div>
 

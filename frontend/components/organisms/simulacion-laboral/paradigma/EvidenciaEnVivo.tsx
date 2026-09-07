@@ -193,7 +193,7 @@ export default function EvidenciaEnVivo() {
           <div className="flex items-center gap-3 mb-4 md:mb-6 select-none">
             <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
             <span className="text-xs font-bold tracking-[0.2em] text-[#8a8a94] uppercase">
-              04 — La evidencia, en vivo
+              04  La evidencia, en vivo
             </span>
           </div>
           <h2 className="text-2xl md:text-[40px] font-bold tracking-tight leading-tight max-w-2xl">

@@ -54,7 +54,7 @@ export default function ElMecanismo() {
           <div className="flex items-center gap-3 mb-6 select-none">
             <div className="h-[2px] w-6 bg-gradient-to-r from-[#FF0094] to-[#02BEEF] rounded-full shrink-0" />
             <span className="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase">
-              05 — El mecanismo
+              05 El mecanismo
             </span>
           </div>
           <h2 className="text-3xl md:text-[42px] font-bold text-white tracking-tight leading-tight">
