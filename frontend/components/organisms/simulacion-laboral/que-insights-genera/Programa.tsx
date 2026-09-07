@@ -1,11 +1,11 @@
 import { Reveal } from "@/components/ui/reveal";
 
 const orbitNodes = [
-  { cx: 250, cy: 65, label: "Stakeholders" },
-  { cx: 407, cy: 179, label: "Evidence" },
-  { cx: 347, cy: 364, label: "Work" },
-  { cx: 153, cy: 364, label: "Knowledge" },
-  { cx: 93, cy: 179, label: "Learning" },
+  { cx: 250, cy: 65, label: "Interesados" },
+  { cx: 407, cy: 179, label: "Evidencia" },
+  { cx: 347, cy: 364, label: "Trabajo" },
+  { cx: 153, cy: 364, label: "Conocimiento" },
+  { cx: 93, cy: 179, label: "Aprendizaje" },
 ];
 
 const legend = [
@@ -116,10 +116,10 @@ export default function Programa() {
                   Laboral
                 </text>
                 <text x={250} y={263} fontSize={9.5} fill="#939393" fontWeight={600} textAnchor="middle">
-                  Execution · Collaboration
+                  Ejecución · Colaboración
                 </text>
                 <text x={250} y={278} fontSize={9.5} fill="#939393" fontWeight={600} textAnchor="middle">
-                  Decisions · Delivery · Observation
+                  Decisiones · Entregas · Observación
                 </text>
               </g>
 

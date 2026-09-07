@@ -85,7 +85,7 @@ export default function SenalAlInsight() {
               transform: stepsIn[0] ? "translateY(0)" : "translateY(14px)",
             }}
           >
-            <div className="text-[15px] font-extrabold uppercase tracking-[0.02em] text-[#0a0a0f]">Signals</div>
+            <div className="text-[15px] font-extrabold uppercase tracking-[0.02em] text-[#0a0a0f]">Señales</div>
             <div className="mt-3.5 flex flex-wrap gap-2">
               {signalItems.map((label, i) => (
                 <span
@@ -118,7 +118,7 @@ export default function SenalAlInsight() {
               transform: stepsIn[2] ? "translateY(0)" : "translateY(14px)",
             }}
           >
-            <div className="text-[15px] font-extrabold uppercase tracking-[0.02em] text-[#0a0a0f]">Patterns</div>
+            <div className="text-[15px] font-extrabold uppercase tracking-[0.02em] text-[#0a0a0f]">Patrones</div>
             <div className="mt-3.5 flex flex-wrap gap-2">
               {patternItems.map((item, i) => (
                 <span

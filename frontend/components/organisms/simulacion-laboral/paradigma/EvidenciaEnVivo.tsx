@@ -96,19 +96,19 @@ interface Metric {
 }
 
 const skillsData: [string, number, number][] = [
-  ["Accountability", 9.6, 8.4],
-  ["Teamwork", 9.4, 8.9],
-  ["Communication", 9.4, 7.8],
-  ["Time Management", 9.4, 8.0],
-  ["Adaptability", 9.3, 8.6],
-  ["Critical Thinking", 9.3, 9.1],
-  ["Attention to Detail", 9.3, 7.5],
-  ["Empathy", 9.3, 8.8],
-  ["Problem Solving", 9.3, 8.9],
-  ["Conflict Resolution", 9.2, 7.6],
-  ["Creativity", 9.2, 9.3],
-  ["Resilience", 8.8, 8.1],
-  ["Leadership", 8.2, 8.8],
+  ["Responsabilidad", 9.6, 8.4],
+  ["Trabajo en equipo", 9.4, 8.9],
+  ["Comunicación", 9.4, 7.8],
+  ["Gestión del tiempo", 9.4, 8.0],
+  ["Adaptabilidad", 9.3, 8.6],
+  ["Pensamiento crítico", 9.3, 9.1],
+  ["Atención al detalle", 9.3, 7.5],
+  ["Empatía", 9.3, 8.8],
+  ["Resolución de problemas", 9.3, 8.9],
+  ["Resolución de conflictos", 9.2, 7.6],
+  ["Creatividad", 9.2, 9.3],
+  ["Resiliencia", 8.8, 8.1],
+  ["Liderazgo", 8.2, 8.8],
 ];
 
 const fortalezas: Review[] = [
