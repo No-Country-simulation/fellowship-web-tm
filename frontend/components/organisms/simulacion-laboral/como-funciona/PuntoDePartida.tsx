@@ -3,13 +3,14 @@
 import { Reveal } from "@/components/ui/reveal";
 
 const chips = [
-  "Población",
-  "Perfiles",
+  "Convocatoria",
+  "Equipos",
   "Conocimientos",
-  "Cantidad de participantes",
-  "Objetivos",
-  "Contexto",
-  "Criterios de participación",
+  "Mentores y jurados",
+  "Proyectos",
+  "Decisores invitados",
+  "Duración",
+  "Reportes",
 ];
 
 export default function PuntoDePartida() {
@@ -23,7 +24,7 @@ export default function PuntoDePartida() {
               01 — El punto de partida
             </div>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
-              La institución <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">define el terreno</em>
+              La institución <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">define los parámetros</em>
             </h2>
           </div>
         </Reveal>
