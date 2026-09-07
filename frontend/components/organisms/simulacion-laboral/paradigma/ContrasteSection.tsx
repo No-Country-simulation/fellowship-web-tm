@@ -9,7 +9,7 @@ const contrastRows = [
   { left: "Individual", right: "Equipo" },
   { left: "Condiciones controladas", right: "Contexto dinámico" },
   { left: "Resultado", right: "Proceso + resultado" },
-  { left: "Snapshot", right: "Trayectoria" },
+  { left: "Instantánea", right: "Trayectoria" },
   { left: "Evaluación", right: "Observación" },
 ];
 

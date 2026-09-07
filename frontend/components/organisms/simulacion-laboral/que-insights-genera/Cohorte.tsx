@@ -88,7 +88,7 @@ export default function Cohorte() {
             {/* Individuals */}
             <div className="flex items-center gap-5">
               <span className="w-24 text-[11px] font-bold uppercase tracking-widest text-[#8a8a94] shrink-0">
-                Individuals
+                Personas
               </span>
               <div className="flex flex-wrap gap-2">
                 {individuals.map((color, i) => (
@@ -112,7 +112,7 @@ export default function Cohorte() {
             {/* Teams */}
             <div className="flex items-center gap-5">
               <span className="w-24 text-[11px] font-bold uppercase tracking-widest text-[#8a8a94] shrink-0">
-                Teams
+                Equipos
               </span>
               <div className="flex gap-2">
                 {[0, 1, 2, 3].map((i) => (
@@ -136,7 +136,7 @@ export default function Cohorte() {
             {/* Cohort */}
             <div className="flex items-center gap-5">
               <span className="w-24 text-[11px] font-bold uppercase tracking-widest text-[#8a8a94] shrink-0">
-                Cohort
+                Cohorte
               </span>
               <div
                 className="h-4 w-56 rounded-full bg-[linear-gradient(90deg,#FF0094,#02BEEF)]"

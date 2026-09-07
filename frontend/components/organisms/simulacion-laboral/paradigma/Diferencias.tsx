@@ -18,7 +18,7 @@ const diffCards: DiffCard[] = [
   },
   {
     icon: ListChecks,
-    tag: "Assessment",
+    tag: "Evaluación",
     title: "Un momento. No un patrón.",
     detail:
       "Mide conocimiento en modo test, en condiciones artificiales. La simulación mide comportamiento sostenido, sin que el foco sea \"ser evaluado\".",
