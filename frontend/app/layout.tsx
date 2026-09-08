@@ -18,12 +18,6 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
 };
 
 export default function RootLayout({
@@ -37,18 +31,6 @@ export default function RootLayout({
         className="min-h-full flex flex-col bg-[#000115] text-white"
         style={{ fontFamily: "var(--font-dm-sans)" }}
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
