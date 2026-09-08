@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/organisms/shared/Navbar";
 import { siteConfig, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import "flag-icons/css/flag-icons.min.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
