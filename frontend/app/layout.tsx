@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/organisms/shared/Navbar";
 import { siteConfig, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import "flag-icons/css/flag-icons.min.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -11,6 +12,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
@@ -30,6 +37,18 @@ export default function RootLayout({
         className="min-h-full flex flex-col bg-[#000115] text-white"
         style={{ fontFamily: "var(--font-dm-sans)" }}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
