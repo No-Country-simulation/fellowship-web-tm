@@ -25,7 +25,7 @@ const paths: PathCard[] = [
     tag: "Para instituciones",
     desc: "Somos el puente hacia el mercado laboral.",
     cta: "Coordinar",
-    href: "/para-empresas/empleabilidad",
+    href: "/para-instituciones",
   },
 ];
 
