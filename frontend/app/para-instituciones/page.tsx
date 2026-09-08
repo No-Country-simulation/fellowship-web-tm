@@ -2,6 +2,7 @@ import TalentPipeline from "@/components/organisms/para-instituciones/TalentPipe
 import Diferenciacion from "@/components/organisms/para-instituciones/Diferenciacion";
 import CasoDeExito from "@/components/organisms/para-instituciones/CasoDeExito";
 import Adaptable from "@/components/organisms/para-instituciones/Adaptable";
+import Integracion from "@/components/organisms/para-instituciones/Integracion";
 
 export default function Page() {
   return (
@@ -10,6 +11,7 @@ export default function Page() {
       <Diferenciacion />
       <CasoDeExito />
       <Adaptable />
+      <Integracion />
     </main>
   );
 }
