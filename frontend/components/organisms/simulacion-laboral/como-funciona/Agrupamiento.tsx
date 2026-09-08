@@ -138,12 +138,15 @@ export default function Agrupamiento() {
 
   useEffect(() => {
     if (!started) return;
+
     const changeProfiles = () => {
       setProfiles(getRandomProfiles(5));
-      const delay = 1000 + Math.random() * 1500;
+      const delay = 3000 + Math.random() * 2000; // entre 3 y 5 segundos
       timeoutRef.current = setTimeout(changeProfiles, delay);
     };
+
     changeProfiles();
+
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };

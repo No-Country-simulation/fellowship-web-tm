@@ -12,9 +12,7 @@ type NavLink = {
   children?: { label: string; href: string }[];
 };
 
-const navLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  {
+const navLinks: NavLink[] = [  {
     label: "Simulación Laboral",
     children: [
       { label: "Paradigma", href: "/simulacion-laboral/paradigma" },
