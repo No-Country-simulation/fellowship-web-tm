@@ -22,7 +22,7 @@ const navLinks: NavLink[] = [  {
     ],
   },
   { label: "Para Talento", href: "/simulacion-laboral/paradigma" },
-  { label: "Para Instituciones", href: "/para-empresas/empleabilidad" },
+  { label: "Para Instituciones", href: "/para-instituciones" },
   {
     label: "Para Empresas",
     children: [
