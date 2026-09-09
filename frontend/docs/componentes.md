@@ -122,12 +122,12 @@
 
 ## Footer
 - **Descripción:** Pie de página principal con mensaje de marca, enlaces de navegación, redes sociales, derechos de autor y elementos geométricos decorativos.
-- **Props:** `className?: string` (opcional).
+- **Props:** `className?: string` (opcional), `lastUpdated?: { date: Date; url: string }` (opcional).
 - **Dependencias:** `@/lib/utils`.
 - **Uso:**
   ```tsx
   import Footer from "@/components/organisms/shared/Footer";
-  <Footer />
+  <Footer lastUpdated={{ date: new Date(), url: "https://nocountry.tech" }} />
   ```
 
 ## Reveal (utilidad compartida)
@@ -352,10 +352,70 @@ Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el
 
 ## Componentes de "Para Instituciones"
 
-Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento hasta el CTA final de la página (secciones 08 a 13 del documento de contenido).
+Página `/para-instituciones`. Incluye el problema, la solución, beneficios, comunidad, visibilidad orgánica, ecosistema, talent pipeline, diferenciación, caso de éxito, adaptable, integración y CTA final. (El Hero aún no está definido y se agregará más adelante.)
+
+### ElProblema
+- **Descripción:** "02 — El problema". Sección clara con tres cards que describen los problemas principales de las instituciones: falta de experiencia, difícil demostrar capacidades y desconexión con el mercado. Incluye frase de cierre con borde izquierdo rosa.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ElProblema from "@/components/organisms/para-instituciones/ElProblema";
+  <ElProblema />
+  ```
+
+### LaSolucion
+- **Descripción:** "03 — La solución". Sección de fondo claro con 5 tarjetas que describen el proceso: diseño del desafío, formación de equipos, ejecución, generación de evidencia y conexión con oportunidades.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import LaSolucion from "@/components/organisms/para-instituciones/LaSolucion";
+  <LaSolucion />
+  ```
+
+### Beneficios
+- **Descripción:** "04 — Beneficios". Sección clara que presenta dos bloques: Experiencia (con chips de problemas, plazos, etc.) y Empleabilidad (con comparación antes/después y chips de evidencia). Cada bloque tiene un cierre con borde izquierdo rosa.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Beneficios from "@/components/organisms/para-instituciones/Beneficios";
+  <Beneficios />
+  ```
+
+### Comunidad
+- **Descripción:** "05 — Comunidad". Sección oscura con chips de acciones que la simulación permite (trabajar juntos, comunicarse, resolver, compartir, volver a interactuar) y chips de lo que la institución puede activar (equipos, desafíos, comunidades, eventos, demos, peer review, networking). Cierra con frase destacada.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Comunidad from "@/components/organisms/para-instituciones/Comunidad";
+  <Comunidad />
+  ```
+
+### VisibilidadOrganica
+- **Descripción:** "06 — Visibilidad orgánica". Sección clara que explica cómo la experiencia genera contenido para la marca. Incluye flujo de 5 pasos (Experiencia → Contenido → Participantes → Redes → Alcance) y 4 cards de amplificación. Cierra con dos beneficios resumidos.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import VisibilidadOrganica from "@/components/organisms/para-instituciones/VisibilidadOrganica";
+  <VisibilidadOrganica />
+  ```
+
+### Ecosistema
+- **Descripción:** "07 — Ecosistema". Sección oscura con 4 cards de actores del ecosistema (Empresas, Mentores, Jurados, Profesionales). Incluye frase de cierre.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react`, `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Ecosistema from "@/components/organisms/para-instituciones/Ecosistema";
+  <Ecosistema />
+  ```
 
 ### TalentPipeline
-- **Descripción:** "08 — Talent pipeline". Pista horizontal animada con 4 paradas y una final (ícono ✓), con dos luces (rosa y cian) que recorren el trayecto en loop vía `animateMotion` nativo de SVG. Debajo, las etiquetas del recorrido completo: Formación → Simulación → Evidencia → Visibilidad del talento → Oportunidades laborales. Cierra con un bloque "Staffing".
+- **Descripción:** "08 — Talent pipeline". Pista animada horizontal que representa el recorrido del talento: Formación → Simulación → Evidencia → Visibilidad del talento → Oportunidades laborales. Incluye línea con luces viajando en loop y texto de staffing.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
@@ -365,9 +425,9 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
   ```
 
 ### Diferenciacion
-- **Descripción:** "09 — Diferenciación". Card comparativa de dos columnas: "en lugar de competir solamente por" (lista con ✕ — Contenidos, Profesores, Certificaciones, Horas de formación — que entra en cascada al hacer scroll) vs. "podés ofrecer" (texto destacado). Debajo, chips de a quién le sirve (Bootcamps, Universidades, Academias, Programas públicos, Programas corporativos, Iniciativas de empleabilidad).
+- **Descripción:** "09 — Diferenciación". Sección clara con comparación "En lugar de competir por X → podés ofrecer Y" y chips de a quién le sirve (bootcamps, universidades, academias, programas públicos, corporativos, empleabilidad).
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
   import Diferenciacion from "@/components/organisms/para-instituciones/Diferenciacion";
@@ -375,9 +435,9 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
   ```
 
 ### CasoDeExito
-- **Descripción:** "10 — Caso de éxito". Mockup de card oscura (mismo patrón que `EvidenciaEnVivo`) con el caso Oracle Next Education: tag "CASO REAL", link "Verificado en oracle.com", banner con ícono de cohete y 4 métricas con conteo animado al entrar en pantalla (+2.500 Participantes, 4 Ediciones, +25 Países, 30 Semanas) — mismos números reales ya usados en `CasoOracle` de la home, para que no haya inconsistencias entre páginas.
+- **Descripción:** "10 — Caso de éxito". Presenta el caso Oracle Next Education con métricas (+2.500 participantes, 4 ediciones, +25 países, 30 semanas) y link externo a oracle.com.
 - **Props:** Ninguna.
-- **Dependencias:** `lucide-react` (ícono `Rocket`), `@/components/ui/reveal`.
+- **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
   import CasoDeExito from "@/components/organisms/para-instituciones/CasoDeExito";
@@ -385,7 +445,7 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
   ```
 
 ### Adaptable
-- **Descripción:** "11 — Adaptable". Lista de filas especificación → valor (Disciplinas, Sectores, Modalidades, Duración, Desafíos, Soluciones a medida), cada una con sus chips y su propio fade-in escalonado al hacer scroll.
+- **Descripción:** "11 — Adaptable". Filas de especificación (disciplinas, sectores, modalidades, duración, desafíos, soluciones a medida) para mostrar la flexibilidad de la simulación.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
@@ -395,9 +455,9 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
   ```
 
 ### Integracion
-- **Descripción:** "12 — Integración". Animación de rompecabezas: dos piezas SVG con muesca curva (misma geometría que el mockup de diseño) que se deslizan desde los costados y encajan; al unirse aparece un destello y un `+` en el punto de contacto. A la derecha, una flecha y el bloque "Genera" con los 5 resultados (Experience, Evidence, Ecosystem, Community, Opportunities).
+- **Descripción:** "12 — Integración". Animación de rompecabezas donde dos piezas se deslizan y encajan, con un signo "+" que aparece en el punto de unión. Representa la integración de la simulación en programas existentes.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
   import Integracion from "@/components/organisms/para-instituciones/Integracion";
@@ -405,9 +465,9 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
   ```
 
 ### CTAInstituciones
-- **Descripción:** CTA de cierre propio de la página ("¿Qué podría simular tu programa?"), con botón "Diseñar una Simulación". El botón todavía no tiene una página de destino — no hay un formulario/contacto armado para esta página.
+- **Descripción:** CTA final de la página "¿Qué podría simular tu programa?".
 - **Props:** Ninguna.
-- **Dependencias:** `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`.
+- **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
   ```tsx
   import CTAInstituciones from "@/components/organisms/para-instituciones/CTAInstituciones";
@@ -416,4 +476,4 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
 
 ---
 
-**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
+**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). El componente HeroInstituciones está pendiente y se añadirá cuando se defina su diseño.
