@@ -352,7 +352,67 @@ Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el
 
 ## Componentes de "Para Instituciones"
 
-Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento hasta el CTA final de la página (secciones 08 a 13 del documento de contenido).
+Sección de la página `/para-instituciones`. Cubre desde el problema hasta el CTA final de la página (secciones 02 a 13 del documento de contenido).
+
+### ElProblema
+- **Descripción:** "02 — El problema". Sección clara que presenta 3 problemas de las instituciones (falta de experiencia, difícil demostrar capacidades, desconexión con el mercado) en cards con iconos y colores de la paleta. Cierra con frase destacada sobre la Simulación Laboral como capa de experiencia y evidencia.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (íconos `Download`, `GraduationCap`, `Link2`), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ElProblema from "@/components/organisms/para-instituciones/ElProblema";
+  <ElProblema />
+  ```
+
+### LaSolucion
+- **Descripción:** "03 — La solución". Sección con 5 pasos (Diseñamos el desafío, Formamos equipos, Ejecutan varias semanas, Generamos evidencia, Conectamos la experiencia con oportunidades) presentados en cards con iconos de lucide y animaciones de entrada escalonadas.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (íconos `Target`, `Users`, `Briefcase`, `BarChart2`, `Link2`), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import LaSolucion from "@/components/organisms/para-instituciones/LaSolucion";
+  <LaSolucion />
+  ```
+
+### Beneficios
+- **Descripción:** "04 — Beneficios". Sección que divide los beneficios en dos bloques: Experiencia (problemas abiertos, equipos, plazos, entregables, decisiones) y Empleabilidad (evidencias de ejecución, colaboración, trayectoria, feedback). Incluye comparación "Antes" vs "Con Simulación Laboral" y frases de resultado con borde izquierdo rosa.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Beneficios from "@/components/organisms/para-instituciones/Beneficios";
+  <Beneficios />
+  ```
+
+### Comunidad
+- **Descripción:** "05 — Comunidad". Sección oscura que muestra cómo una experiencia compartida transforma una audiencia en comunidad: acciones (trabajar juntos, comunicarse, resolver, compartir) y elementos que la institución puede activar (equipos, desafíos, comunidades, eventos, demos, peer review, networking). Cierra con pull quote.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Comunidad from "@/components/organisms/para-instituciones/Comunidad";
+  <Comunidad />
+  ```
+
+### VisibilidadOrganica
+- **Descripción:** "06 — Visibilidad orgánica". Sección clara que explica cómo la experiencia se convierte en contenido para la marca: flujo Experiencia → Contenido → Participantes → Redes → Alcance, y 4 pasos de amplificación (Sistema genera, Adaptado a la marca, Distribuido por participantes, Amplificación orgánica). Incluye dos cards de beneficios.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import VisibilidadOrganica from "@/components/organisms/para-instituciones/VisibilidadOrganica";
+  <VisibilidadOrganica />
+  ```
+
+### Ecosistema
+- **Descripción:** "07 — Ecosistema". Sección oscura que presenta los actores del ecosistema profesional que pueden involucrarse en la simulación: Empresas, Mentores, Jurados, Profesionales. Cada uno en card con icono y color de la paleta. Cierra con pull quote.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (íconos `Briefcase`, `Users`, `Gavel`, `Star`), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Ecosistema from "@/components/organisms/para-instituciones/Ecosistema";
+  <Ecosistema />
+  ```
 
 ### TalentPipeline
 - **Descripción:** "08 — Talent pipeline". Pista horizontal animada con 4 paradas y una final (ícono ✓), con dos luces (rosa y cian) que recorren el trayecto en loop vía `animateMotion` nativo de SVG. Debajo, las etiquetas del recorrido completo: Formación → Simulación → Evidencia → Visibilidad del talento → Oportunidades laborales. Cierra con un bloque "Staffing".
@@ -416,4 +476,4 @@ Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento
 
 ---
 
-**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
+**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
