@@ -352,7 +352,17 @@ Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el
 
 ## Componentes de "Para Instituciones"
 
-Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento hasta el CTA final de la página (secciones 08 a 13 del documento de contenido).
+Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA final de la página (secciones 01 y 08 a 13 del documento de contenido — las secciones 02 a 07 las armó Augusto).
+
+### HeroInstituciones
+- **Descripción:** "01 — Hero". Hero con eyebrow "For education & training programs", titular en dos líneas (la segunda con gradiente), descripción y dos CTAs (primario "Diseñar una simulación" sin destino todavía, secundario "Ver cómo funciona" que linkea a `/simulacion-laboral/como-funciona`). A la derecha, un panel de vista previa tipo dashboard (subcomponente interno `PreviewCard`): topbar con 3 puntos y el título "Vista previa · Panel institucional", 3 stats (Participantes y Equipos con conteo animado, Semanas como texto fijo "4–6"), 3 filas de equipos con barra de progreso (Fintech 82%, Healthtech 64%, Retail 91%) y un pie con punto verde pulsante ("Entregables y evidencia generándose en tiempo real"). Los números y las barras se disparan con `IntersectionObserver` cuando la card entra en pantalla.
+- **Props:** Ninguna.
+- **Dependencias:** `next/link`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import HeroInstituciones from "@/components/organisms/para-instituciones/HeroInstituciones";
+  <HeroInstituciones />
+  ```
 
 ### TalentPipeline
 - **Descripción:** "08 — Talent pipeline". Pista horizontal animada con 4 paradas y una final (ícono ✓), con dos luces (rosa y cian) que recorren el trayecto en loop vía `animateMotion` nativo de SVG. Debajo, las etiquetas del recorrido completo: Formación → Simulación → Evidencia → Visibilidad del talento → Oportunidades laborales. Cierra con un bloque "Staffing".
