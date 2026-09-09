@@ -261,7 +261,7 @@ Sección de la página `/simulacion-laboral/paradigma`. Comprende desde el Hero 
   ```
 
 ### CTAFinal
-- **Descripción:** CTA de cierre con los 3 caminos por audiencia (Para talento, Para empresas, Para instituciones), cada card linkeando a la ruta real correspondiente (`/simulacion-laboral/paradigma`, `/para-empresas/contratar`, `/para-empresas/empleabilidad`).
+- **Descripción:** CTA de cierre con los 3 caminos por audiencia (Para talento, Para empresas, Para instituciones), cada card linkeando a la ruta real correspondiente (`/simulacion-laboral/paradigma`, `/para-empresas/contratar`, `/para-instituciones`).
 - **Props:** Ninguna.
 - **Dependencias:** `next/link`, `@/components/ui/reveal`.
 - **Uso:**
@@ -346,6 +346,72 @@ Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el
   ```tsx
   import SenalAlInsight from "@/components/organisms/simulacion-laboral/que-insights-genera/SenalAlInsight";
   <SenalAlInsight />
+  ```
+
+---
+
+## Componentes de "Para Instituciones"
+
+Sección de la página `/para-instituciones`. Cubre desde el pipeline de talento hasta el CTA final de la página (secciones 08 a 13 del documento de contenido).
+
+### TalentPipeline
+- **Descripción:** "08 — Talent pipeline". Pista horizontal animada con 4 paradas y una final (ícono ✓), con dos luces (rosa y cian) que recorren el trayecto en loop vía `animateMotion` nativo de SVG. Debajo, las etiquetas del recorrido completo: Formación → Simulación → Evidencia → Visibilidad del talento → Oportunidades laborales. Cierra con un bloque "Staffing".
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import TalentPipeline from "@/components/organisms/para-instituciones/TalentPipeline";
+  <TalentPipeline />
+  ```
+
+### Diferenciacion
+- **Descripción:** "09 — Diferenciación". Card comparativa de dos columnas: "en lugar de competir solamente por" (lista con ✕ — Contenidos, Profesores, Certificaciones, Horas de formación — que entra en cascada al hacer scroll) vs. "podés ofrecer" (texto destacado). Debajo, chips de a quién le sirve (Bootcamps, Universidades, Academias, Programas públicos, Programas corporativos, Iniciativas de empleabilidad).
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import Diferenciacion from "@/components/organisms/para-instituciones/Diferenciacion";
+  <Diferenciacion />
+  ```
+
+### CasoDeExito
+- **Descripción:** "10 — Caso de éxito". Mockup de card oscura (mismo patrón que `EvidenciaEnVivo`) con el caso Oracle Next Education: tag "CASO REAL", link "Verificado en oracle.com", banner con ícono de cohete y 4 métricas con conteo animado al entrar en pantalla (+2.500 Participantes, 4 Ediciones, +25 Países, 30 Semanas) — mismos números reales ya usados en `CasoOracle` de la home, para que no haya inconsistencias entre páginas.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (ícono `Rocket`), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import CasoDeExito from "@/components/organisms/para-instituciones/CasoDeExito";
+  <CasoDeExito />
+  ```
+
+### Adaptable
+- **Descripción:** "11 — Adaptable". Lista de filas especificación → valor (Disciplinas, Sectores, Modalidades, Duración, Desafíos, Soluciones a medida), cada una con sus chips y su propio fade-in escalonado al hacer scroll.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Adaptable from "@/components/organisms/para-instituciones/Adaptable";
+  <Adaptable />
+  ```
+
+### Integracion
+- **Descripción:** "12 — Integración". Animación de rompecabezas: dos piezas SVG con muesca curva (misma geometría que el mockup de diseño) que se deslizan desde los costados y encajan; al unirse aparece un destello y un `+` en el punto de contacto. A la derecha, una flecha y el bloque "Genera" con los 5 resultados (Experience, Evidence, Ecosystem, Community, Opportunities).
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import Integracion from "@/components/organisms/para-instituciones/Integracion";
+  <Integracion />
+  ```
+
+### CTAInstituciones
+- **Descripción:** CTA de cierre propio de la página ("¿Qué podría simular tu programa?"), con botón "Diseñar una Simulación". El botón todavía no tiene una página de destino — no hay un formulario/contacto armado para esta página.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import CTAInstituciones from "@/components/organisms/para-instituciones/CTAInstituciones";
+  <CTAInstituciones />
   ```
 
 ---
