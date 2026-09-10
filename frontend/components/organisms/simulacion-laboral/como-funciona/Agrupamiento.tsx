@@ -214,9 +214,7 @@ export default function Agrupamiento() {
                     key={`node-${i}`}
                     style={{
                       opacity: visibleNodes[i] ? 1 : 0,
-                      transform: visibleNodes[i] ? "scale(1)" : "scale(0.4)",
-                      transformOrigin: `${node.cx}px ${node.cy}px`,
-                      transition: "opacity 0.5s cubic-bezier(0.2,0.8,0.2,1), transform 0.5s cubic-bezier(0.2,0.8,0.2,1)",
+                      transition: "opacity 0.5s cubic-bezier(0.2,0.8,0.2,1)",
                     }}
                   >
                     <circle
