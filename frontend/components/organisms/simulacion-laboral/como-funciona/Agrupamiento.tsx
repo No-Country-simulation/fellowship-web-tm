@@ -74,6 +74,16 @@ const edges = nodes.map((_, i) => {
   };
 });
 
+// Coordenadas del viewBox para convertir posiciones SVG a porcentajes del contenedor.
+// El SVG usa: viewBox="-20 -20 340 340" → 340 unidades de ancho/alto, empezando en -20.
+const VIEWBOX_OFFSET = -20;
+const VIEWBOX_SIZE = 340;
+const PROFILE_RADIUS = 28; // unidades SVG
+const PROFILE_DIAMETER_PCT = ((PROFILE_RADIUS * 2) / VIEWBOX_SIZE) * 100; // ~16.47%
+const FLAG_SIZE_PCT_OF_PROFILE = (20 / (PROFILE_RADIUS * 2)) * 100; // ~35.7%
+
+const toPct = (value: number) => ((value - VIEWBOX_OFFSET) / VIEWBOX_SIZE) * 100;
+
 function getRandomItem<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -141,7 +151,7 @@ export default function Agrupamiento() {
 
     const changeProfiles = () => {
       setProfiles(getRandomProfiles(5));
-      const delay = 3000 + Math.random() * 2000; // entre 3 y 5 segundos
+      const delay = 3000 + Math.random() * 2000;
       timeoutRef.current = setTimeout(changeProfiles, delay);
     };
 
@@ -172,111 +182,69 @@ export default function Agrupamiento() {
               02 — El agrupamiento
             </div>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
-              No elegís a tu equipo. <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">Trabajás con él.</em>
+              No elegís a tu equipo.{" "}
+              <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">
+                Trabajás con él.
+              </em>
             </h2>
           </div>
         </Reveal>
 
         <Reveal delay={150}>
           <div ref={wrapRef} className="mt-12 flex justify-center">
-            <svg viewBox="-20 -20 340 340" className="w-80 md:w-[30rem] flex-shrink-0 overflow-visible">
-              <defs>
-                <linearGradient
-                  id="nc-line-grad"
-                  gradientUnits="userSpaceOnUse"
-                  x1="0" y1="0" x2="320" y2="0"
-                >
-                  <stop offset="0%" stopColor="#FF0094" />
-                  <stop offset="100%" stopColor="#02BEEF" />
-                </linearGradient>
-              </defs>
-
-              {edges.map((edge, i) => (
-                <line
-                  key={`edge-${i}`}
-                  x1={edge.x1}
-                  y1={edge.y1}
-                  x2={edge.x2}
-                  y2={edge.y2}
-                  stroke="url(#nc-line-grad)"
-                  strokeWidth="6"
-                  opacity={drawnEdges[i] ? 1 : 0}
-                  strokeDasharray="400"
-                  strokeDashoffset={drawnEdges[i] ? "0" : "400"}
-                  style={{ transition: "stroke-dashoffset 0.8s ease, opacity 0.2s ease" }}
-                />
-              ))}
-
-              {nodes.map((node, i) => {
-                const rolePos = getRolePosition(node);
-                return (
-                  <g
-                    key={`node-${i}`}
-                    style={{
-                      opacity: visibleNodes[i] ? 1 : 0,
-                      transition: "opacity 0.5s cubic-bezier(0.2,0.8,0.2,1)",
-                    }}
+            {/* Contenedor relativo cuadrado que aloja el SVG y las fotos HTML encima */}
+            <div className="relative w-80 md:w-[30rem] aspect-square">
+              {/* SVG: solo líneas del pentágono, contornos de nodos y textos de rol */}
+              <svg
+                viewBox={`${VIEWBOX_OFFSET} ${VIEWBOX_OFFSET} ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
+                className="absolute inset-0 w-full h-full overflow-visible"
+              >
+                <defs>
+                  <linearGradient
+                    id="nc-line-grad"
+                    gradientUnits="userSpaceOnUse"
+                    x1="0" y1="0" x2="320" y2="0"
                   >
-                    <circle
-                      cx={node.cx}
-                      cy={node.cy}
-                      r={28}
-                      fill="none"
-                      stroke="#2D2B40"
-                      strokeWidth="2"
-                    />
+                    <stop offset="0%" stopColor="#FF0094" />
+                    <stop offset="100%" stopColor="#02BEEF" />
+                  </linearGradient>
+                </defs>
 
-                    <foreignObject x={node.cx - 28} y={node.cy - 28} width="56" height="56" style={{ overflow: "visible" }}>
-                      <div style={{ position: "relative", width: "56px", height: "56px" }}>
-                        <div
-                          style={{
-                            width: "56px",
-                            height: "56px",
-                            borderRadius: "50%",
-                            overflow: "hidden",
-                            backgroundColor: "#0C0C16",
-                          }}
-                        >
-                          {profiles?.[i] && (
-                            <img
-                              src={profiles[i].src}
-                              alt={`Perfil ${i + 1}`}
-                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                          )}
-                        </div>
+                {edges.map((edge, i) => (
+                  <line
+                    key={`edge-${i}`}
+                    x1={edge.x1}
+                    y1={edge.y1}
+                    x2={edge.x2}
+                    y2={edge.y2}
+                    stroke="url(#nc-line-grad)"
+                    strokeWidth="6"
+                    opacity={drawnEdges[i] ? 1 : 0}
+                    strokeDasharray="400"
+                    strokeDashoffset={drawnEdges[i] ? "0" : "400"}
+                    style={{ transition: "stroke-dashoffset 0.8s ease, opacity 0.2s ease" }}
+                  />
+                ))}
 
-                        {profiles?.[i] && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              right: "-2px",
-                              bottom: "-2px",
-                              width: "20px",
-                              height: "20px",
-                              borderRadius: "50%",
-                              overflow: "hidden",
-                              backgroundColor: "#000115",
-                              border: "1px solid #2D2B40",
-                            }}
-                          >
-                            <span
-                              className={`fi fi-${profiles[i].pais.code}`}
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                display: "block",
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                borderRadius: "50%",
-                              }}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </foreignObject>
+                {/* Contornos de los nodos (referencia visual estable en SVG) */}
+                {nodes.map((node, i) => (
+                  <circle
+                    key={`outline-${i}`}
+                    cx={node.cx}
+                    cy={node.cy}
+                    r={PROFILE_RADIUS}
+                    fill="none"
+                    stroke="#2D2B40"
+                    strokeWidth="2"
+                  />
+                ))}
 
+                {/* Roles como SVG <text> (posicionamiento estable en todos los navegadores) */}
+                {nodes.map((node, i) => {
+                  const rolePos = getRolePosition(node);
+                  return (
                     <text
+                      key={`role-${i}`}
                       x={rolePos.x}
                       y={node.cy + 4}
                       textAnchor={rolePos.textAnchor}
@@ -287,10 +255,67 @@ export default function Agrupamiento() {
                     >
                       {profiles?.[i]?.rol}
                     </text>
-                  </g>
+                  );
+                })}
+              </svg>
+
+              {/* Capa HTML encima del SVG: fotos + banderas posicionadas por % */}
+              {nodes.map((node, i) => {
+                const leftPct = toPct(node.cx);
+                const topPct = toPct(node.cy);
+                return (
+                  <div
+                    key={`profile-${i}`}
+                    className="absolute"
+                    style={{
+                      left: `${leftPct}%`,
+                      top: `${topPct}%`,
+                      width: `${PROFILE_DIAMETER_PCT}%`,
+                      aspectRatio: "1 / 1",
+                      transform: "translate(-50%, -50%)",
+                      opacity: visibleNodes[i] ? 1 : 0,
+                      transition: "opacity 0.5s cubic-bezier(0.2,0.8,0.2,1)",
+                    }}
+                  >
+                    <div className="relative w-full h-full">
+                      <div className="w-full h-full rounded-full overflow-hidden bg-[#0C0C16]">
+                        {profiles?.[i] && (
+                          <img
+                            src={profiles[i].src}
+                            alt={`Perfil ${i + 1}`}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          />
+                        )}
+                      </div>
+
+                      {profiles?.[i] && (
+                        <div
+                          className="absolute rounded-full overflow-hidden border border-[#2D2B40] bg-[#000115]"
+                          style={{
+                            width: `${FLAG_SIZE_PCT_OF_PROFILE}%`,
+                            height: `${FLAG_SIZE_PCT_OF_PROFILE}%`,
+                            right: "-4%",
+                            bottom: "-4%",
+                          }}
+                        >
+                          <span
+                            className={`fi fi-${profiles[i].pais.code}`}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              display: "block",
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 );
               })}
-            </svg>
+            </div>
           </div>
         </Reveal>
 
