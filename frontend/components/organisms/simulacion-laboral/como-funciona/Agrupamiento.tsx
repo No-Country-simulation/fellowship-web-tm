@@ -228,52 +228,55 @@ export default function Agrupamiento() {
                       strokeWidth="2"
                     />
 
-                    <foreignObject x={node.cx - 28} y={node.cy - 28} width="56" height="56">
-                      <div
-                        style={{
-                          width: "56px",
-                          height: "56px",
-                          borderRadius: "50%",
-                          overflow: "hidden",
-                          backgroundColor: "#0C0C16",
-                        }}
-                      >
+                    <foreignObject x={node.cx - 28} y={node.cy - 28} width="56" height="56" style={{ overflow: "visible" }}>
+                      <div style={{ position: "relative", width: "56px", height: "56px" }}>
+                        <div
+                          style={{
+                            width: "56px",
+                            height: "56px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            backgroundColor: "#0C0C16",
+                          }}
+                        >
+                          {profiles?.[i] && (
+                            <img
+                              src={profiles[i].src}
+                              alt={`Perfil ${i + 1}`}
+                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                          )}
+                        </div>
+
                         {profiles?.[i] && (
-                          <img
-                            src={profiles[i].src}
-                            alt={`Perfil ${i + 1}`}
-                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              right: "-2px",
+                              bottom: "-2px",
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "50%",
+                              overflow: "hidden",
+                              backgroundColor: "#000115",
+                              border: "1px solid #2D2B40",
+                            }}
+                          >
+                            <span
+                              className={`fi fi-${profiles[i].pais.code}`}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                display: "block",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          </div>
                         )}
                       </div>
                     </foreignObject>
-
-                    {profiles?.[i] && (
-                      <foreignObject x={node.cx + 8} y={node.cy + 8} width="20" height="20">
-                        <div
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            borderRadius: "50%",
-                            overflow: "hidden",
-                            backgroundColor: "#000115",
-                            border: "1px solid #2D2B40",
-                          }}
-                        >
-                          <span
-                            className={`fi fi-${profiles[i].pais.code}`}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              display: "block",
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              borderRadius: "50%",
-                            }}
-                          />
-                        </div>
-                      </foreignObject>
-                    )}
 
                     <text
                       x={rolePos.x}
