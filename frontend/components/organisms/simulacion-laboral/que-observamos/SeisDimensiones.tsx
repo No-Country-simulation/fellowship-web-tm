@@ -244,8 +244,8 @@ export default function SeisDimensiones() {
                   key={d.title}
                   type="button"
                   onClick={() => handleTabClick(i)}
-                  className={`relative flex min-w-[90px] md:min-w-[110px] flex-1 flex-col items-center gap-1.5 px-2 pb-3.5 pt-4 transition-colors duration-300 ${
-                    i === current ? "text-[#0a0a0f]" : "text-[#a0a0a8]"
+                  className={`relative flex min-w-[90px] md:min-w-[110px] flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-t-lg px-2 pb-3.5 pt-4 transition-colors duration-200 hover:bg-[#f8f8fa] ${
+                    i === current ? "text-[#0a0a0f]" : "text-[#a0a0a8] hover:text-[#55555f]"
                   }`}
                 >
                   <span className="absolute left-1 right-1 top-0 h-[2.5px] overflow-hidden rounded-full bg-[#ececec]">
