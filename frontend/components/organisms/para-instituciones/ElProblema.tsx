@@ -2,6 +2,7 @@
 
 import { Reveal } from "@/components/ui/reveal";
 import { Download, GraduationCap, Link2 } from "lucide-react";
+import SectionBadge from "@/components/ui/sectionBadge";
 
 const problemas = [
   {
@@ -33,12 +34,9 @@ export default function ElProblema() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#8a8a94]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FF0094] shadow-[0_0_10px_#FF0094]" />
-              02 — El problema
-            </div>
+            <SectionBadge>02 — El problema</SectionBadge>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
-              Formar talento es <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">solo el comienzo</em>
+              Formar talento es <em className="...">solo el comienzo</em>
             </h2>
           </div>
         </Reveal>
