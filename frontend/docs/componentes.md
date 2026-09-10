@@ -159,6 +159,17 @@
 - **Importante:** `Reveal` controla `transform`/`opacity` por `style` inline en su propio `div`. Si el contenido de adentro necesita su propio efecto de `hover` con `transform` (ej. `hover:-translate-y-1`), ese hover tiene que ir en un `div`/`Link` hijo separado, nunca en el mismo `className` que se le pasa a `Reveal` — si no, el `style` inline de `Reveal` pisa el hover de Tailwind. Ver `Diferencias.tsx`, `GranDiferenciacion.tsx` o `CTAFinal.tsx` como ejemplo del patrón correcto.
 
 ---
+## SectionBadge (utilidad compartida)
+- **Descripción:** Componente compartido para los badges de sección que combinan una barra gradiente (rosa → cian) con el texto en mayúsculas y tracking ancho. Reemplaza el patrón anterior del puntito rosa con glow por un formato unificado (línea + texto), que se usa en las secciones numeradas ("02 — El problema", "03 — La solución", etc.) y también en algunas secciones no numeradas ("Empezá ahora").
+- **Props:** `children: React.ReactNode`, `className?: string` (opcional, para ajustar color del texto o márgenes).
+- **Dependencias:** `@/lib/utils` (función `cn`).
+- **Ubicación:** `@/components/ui/SectionBadge` (no `organisms`, es una utilidad de UI reutilizable).
+- **Uso:**
+  ```tsx
+  import SectionBadge from "@/components/ui/SectionBadge";
+  <SectionBadge>02 — El problema</SectionBadge>
+  ```
+- **Importante:** El componente usa por defecto `text-zinc-500` para el texto. Si una sección necesita otro tono (ej. `text-[#939393]`), se puede pasar por `className`: `<SectionBadge className="text-[#939393]">02 — El problema</SectionBadge>`.
 
 ## Componentes de "Simulación Laboral — El Paradigma"
 
@@ -531,5 +542,14 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
   ```
 
 ---
-
+### SimulacionFormInstituciones
+- **Descripción:** "Bloque de contacto directo". Card con la foto y datos de Leandro (Founder, No Country) y un formulario simple (nombre, institución, email institucional, mensaje opcional) con botón "Enviar a Leandro". Al enviar, el botón cambia a "Enviado ✓" (por ahora es solo estado local, sin backend). Se usa en conjunto con `CTAInstituciones`, que aporta el título, la bajada y el botón principal — este componente se enfoca exclusivamente en el contacto personal.
+- **Props:** Ninguna.
+- **Dependencias:** `next/image`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `react` (`useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import SimulacionFormInstituciones from "@/components/organisms/para-instituciones/SimulacionFormInstituciones";
+  <SimulacionFormInstituciones />
+  ```
+  
 **Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
