@@ -1,3 +1,4 @@
+import HeroInstituciones from "@/components/organisms/para-instituciones/HeroInstituciones";
 import ElProblema from "@/components/organisms/para-instituciones/ElProblema";
 import LaSolucion from "@/components/organisms/para-instituciones/LaSolucion";
 import Beneficios from "@/components/organisms/para-instituciones/Beneficios";
@@ -19,6 +20,10 @@ import SimulacionFormInstituciones from "@/components/organisms/para-institucion
 export default function Page() {
   return (
     <main className="flex flex-col bg-[#000115]">
+      {/* Sección 01 — Hero */}
+      <HeroInstituciones />
+
+      {/* Secciones 02 a 07 — Augusto */}
       <ElProblema />
       <LaSolucion />
       <Beneficios />
