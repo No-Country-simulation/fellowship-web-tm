@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Rocket } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import SectionBadge from "@/components/ui/sectionBadge";
 
 function CountUp({ target, started, suffix = "" }: { target: number; started: boolean; suffix?: string }) {
   const [value, setValue] = useState(0);
@@ -64,10 +65,7 @@ export default function CasoDeExito() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-500">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FF0094] shadow-[0_0_10px_#FF0094]" />
-              10 — Caso de éxito
-            </div>
+            <SectionBadge>10 — Caso de éxito</SectionBadge>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               De formación{" "}
               <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">

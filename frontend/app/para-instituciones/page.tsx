@@ -15,30 +15,26 @@ import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
 import { siteConfig } from "@/lib/seo";
 import { getLastModified } from "@/lib/lastModified";
+import SimulacionFormInstituciones from "@/components/organisms/para-instituciones/SimulacionFormInstituciones";
 
 export default function Page() {
   return (
     <main className="flex flex-col bg-[#000115]">
-      {/* Sección 01 — Hero */}
       <HeroInstituciones />
-
-      {/* Secciones 02 a 07 — Augusto */}
       <ElProblema />
       <LaSolucion />
       <Beneficios />
       <Comunidad />
       <VisibilidadOrganica />
       <Ecosistema />
-
-      {/* Secciones 08 a 13 — Lorenzo */}
       <TalentPipeline />
       <Diferenciacion />
       <CasoDeExito />
       <Adaptable />
       <Integracion />
       <CTAInstituciones />
+      <SimulacionFormInstituciones />
       <CTAFinal />
-
       <Footer
         lastUpdated={{
           date: getLastModified("app/para-instituciones/page.tsx"),
