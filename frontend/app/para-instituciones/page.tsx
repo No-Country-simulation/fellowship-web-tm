@@ -20,10 +20,7 @@ import SimulacionFormInstituciones from "@/components/organisms/para-institucion
 export default function Page() {
   return (
     <main className="flex flex-col bg-[#000115]">
-      {/* Sección 01 — Hero */}
       <HeroInstituciones />
-
-      {/* Secciones 02 a 07 — Augusto */}
       <ElProblema />
       <LaSolucion />
       <Beneficios />
@@ -38,7 +35,6 @@ export default function Page() {
       <CTAInstituciones />
       <SimulacionFormInstituciones />
       <CTAFinal />
-
       <Footer
         lastUpdated={{
           date: getLastModified("app/para-instituciones/page.tsx"),
