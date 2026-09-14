@@ -3,6 +3,7 @@ import Footer from "@/components/organisms/shared/Footer";
 import Alcance from "@/components/organisms/sobre-nosotros/casos-exito/Alcance";
 import AlcanceRegional from "@/components/organisms/sobre-nosotros/casos-exito/AlcanceRegional";
 import Recorrido from "@/components/organisms/sobre-nosotros/casos-exito/Recorrido";
+import ComoSeMide from "@/components/organisms/sobre-nosotros/casos-exito/ComoSeMide";
 import { getLastModified } from "@/lib/lastModified";
 import { siteConfig } from "@/lib/seo";
 
@@ -12,6 +13,7 @@ export default function CasosExitoPage() {
       <Alcance />
       <AlcanceRegional />
       <Recorrido />
+      <ComoSeMide />
       <CTAFinal />
       <Footer
         lastUpdated={{
