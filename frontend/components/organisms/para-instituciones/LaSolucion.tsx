@@ -38,7 +38,7 @@ export default function LaSolucion() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <SectionBadge>03 — La solución</SectionBadge>
+            <SectionBadge>03 La solución</SectionBadge>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               Una experiencia laboral{" "}
               <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">
