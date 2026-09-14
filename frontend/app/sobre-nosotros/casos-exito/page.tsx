@@ -1,6 +1,7 @@
 import CTAFinal from "@/components/organisms/shared/CTAFinal";
 import Footer from "@/components/organisms/shared/Footer";
 import Alcance from "@/components/organisms/sobre-nosotros/casos-exito/Alcance";
+import AlcanceRegional from "@/components/organisms/sobre-nosotros/casos-exito/AlcanceRegional";
 import { getLastModified } from "@/lib/lastModified";
 import { siteConfig } from "@/lib/seo";
 
@@ -8,13 +9,14 @@ export default function CasosExitoPage() {
   return (
     <main className="flex flex-col bg-[#000115]">
       <Alcance />
-    <CTAFinal />
-          <Footer
-            lastUpdated={{
-              date: getLastModified("app/simulacion-laboral/que-insights-genera/page.tsx"),
-              url: `${siteConfig.url}/simulacion-laboral/que-insights-genera`,
-            }}
-          />
+      <AlcanceRegional />
+      <CTAFinal />
+      <Footer
+        lastUpdated={{
+          date: getLastModified("app/sobre-nosotros/casos-exito/page.tsx"),
+          url: `${siteConfig.url}/sobre-nosotros/casos-exito`,
+        }}
+      />
     </main>
   );
 }
