@@ -44,7 +44,7 @@ export default function Diferenciacion() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <SectionBadge>09 — Diferenciación</SectionBadge>
+            <SectionBadge>09 Diferenciación</SectionBadge>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               Diferenciá tu propuesta educativa{" "}
               <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">

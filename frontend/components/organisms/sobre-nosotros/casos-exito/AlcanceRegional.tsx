@@ -70,7 +70,7 @@ export default function AlcanceRegional() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-[720px]">
-            <SectionBadge>02  Alcance regional</SectionBadge>
+            <SectionBadge>02 Alcance regional</SectionBadge>
             <h2 className="mt-4 text-[28px] md:text-[42px] font-bold leading-[1.15] tracking-tight">
               El talento participó desde{" "}
               <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">

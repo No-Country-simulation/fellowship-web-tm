@@ -34,7 +34,7 @@ export default function ElProblema() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <SectionBadge>02 — El problema</SectionBadge>
+            <SectionBadge>02 El problema</SectionBadge>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               Formar talento es <em className="...">solo el comienzo</em>
             </h2>

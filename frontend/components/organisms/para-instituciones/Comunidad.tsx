@@ -27,7 +27,7 @@ export default function Comunidad() {
       <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <SectionBadge>05 — Comunidad</SectionBadge>
+            <SectionBadge>05 Comunidad</SectionBadge>
             <h2 className="mt-4 text-3xl md:text-[42px] font-bold leading-tight tracking-tight">
               Una experiencia compartida <em className="not-italic bg-[linear-gradient(135deg,#FF0094,#02BEEF)] bg-clip-text text-transparent">transforma una audiencia en comunidad</em>
             </h2>
