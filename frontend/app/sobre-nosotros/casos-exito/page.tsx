@@ -5,6 +5,8 @@ import Alcance from "@/components/organisms/sobre-nosotros/casos-exito/Alcance";
 import AlcanceRegional from "@/components/organisms/sobre-nosotros/casos-exito/AlcanceRegional";
 import Recorrido from "@/components/organisms/sobre-nosotros/casos-exito/Recorrido";
 import ComoSeMide from "@/components/organisms/sobre-nosotros/casos-exito/ComoSeMide";
+import DemoDay from "@/components/organisms/sobre-nosotros/casos-exito/DemoDay";
+import ImpactoContratacion from "@/components/organisms/sobre-nosotros/casos-exito/ImpactoContratacion";
 import { getLastModified } from "@/lib/lastModified";
 import { siteConfig } from "@/lib/seo";
 
@@ -16,6 +18,8 @@ export default function CasosExitoPage() {
       <AlcanceRegional />
       <Recorrido />
       <ComoSeMide />
+      <DemoDay />
+      <ImpactoContratacion />
       <CTAFinal />
       <Footer
         lastUpdated={{
