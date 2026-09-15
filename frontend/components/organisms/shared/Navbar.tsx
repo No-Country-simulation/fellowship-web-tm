@@ -12,7 +12,8 @@ type NavLink = {
   children?: { label: string; href: string }[];
 };
 
-const navLinks: NavLink[] = [  {
+const navLinks: NavLink[] = [
+  {
     label: "Simulación Laboral",
     children: [
       { label: "Paradigma", href: "/simulacion-laboral/paradigma" },
@@ -49,7 +50,7 @@ export default function Navbar() {
     <nav className="bg-[#000115] border-b border-[#1c1b29] px-4 md:px-8">
       <div className="max-w-[1300px] mx-auto">
         {/* Desktop */}
-        <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] md:items-center md:h-16 md:gap-8">
+        <div className="hidden xl:grid xl:grid-cols-[auto_1fr_auto] xl:items-center xl:h-16 xl:gap-8">
           <Link href="/" className="shrink-0">
             <Image
               src="/logos/NoCountry.png"
@@ -103,7 +104,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Login a la derecha, estilo correcto */}
+          {/* Login a la derecha */}
           <Link
             href="/login"
             className="justify-self-end shrink-0 px-6 py-3 rounded-md text-sm font-medium transition bg-transparent text-[#FF0094] border border-[rgba(255,0,148,0.35)] hover:bg-[rgba(255,0,148,0.35)]"
@@ -113,7 +114,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile top bar */}
-        <div className="md:hidden flex items-center justify-between h-16">
+        <div className="xl:hidden flex items-center justify-between h-16">
           <Link href="/">
             <Image
               src="/logos/NoCountry.png"
@@ -130,26 +131,35 @@ export default function Navbar() {
             aria-label="Abrir menú"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+              />
             </svg>
           </button>
         </div>
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden pb-4 flex flex-col gap-4">
+          <div className="xl:hidden pb-4 flex flex-col gap-4">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.label} className="flex flex-col gap-3">
                   <button
                     type="button"
-                    onClick={() => setMobileSubOpen(mobileSubOpen === link.label ? null : link.label)}
+                    onClick={() =>
+                      setMobileSubOpen(mobileSubOpen === link.label ? null : link.label)
+                    }
                     aria-expanded={mobileSubOpen === link.label}
                     className="flex items-center justify-between text-sm font-medium text-[#9ca3af] hover:text-white"
                   >
                     {link.label}
                     <span
-                      className={`inline-flex transition-transform duration-200 ${mobileSubOpen === link.label ? "-rotate-180" : ""}`}
+                      className={`inline-flex transition-transform duration-200 ${
+                        mobileSubOpen === link.label ? "-rotate-180" : ""
+                      }`}
                     >
                       <ChevronDown className="h-4 w-4" />
                     </span>
