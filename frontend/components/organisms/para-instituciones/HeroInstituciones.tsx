@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
@@ -11,9 +12,21 @@ const stats = [
 ];
 
 const rows = [
-  { label: "Equipo 03 · Desafío Fintech", w: 82 },
-  { label: "Equipo 07 · Desafío Healthtech", w: 64 },
-  { label: "Equipo 12 · Desafío Retail", w: 91 },
+  {
+    label: "Equipo 03 · Desafío Fintech",
+    w: 82,
+    team: ["perfil03.png", "perfil10.png", "perfil16.png", "perfil24.png"],
+  },
+  {
+    label: "Equipo 07 · Desafío Healthtech",
+    w: 64,
+    team: ["perfil11.png", "perfil17.png", "perfil20.png", "perfil28.png", "perfil35.png"],
+  },
+  {
+    label: "Equipo 12 · Desafío Retail",
+    w: 91,
+    team: ["perfil13.png", "perfil18.png", "perfil29.png"],
+  },
 ];
 
 function CountUp({ target, started }: { target: number; started: boolean }) {
@@ -106,7 +119,20 @@ function PreviewCard() {
         <div className="mt-4 flex flex-col gap-[11px]">
           {rows.map((row) => (
             <div key={row.label}>
-              <span className="text-[11px] font-semibold text-[#C7C9D3]">{row.label}</span>
+              <div className="flex items-center gap-2">
+                <div className="flex -space-x-1.5 shrink-0">
+                  {row.team.map((photo, i) => (
+                    <div
+                      key={photo}
+                      className="relative w-4 h-4 rounded-full overflow-hidden border border-[#0b0c18]"
+                      style={{ zIndex: row.team.length - i }}
+                    >
+                      <Image src={`/people/equipo/${photo}`} alt="" fill className="object-cover" sizes="16px" />
+                    </div>
+                  ))}
+                </div>
+                <span className="text-[11px] font-semibold text-[#C7C9D3]">{row.label}</span>
+              </div>
               <div className="mt-1.5 h-[5px] bg-[#2D2B40] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[linear-gradient(90deg,#FF0094,#02BEEF)] rounded-full"
