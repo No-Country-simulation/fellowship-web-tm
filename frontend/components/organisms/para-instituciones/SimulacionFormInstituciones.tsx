@@ -14,7 +14,7 @@ export default function SimulacionFormInstituciones() {
   };
 
   return (
-    <section className="bg-white text-[#0a0a0f] pt-0 pb-20">
+    <section id="contacto" className="bg-white text-[#0a0a0f] border-t border-[#ECECEC] pt-16 pb-20">
       <div className="max-w-[640px] mx-auto px-6">
         <Reveal>
           <div className="border border-[#ECECEC] bg-[#FAFAFA] rounded-2xl p-6 md:p-8">
