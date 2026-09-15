@@ -10,7 +10,7 @@ const funnel = [
   { label: "Talento job-ready", target: 574, widthPct: 46 },
   { label: "Interacciones", target: 1133, widthPct: 91 },
   { label: "Entrevistas", target: 412, widthPct: 33 },
-  { label: "Contratados", target: 74, widthPct: 6, final: true, extra: "13%" },
+  { label: "Contratados", target: 74, widthPct: 6, final: true },
 ];
 
 export default function FunnelCompleto() {
@@ -67,7 +67,7 @@ export default function FunnelCompleto() {
               </div>
               <span className={`text-[11px] font-bold text-right ${f.final ? "text-[#FF0094] font-extrabold" : "text-white"}`}>
                 {f.target.toLocaleString("es-AR")}
-                {f.extra && <em className="not-italic text-[#939393] font-semibold text-[10px] ml-1">{f.extra}</em>}
+                {<em className="not-italic text-[#939393] font-semibold text-[10px] ml-1"></em>}
               </span>
             </div>
           ))}
