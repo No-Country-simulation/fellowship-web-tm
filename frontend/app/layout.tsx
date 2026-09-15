@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={dmSans.variable}>
+    <html lang="es" className={`${dmSans.variable} scroll-smooth`}>
       <body
         className="min-h-full flex flex-col bg-[#000115] text-white"
         style={{ fontFamily: "var(--font-dm-sans)" }}

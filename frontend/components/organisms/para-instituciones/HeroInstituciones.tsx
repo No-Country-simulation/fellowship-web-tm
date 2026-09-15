@@ -194,13 +194,13 @@ export default function HeroInstituciones() {
 
           <Reveal delay={300}>
             <div className="mt-9 flex flex-wrap gap-4">
-              <button
-                type="button"
+              <a
+                href="#contacto"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium border border-[rgba(255,0,148,0.35)] text-[#FF0094] hover:bg-[rgba(255,0,148,0.2)] transition"
               >
-                Diseñar una simulación
+                Diseñar una solución
                 <ArrowRight className="h-4 w-4" strokeWidth={2} />
-              </button>
+              </a>
 
               <Link
                 href="/simulacion-laboral/como-funciona"
