@@ -23,13 +23,13 @@ export default function CTAInstituciones() {
         </Reveal>
 
         <Reveal delay={200}>
-          <button
-            type="button"
+          <a
+            href="#contacto"
             className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium border border-[#FF0094] text-[#FF0094] hover:bg-[rgba(255,0,148,0.08)] transition"
           >
-            Diseñar una Simulación
+            Diseñar una solución
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
-          </button>
+          </a>
         </Reveal>
 
         <Reveal delay={300}>
