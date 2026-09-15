@@ -14,8 +14,9 @@ interface ChallengeBar {
 
 interface RoleBar {
   name: string;
-  widthPct: number;
+  heightPct: number;
   value: string;
+  color: string;
 }
 
 const challenges: ChallengeBar[] = [
@@ -43,10 +44,10 @@ const challenges: ChallengeBar[] = [
 ];
 
 const roles: RoleBar[] = [
-  { name: "Backend", widthPct: 100, value: "268" },
-  { name: "Front End", widthPct: 87, value: "232" },
-  { name: "Data Scientist", widthPct: 66, value: "178" },
-  { name: "AI Engineer", widthPct: 57, value: "152" },
+  { name: "Backend", heightPct: 100, value: "268", color: "#FF0094" },
+  { name: "Front End", heightPct: 87, value: "232", color: "#C06ECF" },
+  { name: "Data Scientist", heightPct: 66, value: "178", color: "#02BEEF" },
+  { name: "AI Engineer", heightPct: 57, value: "152", color: "#646CF6" },
 ];
 
 const stack = ["OCI", "Java", "Python", "Spring Boot"];
@@ -84,6 +85,21 @@ function BarRow({
         />
       </div>
       <span className="text-[12.5px] font-bold text-[#0a0a0f] text-right">{value}</span>
+    </div>
+  );
+}
+
+function VerticalBar({ name, heightPct, value, color, started }: RoleBar & { started: boolean }) {
+  return (
+    <div className="flex-1 flex flex-col items-center h-full">
+      <span className="mb-2.5 text-[17px] font-extrabold font-['DM_Sans'] text-[#0a0a0f]">{value}</span>
+      <div className="w-full max-w-[52px] flex-1 flex items-end overflow-hidden rounded-t-[10px] rounded-b-[4px] bg-[#ececec]">
+        <div
+          className="w-full rounded-t-[10px] rounded-b-[4px] transition-all duration-[1100ms] ease-out"
+          style={{ height: started ? `${heightPct}%` : "0%", background: color }}
+        />
+      </div>
+      <span className="mt-3 text-[13px] font-bold text-[#0a0a0f] text-center">{name}</span>
     </div>
   );
 }
@@ -154,9 +170,9 @@ export default function Alcance() {
               <p className="mb-3.5 text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#8a8a94]">
                 Roles por equipo
               </p>
-              <div className="flex flex-col gap-3">
+              <div className="mt-2 flex items-end gap-4 sm:gap-7 h-[220px]">
                 {roles.map((r) => (
-                  <BarRow key={r.name} label={r.name} widthPct={r.widthPct} value={r.value} started={started} />
+                  <VerticalBar key={r.name} {...r} started={started} />
                 ))}
               </div>
             </Reveal>
