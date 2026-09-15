@@ -7,6 +7,11 @@ import Recorrido from "@/components/organisms/sobre-nosotros/casos-exito/Recorri
 import ComoSeMide from "@/components/organisms/sobre-nosotros/casos-exito/ComoSeMide";
 import DemoDay from "@/components/organisms/sobre-nosotros/casos-exito/DemoDay";
 import ImpactoContratacion from "@/components/organisms/sobre-nosotros/casos-exito/ImpactoContratacion";
+import EcosistemaContenido from "@/components/organisms/sobre-nosotros/casos-exito/EcosistemaContenido";
+import FunnelCompleto from "@/components/organisms/sobre-nosotros/casos-exito/FunnelCompleto";
+import LaRelacion from "@/components/organisms/sobre-nosotros/casos-exito/LaRelacion";
+import TestimoniosCaso from "@/components/organisms/sobre-nosotros/casos-exito/TestimoniosCaso";
+import ClosingCaso from "@/components/organisms/sobre-nosotros/casos-exito/ClosingCaso";
 import { getLastModified } from "@/lib/lastModified";
 import { siteConfig } from "@/lib/seo";
 
@@ -20,6 +25,11 @@ export default function CasosExitoPage() {
       <ComoSeMide />
       <DemoDay />
       <ImpactoContratacion />
+      <EcosistemaContenido />
+      <FunnelCompleto />
+      <LaRelacion />
+      <TestimoniosCaso />
+      <ClosingCaso />
       <CTAFinal />
       <Footer
         lastUpdated={{
