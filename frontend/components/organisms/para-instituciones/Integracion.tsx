@@ -186,12 +186,15 @@ export default function Integracion() {
                   stroke="url(#pi-int-grad)"
                   strokeWidth={2}
                 />
-                <text x="260" y="90" fontFamily="'DM Sans', sans-serif" fontWeight={800} fontSize={15} fill="url(#pi-int-grad)" textAnchor="middle">
-                  Simulación
-                </text>
-                <text x="260" y="113" fontFamily="'DM Sans', sans-serif" fontWeight={800} fontSize={15} fill="url(#pi-int-grad)" textAnchor="middle">
-                  Laboral
-                </text>
+                {/* Logo No Country en blanco */}
+                <image
+                  href="/logos/NoCountry_blanco.png"
+                  x="205"
+                  y="80"
+                  width="110"
+                  height="40"
+                  preserveAspectRatio="xMidYMid meet"
+                />
               </g>
 
               {/* Pieza 3: Empresas que contratan */}
