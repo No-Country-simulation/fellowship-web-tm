@@ -1,0 +1,44 @@
+# No Country
+
+> No Country es una plataforma que valida talento junior mediante simulaciones laborales por equipos. Reemplaza el CV por evidencia real de trabajo, conectando formación y empleo.
+
+## Qué es
+
+No Country es una infraestructura de Simulación Laboral que permite a instituciones educativas, programas de formación y organizaciones crear experiencias de trabajo colaborativo con proyectos, equipos y desafíos concretos. La plataforma ejecuta y observa estas experiencias, captura señales de colaboración y comunicación, y genera insights sobre cómo trabajan los participantes.
+
+## Audiencias
+
+- **Talento:** personas que buscan demostrar experiencia real y ganar visibilidad frente a empresas.
+- **Empresas:** organizaciones que quieren contratar talento junior sin riesgo, con semanas de comportamiento documentado.
+- **Instituciones:** universidades, bootcamps, academias y programas de formación que buscan conectar a sus estudiantes con el mercado laboral.
+
+## Modelo
+
+1. **Simulación Laboral Abierta:** gratuita, 100% remota. Equipos multidisciplinarios ejecutan desafíos reales durante 4-6 semanas.
+2. **Simulaciones Premium:** personalizadas para instituciones, startups y corporativos, con observación en tiempo real.
+3. **Staffing:** colocación de talento validado conductualmente, con garantía de reemplazo en 72 horas.
+
+## Casos de éxito
+
+- **Oracle Next Education (ONE):** más de 2.500 participantes, 4 ediciones consecutivas, +25 países, 94% de satisfacción.
+- **Hackathon ONE · Grupo 9:** 830 participantes, 106 equipos, 574 talento job-ready, 74 contratados.
+
+## Páginas principales
+
+- Home: /
+- Simulación Laboral — Paradigma: /simulacion-laboral/paradigma
+- Simulación Laboral — Cómo funciona: /simulacion-laboral/como-funciona
+- Simulación Laboral — Qué observamos: /simulacion-laboral/que-observamos
+- Simulación Laboral — Qué insights genera: /simulacion-laboral/que-insights-genera
+- Para instituciones: /para-instituciones
+- Casos de éxito: /sobre-nosotros/casos-exito
+- Showcase: /sobre-nosotros/showcase
+
+## Contacto
+
+- Sitio: https://nocountry.tech
+- Fundador: Leandro Buzeta Bernasconi
+
+## Última actualización
+
+Septiembre 2026
