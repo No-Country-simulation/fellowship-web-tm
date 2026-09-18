@@ -14,6 +14,24 @@ import TestimoniosCaso from "@/components/organisms/sobre-nosotros/casos-exito/T
 import ClosingCaso from "@/components/organisms/sobre-nosotros/casos-exito/ClosingCaso";
 import { getLastModified } from "@/lib/lastModified";
 import { siteConfig } from "@/lib/seo";
+import type { Metadata } from "next";
+
+const title = "Caso de éxito: Oracle Next Education";
+const description =
+  "830 estudiantes de Oracle Next Education resolvieron desafíos reales en equipos, con evidencia de desempeño documentada de punta a punta.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: `${siteConfig.url}/sobre-nosotros/casos-exito` },
+  openGraph: {
+    title,
+    description,
+    url: `${siteConfig.url}/sobre-nosotros/casos-exito`,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+};
 
 export default function CasosExitoPage() {
   return (
