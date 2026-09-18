@@ -16,6 +16,24 @@ import Footer from "@/components/organisms/shared/Footer";
 import { siteConfig } from "@/lib/seo";
 import { getLastModified } from "@/lib/lastModified";
 import SimulacionFormInstituciones from "@/components/organisms/para-instituciones/SimulacionFormInstituciones";
+import type { Metadata } from "next";
+
+const title = "Simulación Laboral para instituciones y programas de formación";
+const description =
+  "Integrá Simulaciones Laborales a tus programas para que los participantes trabajen en equipos sobre desafíos reales y generen evidencia de cómo trabajan.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: `${siteConfig.url}/para-instituciones` },
+  openGraph: {
+    title,
+    description,
+    url: `${siteConfig.url}/para-instituciones`,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+};
 
 export default function Page() {
   return (

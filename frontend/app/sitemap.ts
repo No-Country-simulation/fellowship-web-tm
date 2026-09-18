@@ -34,18 +34,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/para-instituciones`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/sobre-nosotros/casos-exito`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // --- Rutas pendientes  ---
     // Descomentar cada bloque en el mismo commit en que esa pagina reciba
     // contenido real. No agregar antes: ver criterio en docs/seo-geo.md.
     //
-    // "Para Talento" y "Para Instituciones" no tienen URL propia: en el
-    // Navbar apuntan a /simulacion-laboral/paradigma y
-    // /para-empresas/empleabilidad (ya listadas/pendientes mas abajo).
-    // "Manifiesto", "Showcase" y "Casos de Exito" son anclas dentro de la
-    // Home (/#manifiesto, /#showcase, /#casos), no rutas separadas — no
-    // necesitan entrada en el sitemap. "Iniciar sesion" (/login) se deja
-    // afuera a proposito: es una pagina de accion, no contenido a indexar.
+    // "Para Talento" sigue sin URL propia: en el Navbar apunta a
+    // /simulacion-laboral/paradigma. "Para Instituciones" y "Casos de
+    // Exito" SI tienen ruta propia ahora (ver arriba) — dejaron de ser
+    // alias/anclas. "Manifiesto" sigue siendo un ancla dentro de la Home
+    // (/#manifiesto), no una ruta separada. "Showcase" va a dejar de serlo
+    // (carpeta ya creada en sobre-nosotros/showcase, todavia stub — ver
+    // bloque comentado abajo). "Iniciar sesion" (/login) se deja afuera a
+    // proposito: es una pagina de accion, no contenido a indexar.
     //
+    // {
+    //   url: `${baseUrl}/sobre-nosotros/showcase`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'weekly',
+    //   priority: 0.8,
+    // },
     // {
     //   url: `${baseUrl}/para-empresas/contratar`,
     //   lastModified: new Date(),
