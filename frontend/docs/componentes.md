@@ -158,18 +158,20 @@
   ```
 - **Importante:** `Reveal` controla `transform`/`opacity` por `style` inline en su propio `div`. Si el contenido de adentro necesita su propio efecto de `hover` con `transform` (ej. `hover:-translate-y-1`), ese hover tiene que ir en un `div`/`Link` hijo separado, nunca en el mismo `className` que se le pasa a `Reveal` — si no, el `style` inline de `Reveal` pisa el hover de Tailwind. Ver `Diferencias.tsx`, `GranDiferenciacion.tsx` o `CTAFinal.tsx` como ejemplo del patrón correcto.
 
----
 ## SectionBadge (utilidad compartida)
+
 - **Descripción:** Componente compartido para los badges de sección que combinan una barra gradiente (rosa → cian) con el texto en mayúsculas y tracking ancho. Reemplaza el patrón anterior del puntito rosa con glow por un formato unificado (línea + texto), que se usa en las secciones numeradas ("02 — El problema", "03 — La solución", etc.) y también en algunas secciones no numeradas ("Empezá ahora").
 - **Props:** `children: React.ReactNode`, `className?: string` (opcional, para ajustar color del texto o márgenes).
 - **Dependencias:** `@/lib/utils` (función `cn`).
-- **Ubicación:** `@/components/ui/SectionBadge` (no `organisms`, es una utilidad de UI reutilizable).
+- **Ubicación:** `@/components/ui/sectionBadge` (no `organisms`, es una utilidad de UI reutilizable).
 - **Uso:**
   ```tsx
-  import SectionBadge from "@/components/ui/SectionBadge";
-  <SectionBadge>02 — El problema</SectionBadge>
+  import SectionBadge from "@/components/ui/sectionBadge";
+  <SectionBadge>02 — El problema</SectionBadge>;
   ```
 - **Importante:** El componente usa por defecto `text-zinc-500` para el texto. Si una sección necesita otro tono (ej. `text-[#939393]`), se puede pasar por `className`: `<SectionBadge className="text-[#939393]">02 — El problema</SectionBadge>`.
+
+---
 
 ## Componentes de "Simulación Laboral — El Paradigma"
 
@@ -315,7 +317,7 @@ Sección de la página `/simulacion-laboral/que-observamos`. Comprende las 6 dim
 
 ### SeisDimensiones
 
-- **Descripción:** "Seis dimensiones". Selector de dimensiones tipo "stories": 6 tabs (Participación, Colaboración, Comunicación, Ejecución, Autonomía y toma de decisiones, Adaptación y trayectoria), cada uno con un ícono y una barra de progreso que se llena sola en 5.2s y avanza automáticamente a la siguiente dimensión (o se puede clickear para saltar directo). Al cambiar de dimensión, el panel hace fade-out/fade-in y el contenido (título, descripción, pregunta, chips y "Señal") entra en cascada.
+- **Descripción:** "Seis dimensiones". Selector de dimensiones tipo "stories": 6 tabs (Participación, Colaboración, Comunicación, Ejecución, Autonomía y toma de decisiones, Adaptación y trayectoria), cada uno con un ícono y una barra de progreso que se llena sola en 5.2s y avanza automáticamente a la siguiente dimensión (o se puede clickear para saltar directo). Al cambiar de dimensión, el panel hace fade-out/fade-in y el contenido (título, descripción, pregunta, chips y "Señal") entra en cascada. Los tabs tienen hover que refuerza que son clickeables.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
@@ -341,9 +343,42 @@ Sección de la página `/simulacion-laboral/que-observamos`. Comprende las 6 dim
 
 Sección de la página `/simulacion-laboral/como-funciona`. Cubre la línea de tiempo de ejecución y las señales que se registran durante el proceso.
 
+### PuntoDePartida
+
+- **Descripción:** "01 — El punto de partida". Sección clara que muestra los parámetros que define una institución al iniciar una simulación (población, perfiles, conocimientos, cantidad de participantes, objetivos, contexto, criterios de participación) y cierra con una frase de resultado: "Una cohorte lista para ser observada en un contexto común".
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import PuntoDePartida from "@/components/organisms/simulacion-laboral/como-funciona/PuntoDePartida";
+  <PuntoDePartida />;
+  ```
+
+### Agrupamiento
+
+- **Descripción:** "02 — El agrupamiento". Sección oscura con pentágono animado de 5 nodos que aparecen en orden, líneas con gradiente de marca y perfiles de personas reales con bandera de país y rol. Los perfiles cambian de forma sincronizada cada 3-5 segundos, con fotos y banderas posicionadas por CSS para evitar bugs de `foreignObject` en Safari iOS. Debajo, chips de características (Multidisciplinarios, Multiculturales, Distribuidos, Asignados aleatoriamente) y pull quote sobre la importancia de la aleatoriedad.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `next/image`, `flag-icons` (importado globalmente en `layout.tsx`).
+- **Uso:**
+  ```tsx
+  import Agrupamiento from "@/components/organisms/simulacion-laboral/como-funciona/Agrupamiento";
+  <Agrupamiento />;
+  ```
+
+### Insumo
+
+- **Descripción:** "03 — El desafío". Sección clara que explica qué es un desafío y muestra ejemplos concretos de desafíos, junto con los verbos (Construir, Diseñar, Analizar, etc.) y las fuentes de donde puede provenir (Empresa, Institución, Startup, Caso ficcionalizado). Los items entran escalonados desde la izquierda.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Insumo from "@/components/organisms/simulacion-laboral/como-funciona/Insumo";
+  <Insumo />;
+  ```
+
 ### LineaDeTiempo
 
-- **Descripción:** "04 — La línea de tiempo". Cadena de 6 nodos SVG que van creciendo de tamaño (0 → 1 → 2 → 3 → 4 → ✓), conectados por líneas que se "dibujan" en cascada al entrar en viewport. Usa una progresión de color rosa → cian (marca NC) en vez de colores sueltos. Debajo, una leyenda de 3 etapas (Semana 0, Semanas 1 a 4, Cierre) y un pill con la duración típica.
+- **Descripción:** "04 — La línea de tiempo". Cadena de 6 nodos SVG que van creciendo de tamaño (0 → 1 → 2 → 3 → 4 → ✓), conectados por líneas que se "dibujan" en cascada al entrar en viewport. Usa una progresión de color rosa → cian (marca NC) en vez de colores sueltos. Debajo, una leyenda de 3 etapas (Semana 0, Semanas 1 a 4, Demo Day y cierre) y un pill con la duración típica.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
@@ -368,6 +403,28 @@ Sección de la página `/simulacion-laboral/como-funciona`. Cubre la línea de t
 ## Componentes de "Simulación Laboral — Qué insights genera"
 
 Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el programa conecta formación y trabajo, y cómo una señal se convierte en insight.
+
+### ParticipanteEquipo
+
+- **Descripción:** "01–02 — Participante y Equipo". Sección clara con tabla comparativa entre perspectiva individual y de equipo. Las filas se deslizan escalonadamente al entrar en pantalla. Cierra con dos pull quotes que remarcan que el trabajo no ocurre en individuos aislados.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ParticipanteEquipo from "@/components/organisms/simulacion-laboral/que-insights-genera/ParticipanteEquipo";
+  <ParticipanteEquipo />;
+  ```
+
+### Cohorte
+
+- **Descripción:** "03 — Cohorte". Sección clara con visual de escala Individuals → Teams → Cohort. Chips de patrones colectivos (Patrones de participación, Diferencias entre equipos, etc.) y cierre con frase sobre la capacidad de observar patrones cuando se mira a muchas personas.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import Cohorte from "@/components/organisms/simulacion-laboral/que-insights-genera/Cohorte";
+  <Cohorte />;
+  ```
 
 ### Programa
 
@@ -395,18 +452,17 @@ Sección de la página `/simulacion-laboral/que-insights-genera`. Cubre cómo el
 
 ## Componentes de "Para Instituciones"
 
-Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA final de la página (secciones 01 y 08 a 13 del documento de contenido — las secciones 02 a 07 las armó Augusto).
+Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA final de la página.
 
 ### HeroInstituciones
 
-- **Descripción:** "01 — Hero". Hero con eyebrow "For education & training programs", titular en dos líneas (la segunda con gradiente), descripción y dos CTAs (primario "Diseñar una simulación" sin destino todavía, secundario "Ver cómo funciona" que linkea a `/simulacion-laboral/como-funciona`). A la derecha, un panel de vista previa tipo dashboard (subcomponente interno `PreviewCard`): topbar con 3 puntos y el título "Vista previa · Panel institucional", 3 stats (Participantes y Equipos con conteo animado, Semanas como texto fijo "4–6"), 3 filas de equipos con barra de progreso (Fintech 82%, Healthtech 64%, Retail 91%) y un pie con punto verde pulsante ("Entregables y evidencia generándose en tiempo real"). Los números y las barras se disparan con `IntersectionObserver` cuando la card entra en pantalla.
+- **Descripción:** "01 — Hero". Hero con eyebrow "For education & training programs", titular en dos líneas (la segunda con gradiente), descripción y dos CTAs (primario "Diseñar una solución" que hace scroll al `#contacto`, secundario "Ver cómo funciona" que linkea a `/simulacion-laboral/como-funciona`). A la derecha, un panel de vista previa tipo dashboard (subcomponente interno `PreviewCard`): topbar con 3 puntos y el título "Vista previa · Panel institucional", 3 stats (Participantes y Equipos con conteo animado, Semanas como texto fijo "4–6"), 3 filas de equipos con avatares superpuestos y barra de progreso (Fintech 82%, Healthtech 64%, Retail 91%) y un pie con punto verde pulsante. Los números y las barras se disparan con `IntersectionObserver`.
 - **Props:** Ninguna.
-- **Dependencias:** `next/link`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `next/link`, `next/image`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import HeroInstituciones from "@/components/organisms/para-instituciones/HeroInstituciones";
-  <HeroInstituciones />
-  Sección de la página `/para-instituciones`. Cubre desde el problema hasta el CTA final de la página (secciones 02 a 13 del documento de contenido).
+  <HeroInstituciones />;
   ```
 
 ### ElProblema
@@ -424,7 +480,7 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 - **Descripción:** "03 — La solución". Sección con 5 pasos (Diseñamos el desafío, Formamos equipos, Ejecutan varias semanas, Generamos evidencia, Conectamos la experiencia con oportunidades) presentados en cards con iconos de lucide y animaciones de entrada escalonadas.
 - **Props:** Ninguna.
-- **Dependencias:** `lucide-react` (íconos `Target`, `Users`, `Briefcase`, `BarChart2`, `Link2`), `@/components/ui/reveal`.
+- **Dependencias:** `lucide-react` (íconos `Target`, `Users`, `Briefcase`, `BarChart2`, `Link2`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
   ```tsx
   import LaSolucion from "@/components/organisms/para-instituciones/LaSolucion";
@@ -435,7 +491,7 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 - **Descripción:** "04 — Beneficios". Sección que divide los beneficios en dos bloques: Experiencia (problemas abiertos, equipos, plazos, entregables, decisiones) y Empleabilidad (evidencias de ejecución, colaboración, trayectoria, feedback). Incluye comparación "Antes" vs "Con Simulación Laboral" y frases de resultado con borde izquierdo rosa.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
   ```tsx
   import Beneficios from "@/components/organisms/para-instituciones/Beneficios";
@@ -455,7 +511,7 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 ### VisibilidadOrganica
 
-- **Descripción:** "06 — Visibilidad orgánica". Sección clara que explica cómo la experiencia se convierte en contenido para la marca: flujo Experiencia → Contenido → Participantes → Redes → Alcance, y 4 pasos de amplificación (Sistema genera, Adaptado a la marca, Distribuido por participantes, Amplificación orgánica). Incluye dos cards de beneficios.
+- **Descripción:** "06 — Visibilidad orgánica". Sección clara que explica cómo la experiencia se convierte en contenido para la marca: flujo Experiencia → Contenido → Participantes → Redes → Alcance, y 4 pasos de amplificación (Sistema genera, Adaptado a la marca, Distribuido por participantes, Amplificación orgánica). Incluye dos cards de beneficio.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`.
 - **Uso:**
@@ -499,9 +555,9 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 ### CasoDeExito
 
-- **Descripción:** "10 — Caso de éxito". Mockup de card oscura (mismo patrón que `EvidenciaEnVivo`) con el caso Oracle Next Education: tag "CASO REAL", link "Verificado en oracle.com", banner con ícono de cohete y 4 métricas con conteo animado al entrar en pantalla (+2.500 Participantes, 4 Ediciones, +25 Países, 30 Semanas) — mismos números reales ya usados en `CasoOracle` de la home, para que no haya inconsistencias entre páginas.
+- **Descripción:** "10 — Caso de éxito". Bloque compacto que resume el caso Oracle Next Education con las 3 métricas clave (830 participantes, 106 equipos, 74 contratados) y un CTA "Ver el caso completo" que redirige a `/sobre-nosotros/casos-exito`, donde vive el detalle completo. Reemplaza al bloque anterior para evitar duplicación de contenido entre páginas.
 - **Props:** Ninguna.
-- **Dependencias:** `lucide-react` (ícono `Rocket`), `@/components/ui/reveal`.
+- **Dependencias:** `next/link`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
   ```tsx
   import CasoDeExito from "@/components/organisms/para-instituciones/CasoDeExito";
@@ -512,7 +568,7 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 - **Descripción:** "11 — Adaptable". Lista de filas especificación → valor (Disciplinas, Sectores, Modalidades, Duración, Desafíos, Soluciones a medida), cada una con sus chips y su propio fade-in escalonado al hacer scroll.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
   ```tsx
   import Adaptable from "@/components/organisms/para-instituciones/Adaptable";
@@ -521,9 +577,9 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 ### Integracion
 
-- **Descripción:** "12 — Integración". Animación de rompecabezas: dos piezas SVG con muesca curva (misma geometría que el mockup de diseño) que se deslizan desde los costados y encajan; al unirse aparece un destello y un `+` en el punto de contacto. A la derecha, una flecha y el bloque "Genera" con los 5 resultados (Experience, Evidence, Ecosystem, Community, Opportunities).
+- **Descripción:** "12 — Integración". Animación de rompecabezas de 3 piezas: Tu programa (izquierda) | Simulación Laboral (centro) | Empresas que contratan (derecha). Las piezas laterales se deslizan y encajan; cuando se unen, aparece un destello blanco que activa el gradiente de marca en ellas. El centro muestra el logo de No Country en blanco. A la derecha, una flecha y el bloque "Genera" con los 5 resultados (Experience, Evidence, Ecosystem, Community, Opportunities).
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import Integracion from "@/components/organisms/para-instituciones/Integracion";
@@ -532,7 +588,7 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 ### CTAInstituciones
 
-- **Descripción:** CTA de cierre propio de la página ("¿Qué podría simular tu programa?"), con botón "Diseñar una Simulación". El botón todavía no tiene una página de destino — no hay un formulario/contacto armado para esta página.
+- **Descripción:** CTA de cierre propio de la página ("¿Qué podría simular tu programa?"), con botón "Diseñar una solución" que hace scroll al `#contacto` para conectar con el formulario de Leandro. Aporta el título y la bajada; el bloque de contacto directo vive en `SimulacionFormInstituciones`, que se monta a continuación.
 - **Props:** Ninguna.
 - **Dependencias:** `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`.
 - **Uso:**
@@ -541,15 +597,155 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
   <CTAInstituciones />;
   ```
 
----
 ### SimulacionFormInstituciones
-- **Descripción:** "Bloque de contacto directo". Card con la foto y datos de Leandro (Founder, No Country) y un formulario simple (nombre, institución, email institucional, mensaje opcional) con botón "Enviar a Leandro". Al enviar, el botón cambia a "Enviado ✓" (por ahora es solo estado local, sin backend). Se usa en conjunto con `CTAInstituciones`, que aporta el título, la bajada y el botón principal — este componente se enfoca exclusivamente en el contacto personal.
+
+- **Descripción:** Bloque de contacto directo. Card con la foto y datos de Leandro (Founder, No Country) y un formulario simple (nombre, institución, email institucional, mensaje opcional) con botón "Enviar a Leandro". Al enviar, el botón cambia a "Enviado ✓" (por ahora es solo estado local, sin backend). Tiene `id="contacto"` para recibir el scroll suave desde `CTAInstituciones` y el Hero.
 - **Props:** Ninguna.
 - **Dependencias:** `next/image`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `react` (`useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import SimulacionFormInstituciones from "@/components/organisms/para-instituciones/SimulacionFormInstituciones";
-  <SimulacionFormInstituciones />
+  <SimulacionFormInstituciones />;
   ```
-  
-**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
+
+---
+
+## Componentes de "Sobre Nosotros — Casos de Éxito"
+
+Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next Education · Hackathon ONE G9 con datos reales y detallados.
+
+### HeroCasoExito
+
+- **Descripción:** Hero con eyebrow "Caso de éxito · Hackathon ONE", titular en dos líneas (la segunda con gradiente) y descripción con los números macro: 830 estudiantes de ONE, 3 desafíos con IA, equipos multidisciplinarios. Debajo, 4 stats con conteo animado (830 participantes, 106 equipos, 3 desafíos con IA, 100% remota · LATAM) y línea de impacto sobre las +600.000 personas impactadas por ONE en LATAM.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import HeroCasoExito from "@/components/organisms/sobre-nosotros/casos-exito/HeroCasoExito";
+  <HeroCasoExito />;
+  ```
+
+### Alcance
+
+- **Descripción:** "01 — Alcance". Sección clara que muestra el alcance del caso: 830 personas, 106 equipos, 3 productos con IA. Incluye barras horizontales con equipos por desafío (FinAI 38, EnergyAI 35, Techmind 33), un gráfico de barras verticales con roles por equipo (Backend, Front End, Data Scientist, AI Engineer) y chips con el stack técnico (OCI, Java, Python, Spring Boot).
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import Alcance from "@/components/organisms/sobre-nosotros/casos-exito/Alcance";
+  <Alcance />;
+  ```
+
+### AlcanceRegional
+
+- **Descripción:** "02 — Alcance regional". Sección oscura que muestra el alcance geográfico del caso: +21 países, 2 idiomas (ES + PT) y distribución por país con barras horizontales (Brasil, Argentina, Colombia, México, Perú, Venezuela) más una nota de +15 países adicionales.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Uso:**
+  ```tsx
+  import AlcanceRegional from "@/components/organisms/sobre-nosotros/casos-exito/AlcanceRegional";
+  <AlcanceRegional />;
+  ```
+
+### Recorrido
+
+- **Descripción:** "03 — El recorrido". Sección clara que describe las 5 etapas del hackathon: Convocatoria, Creación de equipos, Kickoff, Colaboración y desarrollo, Demo Day. Cada etapa con su número y descripción.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Uso:**
+  ```tsx
+  import Recorrido from "@/components/organisms/sobre-nosotros/casos-exito/Recorrido";
+  <Recorrido />;
+  ```
+
+### ComoSeMide
+
+- **Descripción:** "04 — Cómo se mide". Sección oscura que muestra cómo la plataforma ordena a los equipos por índice de actividad: leaderboard con los 4 equipos top (con score y encuentros), nota sobre 106 equipos activos y comparativa de peer review de 13 habilidades blandas (Comunicación, Adaptación, Liderazgo como muestra).
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Uso:**
+  ```tsx
+  import ComoSeMide from "@/components/organisms/sobre-nosotros/casos-exito/ComoSeMide";
+  <ComoSeMide />;
+  ```
+
+### DemoDay
+
+- **Descripción:** "05 — Demo Day". Sección clara que recrea la presentación final en vivo: mockup de pantalla compartida con el producto FinAI (stats de conversión, gráfico de altas por semana, funnel de pasos), columna de participantes que presentan (Ana, Valeria, Diego con badge "HABLA" en la activa, oculta en mobile/tablet), panel "Quién observa" (3 jurados + avatares de +12 empresas invitadas) y stats en vivo (24 equipos presentando, 157 asistentes, 14 países, 100% remoto). El layout usa 3 columnas en desktop.
+- **Props:** Ninguna.
+- **Dependencias:** `next/image`, `lucide-react` (íconos `ChevronRight`, `Mic`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import DemoDay from "@/components/organisms/sobre-nosotros/casos-exito/DemoDay";
+  <DemoDay />;
+  ```
+
+### ImpactoContratacion
+
+- **Descripción:** "06 — Impacto en contratación". Sección oscura con métricas del impacto en contratación: CVs por leer (0), horas de screening (−82%), de lista a entrevista (3 días), y shortlist de perfiles ordenados por conducta observada con barras de score animadas al entrar en pantalla. Cierra con nota de 574 perfiles validados y 5 sugeridos para la búsqueda.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import ImpactoContratacion from "@/components/organisms/sobre-nosotros/casos-exito/ImpactoContratacion";
+  <ImpactoContratacion />;
+  ```
+
+### EcosistemaContenido
+
+- **Descripción:** "07 — Ecosistema y contenido orgánico". Sección clara que muestra el alcance orgánico del caso: 905 personas conectadas en una edición, y 4 métricas con conteo animado (1.480 piezas compartidas, 640 menciones de marca, 18.400 interacciones, 220K alcance orgánico). Cierra con pull quote destacando el costo cero en pauta.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import EcosistemaContenido from "@/components/organisms/sobre-nosotros/casos-exito/EcosistemaContenido";
+  <EcosistemaContenido />;
+  ```
+
+### FunnelCompleto
+
+- **Descripción:** "08 — De punta a punta". Sección oscura con funnel de 6 etapas (Participación → Finalización → Talento job-ready → Interacciones → Entrevistas → Contratados) con barras animadas al entrar en pantalla. La etapa final está resaltada en rosa.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Uso:**
+  ```tsx
+  import FunnelCompleto from "@/components/organisms/sobre-nosotros/casos-exito/FunnelCompleto";
+  <FunnelCompleto />;
+  ```
+
+### LaRelacion
+
+- **Descripción:** "09 — La relación". Sección clara que explica por qué no es una edición única: Oracle Next Education necesitaba conectar a sus graduados con empresas sin depender de procesos tradicionales. Muestra 2 stats destacados (4 acuerdos consecutivos, +2.500 perfiles validados) con gradiente de marca.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Uso:**
+  ```tsx
+  import LaRelacion from "@/components/organisms/sobre-nosotros/casos-exito/LaRelacion";
+  <LaRelacion />;
+  ```
+
+### TestimoniosCaso
+
+- **Descripción:** "10 — Quién lo dice". Sección oscura con dos testimonios en cards con borde izquierdo rosa (Amanda Gelumbauskas de Oracle, Christian Velasco Argañaraz de Alura). Debajo, chips con las organizaciones que participaron: Oracle, Alura Latam, John Deere, Ficohsa, Banco Azteca, Get on Board, MCIO, Instituto PROA, SoftSell.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Uso:**
+  ```tsx
+  import TestimoniosCaso from "@/components/organisms/sobre-nosotros/casos-exito/TestimoniosCaso";
+  <TestimoniosCaso />;
+  ```
+
+### ClosingCaso
+
+- **Descripción:** Frase de cierre ("El talento se demuestra trabajando.") sobre fondo claro, con "trabajando" en gradiente de marca. Cierra la narrativa del caso antes del `CTAFinal` compartido.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ClosingCaso from "@/components/organisms/sobre-nosotros/casos-exito/ClosingCaso";
+  <ClosingCaso />;
+  ```
+
+---
+
+**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`, `sobre-nosotros/casos-exito/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
