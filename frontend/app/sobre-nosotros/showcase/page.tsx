@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProyectosPreview from "@/components/organisms/sobre-nosotros/showcase/ProyectosPreview";
 import { siteConfig } from "@/lib/seo";
 
 const title = "Showcase de Talento Real";
@@ -19,5 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return null;
+  return (
+    <main className="flex flex-col bg-[#000115]">
+      <ProyectosPreview />
+    </main>
+  );
 }

@@ -748,4 +748,52 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ---
 
+## Sheet (utilidad compartida)
+
+- **Descripción:** Panel lateral que entra desde la derecha (ancho `min(460px, 92vw)`), con overlay oscuro. Está construido sobre `Dialog` de Radix, así que resuelve solo el foco, la tecla Esc, el click en el overlay y el bloqueo del scroll del fondo. Exporta `Sheet`, `SheetTrigger`, `SheetClose`, `SheetContent`, `SheetTitle` y `SheetDescription`.
+- **Props:** Las de los primitivos de Radix (`open`, `onOpenChange`, etc.). `SheetContent` acepta `className` para ajustar el panel.
+- **Dependencias:** `radix-ui`, `@/lib/utils`.
+- **Ubicación:** `@/components/ui/sheet` (no `organisms`, es una utilidad de UI reutilizable).
+- **Uso:**
+  ```tsx
+  <Sheet open={open} onOpenChange={setOpen}>
+    <SheetContent>
+      <SheetTitle>Título</SheetTitle>
+      <SheetDescription>Descripción</SheetDescription>
+    </SheetContent>
+  </Sheet>
+  ```
+- **Importante:** Radix pide un `SheetTitle` (y un `SheetDescription`) dentro del contenido por accesibilidad; si faltan, avisa en consola. Como `globals.css` no define los tokens de shadcn (`bg-background`, etc.), los colores del panel son hex explícitos.
+
+---
+
+## Componentes de "Sobre Nosotros — Showcase"
+
+Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los tipos viven en `@/lib/showcase` (`ShowcaseProject`, `ShowcaseEdition`, `ShowcaseTeam`); son ilustrativos hasta que exista la fuente real.
+
+### ProjectSheet
+
+- **Descripción:** Sheet de proyecto. Se abre al tocar una card de proyecto y muestra la vertical, el título, qué resuelve, chips ("N equipos participantes" y la edición o "N ediciones") y la lista de equipos con avatares superpuestos, reuniones y entregables. Si el proyecto corrió en más de una edición, los equipos se agrupan por mes ("Simulación laboral de Julio 2026") con un separador, porque el "Equipo 1" de un mes no es el de otro. No muestra estado ("En curso" / "Finalizada") en ningún lado.
+- **Props:** `project: ShowcaseProject | null`, `open: boolean`, `onOpenChange: (open: boolean) => void`, `onSelectTeam?: (team: ShowcaseTeam) => void`. Si se pasa `onSelectTeam`, cada equipo es un botón (gancho para abrir el detalle del equipo); si no, es solo informativo.
+- **Dependencias:** `lucide-react` (íconos `Users`, `X`), `@/components/ui/sheet`, `@/lib/showcase`, `@/lib/utils`, `"use client"`.
+- **Uso:**
+  ```tsx
+  import ProjectSheet from "@/components/organisms/sobre-nosotros/showcase/ProjectSheet";
+  <ProjectSheet project={selected} open={open} onOpenChange={setOpen} />;
+  ```
+- **Importante:** El padre debe conservar el proyecto seleccionado al cerrar (poner solo `open` en `false`, sin volver `project` a `null`); si no, el contenido desaparece antes de que termine la animación de salida.
+
+### ProyectosPreview
+
+- **Descripción:** Mini grilla temporal de cards de proyecto (título, qué resuelve, vertical con color de acento, cantidad de equipos/ediciones) para probar `ProjectSheet` mientras se arma el resto de la página. Se puede borrar cuando el grid real del showcase abra el mismo `ProjectSheet`.
+- **Props:** Ninguna.
+- **Dependencias:** `lucide-react` (ícono `Users`), `@/lib/showcase`, `ProjectSheet`, `"use client"`.
+- **Uso:**
+  ```tsx
+  import ProyectosPreview from "@/components/organisms/sobre-nosotros/showcase/ProyectosPreview";
+  <ProyectosPreview />;
+  ```
+
+---
+
 **Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`, `sobre-nosotros/casos-exito/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
