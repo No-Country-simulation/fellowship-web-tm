@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Users, X } from "lucide-react";
 import {
   Sheet,
@@ -21,7 +22,8 @@ interface ProjectSheetProps {
   project: ShowcaseProject | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSelectTeam?: (team: ShowcaseTeam) => void;
+  /** Si se pasa, cada equipo es un link a su página. */
+  teamHref?: (team: ShowcaseTeam) => string;
 }
 
 const rowClass =
@@ -29,10 +31,10 @@ const rowClass =
 
 function TeamRow({
   team,
-  onSelect,
+  href,
 }: {
   team: ShowcaseTeam;
-  onSelect?: (team: ShowcaseTeam) => void;
+  href?: string;
 }) {
   const body = (
     <>
@@ -55,19 +57,18 @@ function TeamRow({
     </>
   );
 
-  if (!onSelect) return <div className={rowClass}>{body}</div>;
+  if (!href) return <div className={rowClass}>{body}</div>;
 
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(team)}
+    <Link
+      href={href}
       className={cn(
         rowClass,
-        "cursor-pointer transition duration-200 hover:-translate-y-0.5 hover:border-[#2D2B40] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#02BEEF]"
+        "transition duration-200 hover:-translate-y-0.5 hover:border-[#2D2B40] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#02BEEF]"
       )}
     >
       {body}
-    </button>
+    </Link>
   );
 }
 
@@ -75,7 +76,7 @@ export default function ProjectSheet({
   project,
   open,
   onOpenChange,
-  onSelectTeam,
+  teamHref,
 }: ProjectSheetProps) {
   const totalTeams = project ? countTeams(project) : 0;
   const multiEdition = !!project && project.editions.length > 1;
@@ -135,7 +136,11 @@ export default function ProjectSheet({
                   </p>
                 )}
                 {edition.teams.map((team) => (
-                  <TeamRow key={team.id} team={team} onSelect={onSelectTeam} />
+                  <TeamRow
+                    key={team.id}
+                    team={team}
+                    href={teamHref?.(team)}
+                  />
                 ))}
               </div>
             ))}

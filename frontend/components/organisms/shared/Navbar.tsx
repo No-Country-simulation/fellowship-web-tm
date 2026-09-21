@@ -36,7 +36,7 @@ const navLinks: NavLink[] = [
     label: "Sobre Nosotros",
     children: [
       { label: "Manifiesto", href: "/#manifiesto" },
-      { label: "Showcase", href: "/#showcase" },
+      { label: "Showcase", href: "/sobre-nosotros/showcase" },
       { label: "Casos de Éxito", href: "/sobre-nosotros/casos-exito" },
     ],
   },

@@ -7,6 +7,7 @@ import {
   countTeams,
   pluralize,
   showcaseProjects,
+  teamHref,
   verticalColor,
   type ShowcaseProject,
 } from "@/lib/showcase";
@@ -74,7 +75,12 @@ export default function ProyectosPreview() {
         </div>
       </div>
 
-      <ProjectSheet project={selected} open={open} onOpenChange={setOpen} />
+      <ProjectSheet
+        project={selected}
+        open={open}
+        onOpenChange={setOpen}
+        teamHref={teamHref}
+      />
     </section>
   );
 }
