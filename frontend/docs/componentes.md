@@ -70,7 +70,7 @@
 
 - **Descripción:** Sección interactiva con pestañas y gráficos dinámicos que muestran la evidencia conductual y el progreso del talento (Trayectoria, Peer Review, Entregables y Evolución).
 - **Props:** `className?: string` (opcional).
-- **Dependencias:** `lucide-react`, `recharts`, `@/components/ui/chart`, `@/lib/utils`.
+- **Dependencias:** `lucide-react`, `recharts`, `@/components/ui/chart`, `@/components/organisms/shared/TrayectoriaActividad` (el panel de la pestaña Trajectory, movido a un archivo compartido sin cambios), `@/lib/utils`.
 - **Uso:**
   ```tsx
   import EvidenciaConductual from "@/components/organisms/home/EvidenciaConductual";
@@ -555,9 +555,10 @@ Sección de la página `/para-instituciones`. Cubre desde el hero hasta el CTA f
 
 ### CasoDeExito
 
-- **Descripción:** "10 — Caso de éxito". Bloque compacto que resume el caso Oracle Next Education con las 3 métricas clave (830 participantes, 106 equipos, 74 contratados) y un CTA "Ver el caso completo" que redirige a `/sobre-nosotros/casos-exito`, donde vive el detalle completo. Reemplaza al bloque anterior para evitar duplicación de contenido entre páginas.
+- **Descripción:** "10 — Caso de éxito". Bloque compacto que resume el caso Oracle Next Education con las 3 métricas clave (830 participantes, 106 equipos, 74 contratados) y un CTA "Ver el caso completo" que redirige a `/sobre-nosotros/casos-exito`, donde vive el detalle completo. Reemplaza al bloque anterior para evitar duplicación de contenido entre páginas. Incluye los logos de Oracle, Alura y ONE (Oracle Next Education), los mismos archivos que en la sección "Hackathon Oracle Next Education" de la home (`CasoOracle`), con alturas ajustadas (ver "Importante"): van en una sola fila, entre las estadísticas y el botón "Ver el caso completo", en todos los tamaños. El título ("De formación a experiencia laboral") queda en una sola línea desde tablet (`md`); en celular baja a dos porque no entra. Los tres logos son PNG blancos sobre transparente (`/logos/oracle.png`, `/logos/alura.png`, `/logos/one.png`), pensados para fondo oscuro.
 - **Props:** Ninguna.
-- **Dependencias:** `next/link`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Dependencias:** `next/image`, `next/link`, `lucide-react` (ícono `ArrowRight`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Importante:** Oracle y Alura tienen mucho margen transparente en el archivo, por eso las cajas son mucho más altas que lo que se ve. Respecto de la home, Oracle (wordmark muy ancho) se achicó un poco y Alura (wordmark muy corto) se agrandó un poco, para que los tres tengan un peso visual parecido: Oracle 58px (66px desde `md`), Alura 80px (90px desde `md`) y ONE 28px (32px desde `md`). La caja que contiene los logos tiene alto fijo (28px, 32px desde `md`) y los logos se centran en ella, así el margen transparente de los archivos no agranda el espacio entre las estadísticas y el botón (queda 36px arriba y 36px abajo). Por debajo de 360px se achican un poco para que entren en una sola fila (a 320px, ONE bajaba solo a una segunda línea). Si se cambia algún logo, hay que revisar de nuevo esas alturas.
 - **Uso:**
   ```tsx
   import CasoDeExito from "@/components/organisms/para-instituciones/CasoDeExito";
@@ -744,6 +745,92 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
   ```tsx
   import ClosingCaso from "@/components/organisms/sobre-nosotros/casos-exito/ClosingCaso";
   <ClosingCaso />;
+  ```
+
+---
+
+## Sheet (utilidad compartida)
+
+- **Descripción:** Panel lateral que entra desde la derecha (ancho `min(460px, 92vw)`), con overlay oscuro. Está construido sobre `Dialog` de Radix, así que resuelve solo el foco, la tecla Esc, el click en el overlay y el bloqueo del scroll del fondo. Exporta `Sheet`, `SheetTrigger`, `SheetClose`, `SheetContent`, `SheetTitle` y `SheetDescription`.
+- **Props:** Las de los primitivos de Radix (`open`, `onOpenChange`, etc.). `SheetContent` acepta `className` para ajustar el panel.
+- **Dependencias:** `radix-ui`, `@/lib/utils`.
+- **Ubicación:** `@/components/ui/sheet` (no `organisms`, es una utilidad de UI reutilizable).
+- **Uso:**
+  ```tsx
+  <Sheet open={open} onOpenChange={setOpen}>
+    <SheetContent>
+      <SheetTitle>Título</SheetTitle>
+      <SheetDescription>Descripción</SheetDescription>
+    </SheetContent>
+  </Sheet>
+  ```
+- **Importante:** Radix pide un `SheetTitle` (y un `SheetDescription`) dentro del contenido por accesibilidad; si faltan, avisa en consola. Como `globals.css` no define los tokens de shadcn (`bg-background`, etc.), los colores del panel son hex explícitos.
+
+---
+
+## Componentes de "Sobre Nosotros — Showcase"
+
+Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los tipos viven en `@/lib/showcase` (`ShowcaseProject`, `ShowcaseEdition`, `ShowcaseTeam`); son ilustrativos hasta que exista la fuente real.
+
+### ProjectSheet
+
+- **Descripción:** Sheet de proyecto. Se abre al tocar una card de proyecto y muestra la vertical, el título, qué resuelve, chips ("N equipos participantes" y la edición o "N ediciones") y la lista de equipos con avatares superpuestos, reuniones y entregables. Si el proyecto corrió en más de una edición, los equipos se agrupan por mes ("Simulación laboral de Julio 2026") con un separador, porque el "Equipo 1" de un mes no es el de otro. No muestra estado ("En curso" / "Finalizada") en ningún lado.
+- **Props:** `project: ShowcaseProject | null`, `open: boolean`, `onOpenChange: (open: boolean) => void`, `teamHref?: (team: ShowcaseTeam) => string`. Si se pasa `teamHref`, cada equipo es un `Link` a su página (ver `TeamDetail`); si no, es solo informativo. Para linkear a la página del equipo se usa `teamHref` de `@/lib/showcase`.
+- **Dependencias:** `next/link`, `lucide-react` (íconos `Users`, `X`), `@/components/ui/sheet`, `@/lib/showcase`, `@/lib/utils`, `"use client"`.
+- **Uso:**
+  ```tsx
+  import ProjectSheet from "@/components/organisms/sobre-nosotros/showcase/ProjectSheet";
+  import { teamHref } from "@/lib/showcase";
+  <ProjectSheet project={selected} open={open} onOpenChange={setOpen} teamHref={teamHref} />;
+  ```
+- **Importante:** El padre debe conservar el proyecto seleccionado al cerrar (poner solo `open` en `false`, sin volver `project` a `null`); si no, el contenido desaparece antes de que termine la animación de salida. El sheet todavía no está montado en ninguna página: lo abre la grilla de proyectos del showcase (a cargo de otra persona del equipo), que decide cuándo abrirlo con `open` y `onOpenChange`.
+
+### TeamDetail
+
+- **Descripción:** Página de un equipo, en la ruta dinámica `/sobre-nosotros/showcase/[equipo]` (el `id` del equipo, ej. `tv-jul-1`). De arriba hacia abajo: link "Volver al showcase"; encabezado con el nombre del proyecto, badges (equipo, sector, "Simulación laboral · mes", "Feedback del equipo") y los botones "Compartir proyecto" y "Ver repositorio" (este se muestra siempre: si el equipo tiene `repoUrl` es un link que abre en otra pestaña; si no, queda deshabilitado); tarjetas "Necesidad del negocio" y "Solución del equipo"; "Demo Day" (marco de video con duración + notas); "Stack tecnológico"; "Equipo · N integrantes" con la lista de integrantes (avatar, rol, bandera y país, promedio semanal) junto al mismo panel "Trayectoria de Actividad" de la home (`TrayectoriaActividad`, con los mismos datos de ejemplo Talento 1 a 5); y una franja final con link a `/#live`. No lleva hero propio ni cuadrado de iniciales al lado del título. La página (`[equipo]/page.tsx`) responde 404 si el `id` no existe y, mientras los datos sean de ejemplo, sale con `robots: { index: false }` y no está en el sitemap.
+- **Props:** `detail: ShowcaseTeamDetail` (se obtiene con `getTeamDetail(id)` de `@/lib/showcase`).
+- **Dependencias:** `next/link`, `lucide-react` (íconos `ArrowUpRight`, `ChevronLeft`, `Play`, `TrendingUp`), `@/components/ui/reveal`, `TrayectoriaActividad`, `ShareProjectDialog`, `GithubIcon`, `@/lib/showcase`. Es un Server Component.
+- **Uso:**
+  ```tsx
+  import TeamDetail from "@/components/organisms/sobre-nosotros/showcase/TeamDetail";
+  <TeamDetail detail={detail} />;
+  ```
+- **Importante:** Los integrantes de los datos de ejemplo solo tienen nombre; rol, país y trayectoria semanal se generan de forma determinística en `getTeamDetail`. Cuando haya datos reales, se reemplaza esa función y el resto no cambia.
+
+### ShareProjectDialog
+
+- **Descripción:** Botón "Compartir proyecto" que abre un modal centrado (Radix `Dialog`) con tres opciones: "Descargar pieza compartible" (deshabilitada, "Próximamente"), "Copiar link al repositorio" y "Copiar link al video de demo day". Las dos de copiar están habilitadas solo si el equipo tiene `repoUrl` / `demoUrl`, y muestran "¡Link copiado!" o "No se pudo copiar el link".
+- **Props:** `projectTitle: string`, `repoUrl?: string`, `demoUrl?: string`.
+- **Dependencias:** `radix-ui` (`Dialog`), `lucide-react` (íconos `ImageIcon`, `Share2`, `Video`, `X`), `GithubIcon`, `"use client"`.
+- **Uso:**
+  ```tsx
+  import ShareProjectDialog from "@/components/organisms/sobre-nosotros/showcase/ShareProjectDialog";
+  <ShareProjectDialog projectTitle="TrazaVerde" repoUrl={team.repoUrl} demoUrl={team.demoUrl} />;
+  ```
+
+### GithubIcon
+
+- **Descripción:** Ícono de GitHub inline (SVG). Existe porque `lucide-react` v1 ya no incluye íconos de marcas.
+- **Props:** `className?: string`.
+- **Dependencias:** Ninguna.
+- **Uso:**
+  ```tsx
+  import GithubIcon from "@/components/organisms/sobre-nosotros/showcase/GithubIcon";
+  <GithubIcon className="size-4" />;
+  ```
+
+### TrayectoriaActividad (compartido)
+
+- **Descripción:** Panel "Trayectoria de Actividad" completo, tal como se ve en la home: título, subtítulo ("Índice 0-100 por talento, semana a semana."), botones de semana (Sem 1 / Sem 3 / Actual), gráfico de 5 líneas con sus colores, línea punteada sobre "Actual" y el pie con avatares ("Peer Review en curso — 5 de 8 completados"). Se movió tal cual desde `EvidenciaConductual` (pestaña Trajectory) a este archivo para usar el mismo panel en la home y en la página de equipo del showcase, sin copiarlo. No se cambió nada de cómo se ve ni de sus datos.
+- **Props:** Ninguna. Los datos (Talento 1 a 5) y los colores viven dentro del componente. Ocupa el alto de su contenedor (`h-full`), por eso se monta dentro de la tarjeta `h-[480px]` que usa la home.
+- **Dependencias:** `recharts`, `@/components/ui/chart`, `"use client"`.
+- **Ubicación:** `@/components/organisms/shared/TrayectoriaActividad`.
+- **Uso:**
+  ```tsx
+  import TrayectoriaActividad from "@/components/organisms/shared/TrayectoriaActividad";
+  <div className="bg-[#0c0d21] border border-white/5 rounded-[20px] p-6 md:p-8 h-[480px] flex flex-col justify-between shadow-2xl">
+    <TrayectoriaActividad />
+  </div>;
   ```
 
 ---
