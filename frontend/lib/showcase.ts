@@ -67,11 +67,6 @@ function hashSeed(str: string) {
   return h;
 }
 
-// Mismo criterio que el mockup: cada vertical siempre cae en el mismo color.
-export function verticalColor(vertical: string) {
-  return BRAND_COLORS[hashSeed(vertical) % BRAND_COLORS.length];
-}
-
 export function countTeams(project: ShowcaseProject) {
   return project.editions.reduce((total, edition) => total + edition.teams.length, 0);
 }

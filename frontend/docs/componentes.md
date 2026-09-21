@@ -774,25 +774,15 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
 ### ProjectSheet
 
 - **Descripción:** Sheet de proyecto. Se abre al tocar una card de proyecto y muestra la vertical, el título, qué resuelve, chips ("N equipos participantes" y la edición o "N ediciones") y la lista de equipos con avatares superpuestos, reuniones y entregables. Si el proyecto corrió en más de una edición, los equipos se agrupan por mes ("Simulación laboral de Julio 2026") con un separador, porque el "Equipo 1" de un mes no es el de otro. No muestra estado ("En curso" / "Finalizada") en ningún lado.
-- **Props:** `project: ShowcaseProject | null`, `open: boolean`, `onOpenChange: (open: boolean) => void`, `teamHref?: (team: ShowcaseTeam) => string`. Si se pasa `teamHref`, cada equipo es un `Link` a su página (ver `TeamDetail`); si no, es solo informativo. `ProyectosPreview` le pasa `teamHref` de `@/lib/showcase`.
+- **Props:** `project: ShowcaseProject | null`, `open: boolean`, `onOpenChange: (open: boolean) => void`, `teamHref?: (team: ShowcaseTeam) => string`. Si se pasa `teamHref`, cada equipo es un `Link` a su página (ver `TeamDetail`); si no, es solo informativo. Para linkear a la página del equipo se usa `teamHref` de `@/lib/showcase`.
 - **Dependencias:** `next/link`, `lucide-react` (íconos `Users`, `X`), `@/components/ui/sheet`, `@/lib/showcase`, `@/lib/utils`, `"use client"`.
 - **Uso:**
   ```tsx
   import ProjectSheet from "@/components/organisms/sobre-nosotros/showcase/ProjectSheet";
-  <ProjectSheet project={selected} open={open} onOpenChange={setOpen} />;
+  import { teamHref } from "@/lib/showcase";
+  <ProjectSheet project={selected} open={open} onOpenChange={setOpen} teamHref={teamHref} />;
   ```
-- **Importante:** El padre debe conservar el proyecto seleccionado al cerrar (poner solo `open` en `false`, sin volver `project` a `null`); si no, el contenido desaparece antes de que termine la animación de salida.
-
-### ProyectosPreview
-
-- **Descripción:** Mini grilla temporal de cards de proyecto (título, qué resuelve, vertical con color de acento, cantidad de equipos/ediciones) para probar `ProjectSheet` mientras se arma el resto de la página. Se puede borrar cuando el grid real del showcase abra el mismo `ProjectSheet`.
-- **Props:** Ninguna.
-- **Dependencias:** `lucide-react` (ícono `Users`), `@/lib/showcase`, `ProjectSheet`, `"use client"`.
-- **Uso:**
-  ```tsx
-  import ProyectosPreview from "@/components/organisms/sobre-nosotros/showcase/ProyectosPreview";
-  <ProyectosPreview />;
-  ```
+- **Importante:** El padre debe conservar el proyecto seleccionado al cerrar (poner solo `open` en `false`, sin volver `project` a `null`); si no, el contenido desaparece antes de que termine la animación de salida. El sheet todavía no está montado en ninguna página: lo abre la grilla de proyectos del showcase (a cargo de otra persona del equipo), que decide cuándo abrirlo con `open` y `onOpenChange`.
 
 ### TeamDetail
 
