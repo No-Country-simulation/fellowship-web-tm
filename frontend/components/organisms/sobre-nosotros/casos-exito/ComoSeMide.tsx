@@ -17,11 +17,15 @@ interface SkillRow {
   score: number;
 }
 
+// Mismos 6 equipos y valores que la tabla "Comparar equipos" del PDF del
+// caso (página 5).
 const leaderboard: LeaderboardRow[] = [
   { rank: 1, team: "Equipo 18", project: "FinAI", meetings: "18 encuentros", score: 94 },
   { rank: 2, team: "Equipo 49", project: "EnergyAI", meetings: "16 encuentros", score: 88 },
   { rank: 3, team: "Equipo 29", project: "FinAI", meetings: "14 encuentros", score: 81 },
   { rank: 4, team: "Equipo 4", project: "Techmind", meetings: "12 encuentros", score: 73 },
+  { rank: 5, team: "Equipo 13", project: "Techmind", meetings: "9 encuentros", score: 64 },
+  { rank: 6, team: "Equipo 66", project: "EnergyAI", meetings: "7 encuentros", score: 51 },
 ];
 
 const skills: SkillRow[] = [
@@ -31,10 +35,13 @@ const skills: SkillRow[] = [
 ];
 
 // Mismo grid en la cabecera y en cada fila, así las columnas quedan
-// alineadas: en mobile se oculta la cabecera y "Proyecto" vuelve a ir pegado
-// al nombre del equipo (mismo criterio que "Reuniones" e "Índice de
-// actividad", que ya se ocultaban en mobile).
-const rowGrid = "grid-cols-[20px_1fr_40px] md:grid-cols-[24px_140px_1fr_96px_180px]";
+// alineadas. "Proyecto" no va pegado a "Equipo": tiene su propia columna con
+// aire de los dos lados (de ahí las columnas vacías #spacer), quedando cerca
+// del centro de la fila. En mobile se oculta la cabecera y "Proyecto" vuelve
+// a ir pegado al nombre del equipo (mismo criterio que "Reuniones" y la
+// barra, que también se ocultan).
+const rowGrid =
+  "grid-cols-[20px_1fr_40px] md:grid-cols-[24px_140px_1fr_120px_1fr_96px_180px]";
 const headerLabel =
   "text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#939393]";
 
@@ -84,7 +91,9 @@ export default function ComoSeMide() {
             <div className={`hidden md:grid ${rowGrid} gap-3 pb-2 border-b border-[#2D2B40]`}>
               <span className={headerLabel}>#</span>
               <span className={headerLabel}>Equipo</span>
+              <span aria-hidden />
               <span className={headerLabel}>Proyecto</span>
+              <span aria-hidden />
               <span className={headerLabel}>Reuniones</span>
               <span className={headerLabel}>Índice de actividad</span>
             </div>
@@ -100,7 +109,9 @@ export default function ComoSeMide() {
                     {row.team}
                     <em className="md:hidden not-italic font-medium text-[#939393] ml-1">{row.project}</em>
                   </span>
+                  <span aria-hidden className="hidden md:block" />
                   <span className="hidden md:block text-[13px] font-medium text-[#C7C9D3]">{row.project}</span>
+                  <span aria-hidden className="hidden md:block" />
                   <span className="hidden md:block text-[11px] text-[#939393]">{row.meetings}</span>
                   <div className="hidden md:flex items-center gap-2.5">
                     <div className="h-[7px] flex-1 rounded-full bg-[#2D2B40] overflow-hidden">

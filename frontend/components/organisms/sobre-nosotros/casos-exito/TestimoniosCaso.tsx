@@ -12,8 +12,6 @@ interface Testimonial {
   fallbackInitials: string;
 }
 
-// Mismas fotos que usan estos dos testimonios en la home (CasoOracle), para
-// que sea la misma persona reconocible en ambas páginas.
 const testimonials: Testimonial[] = [
   {
     quote:
