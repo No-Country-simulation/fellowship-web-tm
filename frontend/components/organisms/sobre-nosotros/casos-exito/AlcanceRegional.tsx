@@ -16,13 +16,14 @@ const regionStats = [
   { n: "2", l: "Idiomas · ES + PT" },
 ];
 
+// Ancho de barra proporcional al valor más alto (Brasil = 197 = 100%).
 const countries: CountryBar[] = [
-  { code: "br", name: "Brasil", widthPct: 100, value: "830" },
-  { code: "ar", name: "Argentina", widthPct: 77, value: "640" },
-  { code: "co", name: "Colombia", widthPct: 58, value: "480" },
-  { code: "mx", name: "México", widthPct: 47, value: "390" },
-  { code: "pe", name: "Perú", widthPct: 31, value: "260" },
-  { code: "ve", name: "Venezuela", widthPct: 28, value: "235" },
+  { code: "br", name: "Brasil", widthPct: 100, value: "197" },
+  { code: "mx", name: "México", widthPct: 61, value: "120" },
+  { code: "co", name: "Colombia", widthPct: 56, value: "111" },
+  { code: "ar", name: "Argentina", widthPct: 50, value: "98" },
+  { code: "pe", name: "Perú", widthPct: 22, value: "43" },
+  { code: "ve", name: "Venezuela", widthPct: 18, value: "35" },
 ];
 
 function CountryBarRow({ code, name, widthPct, value, started }: CountryBar & { started: boolean }) {

@@ -617,9 +617,9 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### HeroCasoExito
 
-- **Descripción:** Hero con eyebrow "Caso de éxito · Hackathon ONE", titular en dos líneas (la segunda con gradiente) y descripción con los números macro: 830 estudiantes de ONE, 3 desafíos con IA, equipos multidisciplinarios. Debajo, 4 stats con conteo animado (830 participantes, 106 equipos, 3 desafíos con IA, 100% remota · LATAM) y línea de impacto sobre las +600.000 personas impactadas por ONE en LATAM.
+- **Descripción:** Hero con eyebrow "Hackathon ONE G9", titular en dos líneas (la segunda con gradiente) y descripción con los números macro: 830 estudiantes de ONE, 3 desafíos con IA, equipos multidisciplinarios. Debajo, los logos de Oracle, Alura y ONE (mismos archivos y alturas que en la sección "Hackathon Oracle Next Education" de la home, `CasoOracle`). Después, 4 stats con conteo animado (830 participantes, 106 equipos, 3 desafíos con IA, 100% remota · LATAM) y línea de impacto sobre las +600.000 personas impactadas por ONE en LATAM.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `next/image`, `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import HeroCasoExito from "@/components/organisms/sobre-nosotros/casos-exito/HeroCasoExito";
@@ -639,7 +639,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### AlcanceRegional
 
-- **Descripción:** "02 — Alcance regional". Sección oscura que muestra el alcance geográfico del caso: +21 países, 2 idiomas (ES + PT) y distribución por país con barras horizontales (Brasil, Argentina, Colombia, México, Perú, Venezuela) más una nota de +15 países adicionales.
+- **Descripción:** "02 — Alcance regional". Sección oscura que muestra el alcance geográfico del caso: +21 países, 2 idiomas (ES + PT) y distribución por país con barras horizontales, ordenadas de mayor a menor (Brasil 197, México 120, Colombia 111, Argentina 98, Perú 43, Venezuela 35; el ancho de cada barra es proporcional al valor más alto) más una nota de +15 países adicionales.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
@@ -661,7 +661,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### ComoSeMide
 
-- **Descripción:** "04 — Cómo se mide". Sección oscura que muestra cómo la plataforma ordena a los equipos por índice de actividad: leaderboard con los 4 equipos top (con score y encuentros), nota sobre 106 equipos activos y comparativa de peer review de 13 habilidades blandas (Comunicación, Adaptación, Liderazgo como muestra).
+- **Descripción:** "04 — Cómo se mide". Sección oscura que muestra cómo la plataforma ordena a los equipos por índice de actividad: leaderboard con los 6 equipos del PDF del caso (pág. 5: Equipo 18, 49, 29, 4, 13, 66), con cabecera de columnas (#, Equipo, Proyecto, Reuniones, Índice de actividad) desde `md` — "Proyecto" no va pegado a "Equipo": tiene su propia columna con aire de los dos lados (columnas vacías a modo de separador), cerca del centro de la fila. Por debajo de `md` no se muestra la cabecera y el proyecto vuelve a ir junto al nombre del equipo, igual que "Reuniones" y la barra, que también se ocultan (solo queda el número). Debajo, "106 equipos participando · 97 equipos activos" resaltado con números grandes (97 en color de acento) — mismos valores que el PDF. Cierra con comparativa de peer review de 13 habilidades blandas (Comunicación, Adaptación, Liderazgo como muestra).
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
@@ -672,7 +672,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### DemoDay
 
-- **Descripción:** "05 — Demo Day". Sección clara que recrea la presentación final en vivo: mockup de pantalla compartida con el producto FinAI (stats de conversión, gráfico de altas por semana, funnel de pasos), columna de participantes que presentan (Ana, Valeria, Diego con badge "HABLA" en la activa, oculta en mobile/tablet), panel "Quién observa" (3 jurados + avatares de +12 empresas invitadas) y stats en vivo (24 equipos presentando, 157 asistentes, 14 países, 100% remoto). El layout usa 3 columnas en desktop.
+- **Descripción:** "05 — Demo Day". Sección clara que recrea la presentación final en vivo: mockup de pantalla compartida con el producto FinAI (stats de conversión, gráfico de altas por semana, funnel de pasos), columna de participantes que presentan (Ana, Valeria, Diego con badge "HABLA" en la activa, oculta en mobile/tablet), panel "Quién observa" (3 jurados + avatares de +12 empresas invitadas) y stats en vivo (24 equipos presentando, 157 asistentes, 14 países, 100% remoto). El layout usa 3 columnas en desktop. El contenedor es `max-w-[1120px] mx-auto px-6`, igual que el resto de las secciones de esta página — antes era `w-full px-6 md:px-12` (sin límite de ancho), por eso quedaba más ancho que las demás.
 - **Props:** Ninguna.
 - **Dependencias:** `next/image`, `lucide-react` (íconos `ChevronRight`, `Mic`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
@@ -683,9 +683,9 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### ImpactoContratacion
 
-- **Descripción:** "06 — Impacto en contratación". Sección oscura con métricas del impacto en contratación: CVs por leer (0), horas de screening (−82%), de lista a entrevista (3 días), y shortlist de perfiles ordenados por conducta observada con barras de score animadas al entrar en pantalla. Cierra con nota de 574 perfiles validados y 5 sugeridos para la búsqueda.
+- **Descripción:** "06 — Impacto en contratación" ("Talento job-ready, a disposición para entrevistar"). Sección oscura con métricas del impacto en contratación: CVs por leer (0), horas de screening (−82%), de lista a entrevista (3 días), y shortlist de perfiles ordenados por conducta observada. Cada fila de la shortlist tiene foto de perfil, nombre y rol/ubicación, peer score + cantidad de reseñas (dato que figura en el caso ONE en PDF, distinto del índice de actividad que ordena la lista), cantidad de experiencias y una barra de score animada al entrar en pantalla. En mobile el peer score y las reseñas van debajo del nombre (se ocultan las columnas de experiencias y la barra). Cierra con nota de 574 perfiles validados y 5 sugeridos para la búsqueda.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `next/image`, `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import ImpactoContratacion from "@/components/organisms/sobre-nosotros/casos-exito/ImpactoContratacion";
@@ -705,9 +705,10 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### FunnelCompleto
 
-- **Descripción:** "08 — De punta a punta". Sección oscura con funnel de 6 etapas (Participación → Finalización → Talento job-ready → Interacciones → Entrevistas → Contratados) con barras animadas al entrar en pantalla. La etapa final está resaltada en rosa.
+- **Descripción:** "08 — De punta a punta" ("De la formación a la contratación, medido completo"). Sección oscura con funnel de 6 etapas (Participación 1.240 → Finalización 892 → Talento job-ready 574 → Interacciones 498 → Entrevistas 412 → Contratados 74) con barras animadas al entrar en pantalla; el ancho de cada barra es el valor como % de Participación (el primer escalón). La etapa final está resaltada en rosa. Es el único contenido de la sección, por eso las barras (10px de alto) y la tipografía son más grandes que en otras listas de la página: el valor de cada fila (info primaria, 17px extrabold DM Sans) se ve claramente más grande que su etiqueta (info secundaria, 14px semibold).
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Importante:** El funnel tiene que ser descendente en todo momento (cada etapa es un subconjunto de la anterior) — si se cambia algún valor, hay que revisar que siga bajando de punta a punta y recalcular el `widthPct` de esa fila y de las siguientes.
 - **Uso:**
   ```tsx
   import FunnelCompleto from "@/components/organisms/sobre-nosotros/casos-exito/FunnelCompleto";
@@ -727,9 +728,9 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### TestimoniosCaso
 
-- **Descripción:** "10 — Quién lo dice". Sección oscura con dos testimonios en cards con borde izquierdo rosa (Amanda Gelumbauskas de Oracle, Christian Velasco Argañaraz de Alura). Debajo, chips con las organizaciones que participaron: Oracle, Alura Latam, John Deere, Ficohsa, Banco Azteca, Get on Board, MCIO, Instituto PROA, SoftSell.
+- **Descripción:** "10 — Quién lo dice". Sección oscura con dos testimonios en cards con borde izquierdo rosa (Amanda Gelumbauskas de Oracle, Christian Velasco Argañaraz de Alura), cada uno con foto de perfil circular (`Avatar`, con fallback de iniciales si la imagen no carga) junto al nombre y rol. Mismas fotos que usan estos dos testimonios en `CasoOracle` (home): `/people/amanda-gelumbauskas-2.jpg` y `/people/christian-velaszo-arganaraz.jpg`. Debajo, chips con las organizaciones que participaron: Oracle, Alura Latam, John Deere, Ficohsa, Banco Azteca, Get on Board, MCIO, Instituto PROA, SoftSell.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Dependencias:** `@/components/ui/avatar`, `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
   ```tsx
   import TestimoniosCaso from "@/components/organisms/sobre-nosotros/casos-exito/TestimoniosCaso";

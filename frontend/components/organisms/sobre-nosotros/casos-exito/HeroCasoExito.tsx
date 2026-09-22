@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 
 interface Stat {
@@ -14,6 +15,16 @@ const stats: Stat[] = [
   { target: 106, suffix: "", label: "Equipos" },
   { target: 3, suffix: "", label: "Desafíos con IA" },
   { target: 100, suffix: "%", label: "Remota · LATAM" },
+];
+
+// Mismos archivos y alturas que en la sección "Hackathon Oracle Next
+// Education" de la home (CasoOracle): Oracle y Alura tienen mucho margen
+// transparente en el archivo, por eso van más altos que ONE (logo apilado,
+// casi sin margen) — así los tres tienen un peso visual parecido.
+const logos = [
+  { src: "/logos/oracle.png", alt: "Oracle", width: 190, height: 91, className: "h-[56px] md:h-[64px]" },
+  { src: "/logos/alura.png", alt: "Alura", width: 280, height: 280, className: "h-[56px] md:h-[64px]" },
+  { src: "/logos/one.png", alt: "ONE Next Education", width: 308, height: 163, className: "h-6 md:h-7" },
 ];
 
 function CountUp({ target, started, suffix = "" }: { target: number; started: boolean; suffix?: string }) {
@@ -73,7 +84,7 @@ export default function HeroCasoExito() {
         <Reveal>
           <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#939393]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF0094] shadow-[0_0_12px_#FF0094]" />
-            Caso de éxito · Hackathon ONE
+            Hackathon ONE G9
           </div>
         </Reveal>
 
@@ -95,8 +106,23 @@ export default function HeroCasoExito() {
           </p>
         </Reveal>
 
+        <Reveal delay={250}>
+          <div className="mt-9 flex h-7 items-center gap-x-6 select-none">
+            {logos.map((logo) => (
+              <Image
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                className={`${logo.className} w-auto shrink-0 opacity-90 object-contain`}
+              />
+            ))}
+          </div>
+        </Reveal>
+
         <Reveal delay={300}>
-          <div ref={statsRef} className="mt-10 flex flex-wrap gap-8">
+          <div ref={statsRef} className="mt-9 flex flex-wrap gap-8">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="font-['DM_Sans'] font-extrabold text-[clamp(26px,3.2vw,34px)] text-white">

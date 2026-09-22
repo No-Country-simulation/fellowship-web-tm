@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import SectionBadge from "@/components/ui/sectionBadge";
 
@@ -13,8 +14,11 @@ interface MetricCard {
 
 interface ShortlistRow {
   name: string;
+  photo: string;
   roleLocation: string;
   experiences: string;
+  peerScore: number;
+  reviews: number;
   score: number;
 }
 
@@ -24,10 +28,37 @@ const metrics: MetricCard[] = [
   { label: "De lista a entrevista", value: "3 días", small: true },
 ];
 
+// Peer score y reviews: mismo dato que figura en el caso ONE (PDF) — score de
+// peer review (escala 1-10) y cantidad de reseñas recibidas por la persona,
+// distinto del "índice de actividad" (score 0-100) que ordena el shortlist.
 const shortlist: ShortlistRow[] = [
-  { name: "Camila Rossi", roleLocation: "AI Engineer · Buenos Aires, AR", experiences: "4 experiencias", score: 94 },
-  { name: "Diego Fuentes", roleLocation: "Backend · Bogotá, CO", experiences: "3 experiencias", score: 91 },
-  { name: "Valentina Cruz", roleLocation: "Data Scientist · CDMX, MX", experiences: "5 experiencias", score: 88 },
+  {
+    name: "Camila Rossi",
+    photo: "/people/equipo/perfil18.png",
+    roleLocation: "AI Engineer · Buenos Aires, AR",
+    experiences: "4 experiencias",
+    peerScore: 9.4,
+    reviews: 12,
+    score: 94,
+  },
+  {
+    name: "Diego Fuentes",
+    photo: "/people/equipo/perfil24.png",
+    roleLocation: "Backend · Bogotá, CO",
+    experiences: "3 experiencias",
+    peerScore: 9.1,
+    reviews: 9,
+    score: 91,
+  },
+  {
+    name: "Valentina Cruz",
+    photo: "/people/equipo/perfil21.png",
+    roleLocation: "Data Scientist · CDMX, MX",
+    experiences: "5 experiencias",
+    peerScore: 8.8,
+    reviews: 15,
+    score: 88,
+  },
 ];
 
 export default function ImpactoContratacion() {
@@ -96,12 +127,24 @@ export default function ImpactoContratacion() {
               {shortlist.map((row) => (
                 <div
                   key={row.name}
-                  className="grid grid-cols-[20px_1fr_40px] md:grid-cols-[24px_1fr_90px_1fr_40px] items-center gap-3 py-2.5 border-b border-[#2D2B40]"
+                  className="grid grid-cols-[36px_1fr_40px] md:grid-cols-[36px_1fr_100px_90px_1fr_40px] items-center gap-3 py-2.5 border-b border-[#2D2B40]"
                 >
-                  <span className="text-[12px] font-extrabold text-[#FF0094]">★</span>
-                  <span className="text-[13px] font-bold text-white">
-                    {row.name} <em className="not-italic font-medium text-[#939393] ml-1">{row.roleLocation}</em>
-                  </span>
+                  <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0">
+                    <Image src={row.photo} alt={row.name} fill className="object-cover" sizes="36px" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="block text-[13px] font-bold text-white truncate">
+                      {row.name} <em className="not-italic font-medium text-[#939393] ml-1">{row.roleLocation}</em>
+                    </span>
+                    <span className="md:hidden mt-0.5 flex items-center gap-1 text-[11px] text-[#939393]">
+                      <span className="font-bold text-[#02BEEF]">{row.peerScore.toFixed(1)} ★</span>
+                      peer · {row.reviews} reseñas
+                    </span>
+                  </div>
+                  <div className="hidden md:flex flex-col gap-0.5">
+                    <span className="text-[13px] font-extrabold text-[#02BEEF]">{row.peerScore.toFixed(1)} ★</span>
+                    <span className="text-[10px] text-[#939393]">{row.reviews} reseñas</span>
+                  </div>
                   <span className="hidden md:block text-[11px] text-[#939393]">{row.experiences}</span>
                   <div className="hidden md:block h-[7px] rounded-full bg-[#2D2B40] overflow-hidden">
                     <div

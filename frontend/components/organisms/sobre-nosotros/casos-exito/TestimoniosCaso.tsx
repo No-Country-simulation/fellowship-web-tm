@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Reveal } from "@/components/ui/reveal";
 import SectionBadge from "@/components/ui/sectionBadge";
 
@@ -7,6 +8,8 @@ interface Testimonial {
   quote: string;
   name: string;
   role: string;
+  photo: string;
+  fallbackInitials: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -15,12 +18,16 @@ const testimonials: Testimonial[] = [
       "La calidad de los proyectos y el nivel de colaboración que vimos en los equipos fue excepcional. No Country ha creado un modelo único para activar ecosistema e identificar talento real.",
     name: "Amanda Gelumbauskas",
     role: "LATAM Head of Oracle Next Education",
+    photo: "/people/amanda-gelumbauskas-2.jpg",
+    fallbackInitials: "AG",
   },
   {
     quote:
       "Observar los equipos colaborar en tiempo real nos dio una perspectiva invaluable sobre cómo trabajan y resuelven problemas. Identificamos varios candidatos que se alinean perfectamente con nuestra cultura.",
     name: "Christian Velasco Argañaraz",
     role: "Head of Alura Latam",
+    photo: "/people/christian-velaszo-arganaraz.jpg",
+    fallbackInitials: "CV",
   },
 ];
 
@@ -59,9 +66,17 @@ export default function TestimoniosCaso() {
                 <p className="text-[13px] italic text-[#C7C9D3] leading-[1.6]">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <div className="mt-3 flex flex-col">
-                  <span className="text-[11.5px] font-bold text-white">{t.name}</span>
-                  <span className="text-[10.5px] text-[#939393] mt-0.5">{t.role}</span>
+                <div className="mt-4 flex items-center gap-3">
+                  <Avatar className="h-11 w-11 border border-white/10 shrink-0">
+                    <AvatarImage src={t.photo} alt={t.name} />
+                    <AvatarFallback className="bg-[#0C0C16] text-white text-[11px] font-bold">
+                      {t.fallbackInitials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[11.5px] font-bold text-white truncate">{t.name}</span>
+                    <span className="text-[10.5px] text-[#939393] mt-0.5 truncate">{t.role}</span>
+                  </div>
                 </div>
               </div>
             </Reveal>

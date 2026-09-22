@@ -109,7 +109,7 @@ export default function DemoDay() {
 
   return (
     <section id="ce-demoday" className="bg-[#F9F9F9] text-[#0a0a0f] border-t border-[#ececec] py-24">
-      <div className="w-full px-6 md:px-12">
+      <div className="max-w-[1120px] mx-auto px-6">
         <Reveal>
           <div className="max-w-[720px]">
             <SectionBadge>05 Demo Day</SectionBadge>

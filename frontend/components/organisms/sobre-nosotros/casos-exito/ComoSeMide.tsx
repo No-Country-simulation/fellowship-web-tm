@@ -17,11 +17,15 @@ interface SkillRow {
   score: number;
 }
 
+// Mismos 6 equipos y valores que la tabla "Comparar equipos" del PDF del
+// caso (página 5).
 const leaderboard: LeaderboardRow[] = [
   { rank: 1, team: "Equipo 18", project: "FinAI", meetings: "18 encuentros", score: 94 },
   { rank: 2, team: "Equipo 49", project: "EnergyAI", meetings: "16 encuentros", score: 88 },
   { rank: 3, team: "Equipo 29", project: "FinAI", meetings: "14 encuentros", score: 81 },
   { rank: 4, team: "Equipo 4", project: "Techmind", meetings: "12 encuentros", score: 73 },
+  { rank: 5, team: "Equipo 13", project: "Techmind", meetings: "9 encuentros", score: 64 },
+  { rank: 6, team: "Equipo 66", project: "EnergyAI", meetings: "7 encuentros", score: 51 },
 ];
 
 const skills: SkillRow[] = [
@@ -29,6 +33,17 @@ const skills: SkillRow[] = [
   { name: "Adaptación", score: 8.7 },
   { name: "Liderazgo", score: 8.5 },
 ];
+
+// Mismo grid en la cabecera y en cada fila, así las columnas quedan
+// alineadas. "Proyecto" no va pegado a "Equipo": tiene su propia columna con
+// aire de los dos lados (de ahí las columnas vacías #spacer), quedando cerca
+// del centro de la fila. En mobile se oculta la cabecera y "Proyecto" vuelve
+// a ir pegado al nombre del equipo (mismo criterio que "Reuniones" y la
+// barra, que también se ocultan).
+const rowGrid =
+  "grid-cols-[20px_1fr_40px] md:grid-cols-[24px_140px_1fr_120px_1fr_96px_180px]";
+const headerLabel =
+  "text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#939393]";
 
 export default function ComoSeMide() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -73,31 +88,55 @@ export default function ComoSeMide() {
 
         <div ref={contentRef}>
           <Reveal delay={100}>
-            <div className="mt-9 flex flex-col gap-2.5">
+            <div className={`hidden md:grid ${rowGrid} gap-3 pb-2 border-b border-[#2D2B40]`}>
+              <span className={headerLabel}>#</span>
+              <span className={headerLabel}>Equipo</span>
+              <span aria-hidden />
+              <span className={headerLabel}>Proyecto</span>
+              <span aria-hidden />
+              <span className={headerLabel}>Reuniones</span>
+              <span className={headerLabel}>Índice de actividad</span>
+            </div>
+
+            <div className="mt-2.5 md:mt-0 flex flex-col gap-2.5">
               {leaderboard.map((row) => (
                 <div
                   key={row.rank}
-                  className="grid grid-cols-[20px_1fr_40px] md:grid-cols-[24px_1fr_90px_1fr_40px] items-center gap-3 py-2.5 border-b border-[#2D2B40]"
+                  className={`grid ${rowGrid} items-center gap-3 py-2.5 border-b border-[#2D2B40]`}
                 >
                   <span className="text-[12px] font-extrabold text-[#FF0094]">{row.rank}</span>
                   <span className="text-[13px] font-bold text-white">
-                    {row.team} <em className="not-italic font-medium text-[#939393] ml-1">{row.project}</em>
+                    {row.team}
+                    <em className="md:hidden not-italic font-medium text-[#939393] ml-1">{row.project}</em>
                   </span>
+                  <span aria-hidden className="hidden md:block" />
+                  <span className="hidden md:block text-[13px] font-medium text-[#C7C9D3]">{row.project}</span>
+                  <span aria-hidden className="hidden md:block" />
                   <span className="hidden md:block text-[11px] text-[#939393]">{row.meetings}</span>
-                  <div className="hidden md:block h-[7px] rounded-full bg-[#2D2B40] overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-[#FF0094] to-[#02BEEF] transition-all duration-[1100ms] ease-out"
-                      style={{ width: started ? `${row.score}%` : "0%" }}
-                    />
+                  <div className="hidden md:flex items-center gap-2.5">
+                    <div className="h-[7px] flex-1 rounded-full bg-[#2D2B40] overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-[#FF0094] to-[#02BEEF] transition-all duration-[1100ms] ease-out"
+                        style={{ width: started ? `${row.score}%` : "0%" }}
+                      />
+                    </div>
+                    <span className="w-8 text-[13px] font-extrabold text-white text-right">{row.score}</span>
                   </div>
-                  <span className="text-[13px] font-extrabold text-white text-right">{row.score}</span>
+                  {/* En mobile no hay barra (se oculta desde md): solo el número. */}
+                  <span className="md:hidden text-[13px] font-extrabold text-white text-right">{row.score}</span>
                 </div>
               ))}
             </div>
           </Reveal>
 
           <Reveal delay={150}>
-            <p className="mt-3.5 text-[11.5px] text-[#939393]">106 equipos participando · 97 equipos activos</p>
+            <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span className="text-2xl font-extrabold text-white">106</span>
+              <span className="text-[13px] text-[#939393]">equipos participando</span>
+              <span className="mx-1 text-[#2D2B40]">·</span>
+              <span className="text-2xl font-extrabold text-[#02BEEF]">97</span>
+              <span className="text-[13px] text-[#939393]">equipos activos</span>
+            </div>
           </Reveal>
 
           <Reveal delay={200}>
