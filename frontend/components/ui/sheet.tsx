@@ -35,7 +35,7 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 h-full w-[min(460px,92vw)] overflow-y-auto border-l border-[#1C1B29] bg-[#0C0C16] px-[26px] pt-7 pb-10 text-white shadow-[-24px_0_60px_rgba(0,0,0,0.45)] outline-none",
+          "fixed inset-y-0 right-0 z-50 h-full w-[94vw] overflow-y-auto border-l border-[#1C1B29] bg-[#0C0C16] px-[34px] pt-[34px] pb-12 text-white shadow-[-24px_0_60px_rgba(0,0,0,0.45)] outline-none min-[960px]:w-[50vw] min-[960px]:min-w-[640px] min-[960px]:max-w-[920px]",
           "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-300",
           "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-200",
           "motion-reduce:animate-none",

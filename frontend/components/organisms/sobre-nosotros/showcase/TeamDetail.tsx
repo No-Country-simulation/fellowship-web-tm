@@ -3,6 +3,7 @@ import { ArrowUpRight, ChevronLeft, Play, TrendingUp } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import TrayectoriaActividad from "@/components/organisms/shared/TrayectoriaActividad";
 import GithubIcon from "@/components/organisms/sobre-nosotros/showcase/GithubIcon";
+import LinkedinIcon from "@/components/organisms/sobre-nosotros/showcase/LinkedinIcon";
 import ShareProjectDialog from "@/components/organisms/sobre-nosotros/showcase/ShareProjectDialog";
 import {
   BRAND_COLORS,
@@ -166,7 +167,9 @@ export default function TeamDetail({ detail }: { detail: ShowcaseTeamDetail }) {
                         {member.name.slice(0, 1)}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="text-[14.5px] font-bold text-white">{member.name}</p>
+                        <p className="text-[14.5px] font-bold text-white">
+                          {member.name} {member.lastName}
+                        </p>
                         <p className="mt-px mb-[5px] text-xs text-[#9CA3AF]">{member.role}</p>
                         <p className="flex items-center gap-[7px] text-xs text-[#939393]">
                           <span
@@ -175,6 +178,28 @@ export default function TeamDetail({ detail }: { detail: ShowcaseTeamDetail }) {
                           />
                           {COUNTRY_NAMES[member.country]}
                         </p>
+                        <div className="mt-2 flex items-center gap-1.5">
+                          <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`LinkedIn de ${member.name}`}
+                            aria-label={`LinkedIn de ${member.name}`}
+                            className="flex size-[25px] shrink-0 items-center justify-center rounded-[7px] border border-[#2D2B40] bg-[#000115] text-[#939393] transition-colors hover:border-[#02BEEF] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#02BEEF]"
+                          >
+                            <LinkedinIcon className="size-[13px]" />
+                          </a>
+                          <a
+                            href={member.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`GitHub de ${member.name}`}
+                            aria-label={`GitHub de ${member.name}`}
+                            className="flex size-[25px] shrink-0 items-center justify-center rounded-[7px] border border-[#2D2B40] bg-[#000115] text-[#939393] transition-colors hover:border-[#02BEEF] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#02BEEF]"
+                          >
+                            <GithubIcon className="size-[13px]" />
+                          </a>
+                        </div>
                       </div>
                       <div className="shrink-0 text-right">
                         <p

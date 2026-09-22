@@ -42,8 +42,11 @@ export const COUNTRY_NAMES: Record<CountryCode, string> = {
 
 export interface ShowcaseMember {
   name: string;
+  lastName: string;
   role: string;
   country: CountryCode;
+  linkedin: string;
+  github: string;
   // Índice de actividad (0-100), una entrada por semana.
   weeks: number[];
 }
@@ -79,6 +82,27 @@ export function teamHref(team: ShowcaseTeam) {
   return `/sobre-nosotros/showcase/${team.id}`;
 }
 
+// Score (índice de actividad, 0-100) y mensajes de un equipo. Se calculan acá
+// en vez de guardarse como datos fijos, así el sheet (ProjectSheet) y la
+// pestaña "Comparar equipos" (buildCompareEntries) siempre muestran el mismo
+// valor para un mismo equipo.
+export function teamScore(teamId: string) {
+  return 64 + (hashSeed(`${teamId}|score`) % 34);
+}
+
+export function teamMessages(teamId: string) {
+  return 140 + (hashSeed(`${teamId}|msg`) % 400);
+}
+
+function slugify(str: string) {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 export function weeklyAverage(weeks: number[]) {
   return Math.round(weeks.reduce((sum, value) => sum + value, 0) / weeks.length);
 }
@@ -89,9 +113,10 @@ export function getAllTeamIds() {
   );
 }
 
-// Los integrantes solo tienen nombre en los datos de ejemplo; rol, país y
-// trayectoria se generan de forma determinística a partir del equipo, así que
-// siempre dan lo mismo. Reemplazar por los datos reales cuando existan.
+// Los integrantes solo tienen nombre en los datos de ejemplo; apellido, rol,
+// país, LinkedIn/GitHub y trayectoria se generan de forma determinística a
+// partir del equipo, así que siempre dan lo mismo. Reemplazar por los datos
+// reales cuando existan.
 const ROLES = [
   "Frontend Developer",
   "Backend Developer",
@@ -100,6 +125,22 @@ const ROLES = [
   "QA Tester",
   "Data Analyst",
   "Product Manager",
+];
+const LAST_NAMES = [
+  "Fernández",
+  "Almeida",
+  "Restrepo",
+  "Salazar",
+  "Ibáñez",
+  "Torres",
+  "Méndez",
+  "Rojas",
+  "Castro",
+  "Herrera",
+  "Vargas",
+  "Peña",
+  "Suárez",
+  "Molina",
 ];
 const COUNTRY_CODES = Object.keys(COUNTRY_NAMES) as CountryCode[];
 const WEEK_COUNT = 8;
@@ -115,10 +156,15 @@ function buildMember(teamId: string, name: string, index: number): ShowcaseMembe
     }
     return value;
   });
+  const lastName = LAST_NAMES[hashSeed(`${seed}|lastname`) % LAST_NAMES.length];
+  const slug = slugify(`${name}-${lastName}`);
   return {
     name,
+    lastName,
     role: ROLES[(hashSeed(teamId) + index) % ROLES.length],
     country: COUNTRY_CODES[hashSeed(`${seed}|country`) % COUNTRY_CODES.length],
+    linkedin: `https://linkedin.com/in/${slug}`,
+    github: `https://github.com/${slug.replace(/-/g, "")}`,
     weeks,
   };
 }
@@ -356,8 +402,6 @@ export function buildCompareEntries(): CompareEntry[] {
   for (const project of showcaseProjects) {
     for (const edition of project.editions) {
       for (const team of edition.teams) {
-        // Score determinístico a partir del id, entre 64 y 97
-        const score = 64 + (hashSeed(`${team.id}|score`) % 34);
         out.push({
           projectTitle: project.title,
           projectId: project.id,
@@ -368,8 +412,8 @@ export function buildCompareEntries(): CompareEntry[] {
           meetings: team.meetings,
           deliverablesDone: team.deliverablesDone,
           deliverablesTotal: team.deliverablesTotal,
-          score,
-          messages: 140 + (hashSeed(`${team.id}|msg`) % 400),
+          score: teamScore(team.id),
+          messages: teamMessages(team.id),
         });
       }
     }
