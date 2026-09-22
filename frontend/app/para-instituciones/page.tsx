@@ -52,7 +52,6 @@ export default function Page() {
       <Integracion />
       <CTAInstituciones />
       <SimulacionFormInstituciones />
-      <CTAFinal />
       <Footer
         lastUpdated={{
           date: getLastModified("app/para-instituciones/page.tsx"),
