@@ -661,7 +661,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### ComoSeMide
 
-- **Descripción:** "04 — Cómo se mide". Sección oscura que muestra cómo la plataforma ordena a los equipos por índice de actividad: leaderboard con los 4 equipos top (con score y encuentros), nota sobre 106 equipos activos y comparativa de peer review de 13 habilidades blandas (Comunicación, Adaptación, Liderazgo como muestra).
+- **Descripción:** "04 — Cómo se mide". Sección oscura que muestra cómo la plataforma ordena a los equipos por índice de actividad: leaderboard con los 4 equipos top, con cabecera de columnas (#, Equipo, Proyecto, Reuniones, Índice de actividad) desde `md` — "Proyecto" tiene su propia columna con el mismo espacio que "Reuniones"; por debajo de `md` no se muestra la cabecera y el proyecto vuelve a ir junto al nombre del equipo, igual que "Reuniones" y la barra, que también se ocultan. Debajo, "106 equipos participando · 97 equipos activos" resaltado con números grandes (97 en color de acento). Cierra con comparativa de peer review de 13 habilidades blandas (Comunicación, Adaptación, Liderazgo como muestra).
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
