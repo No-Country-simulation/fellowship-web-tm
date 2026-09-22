@@ -683,9 +683,9 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### ImpactoContratacion
 
-- **Descripción:** "06 — Impacto en contratación". Sección oscura con métricas del impacto en contratación: CVs por leer (0), horas de screening (−82%), de lista a entrevista (3 días), y shortlist de perfiles ordenados por conducta observada con barras de score animadas al entrar en pantalla. Cierra con nota de 574 perfiles validados y 5 sugeridos para la búsqueda.
+- **Descripción:** "06 — Impacto en contratación" ("Talento job-ready, a disposición para entrevistar"). Sección oscura con métricas del impacto en contratación: CVs por leer (0), horas de screening (−82%), de lista a entrevista (3 días), y shortlist de perfiles ordenados por conducta observada. Cada fila de la shortlist tiene foto de perfil, nombre y rol/ubicación, peer score + cantidad de reseñas (dato que figura en el caso ONE en PDF, distinto del índice de actividad que ordena la lista), cantidad de experiencias y una barra de score animada al entrar en pantalla. En mobile el peer score y las reseñas van debajo del nombre (se ocultan las columnas de experiencias y la barra). Cierra con nota de 574 perfiles validados y 5 sugeridos para la búsqueda.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `next/image`, `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import ImpactoContratacion from "@/components/organisms/sobre-nosotros/casos-exito/ImpactoContratacion";
