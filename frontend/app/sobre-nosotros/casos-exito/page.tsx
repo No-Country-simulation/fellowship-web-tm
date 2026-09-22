@@ -48,7 +48,7 @@ export default function CasosExitoPage() {
       <LaRelacion />
       <TestimoniosCaso />
       <ClosingCaso />
-      <CTAFinal />
+      
       <Footer
         lastUpdated={{
           date: getLastModified("app/sobre-nosotros/casos-exito/page.tsx"),
