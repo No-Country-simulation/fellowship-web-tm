@@ -285,3 +285,139 @@ export const showcaseProjects: ShowcaseProject[] = projectSeed.map((project) => 
     })),
   })),
 }));
+
+// ─── Hackathones (lista separada, no son "proyectos con ediciones") ───
+
+export interface ShowcaseHackTeam {
+  id: string;
+  title: string;
+  solves: string;
+  status: "live" | "done";
+  seal?: string;
+  vertical: string;
+}
+
+export const HACK_TEAMS: ShowcaseHackTeam[] = [
+  {
+    id: "fincoach",
+    title: "FinCoach — Educación financiera para primer empleo",
+    solves:
+      "Guía a jóvenes que reciben su primer sueldo a armar un presupuesto realista con IA.",
+    status: "done",
+    seal: "Banco Galicia",
+    vertical: "FinTech",
+  },
+  {
+    id: "edupath",
+    title: "EduPath — Rutas de aprendizaje adaptativas",
+    solves:
+      "Genera planes de estudio a medida para instructores freelance con IA generativa.",
+    status: "done",
+    seal: "Mercado Libre",
+    vertical: "AI Agent",
+  },
+  {
+    id: "pagoclar",
+    title: "PagoClaro",
+    solves:
+      "Explica en lenguaje simple por qué se rechazó un pago y qué hacer.",
+    status: "live",
+    seal: "Mercado Pago",
+    vertical: "FinTech",
+  },
+  {
+    id: "soporteia",
+    title: "SoporteIA",
+    solves: "Prioriza tickets de soporte técnico según su urgencia real.",
+    status: "done",
+    seal: "Globant",
+    vertical: "AI/Machine Learning",
+  },
+];
+
+// ─── Comparar equipos (derivado de showcaseProjects, sin nueva fuente) ───
+
+export interface CompareEntry {
+  projectTitle: string;
+  projectId: string;
+  vertical: string;
+  month: string;
+  teamLabel: string;
+  teamId: string;
+  meetings: number;
+  deliverablesDone: number;
+  deliverablesTotal: number;
+  score: number;
+  messages: number;
+}
+
+export function buildCompareEntries(): CompareEntry[] {
+  const out: CompareEntry[] = [];
+  for (const project of showcaseProjects) {
+    for (const edition of project.editions) {
+      for (const team of edition.teams) {
+        // Score determinístico a partir del id, entre 64 y 97
+        const score = 64 + (hashSeed(`${team.id}|score`) % 34);
+        out.push({
+          projectTitle: project.title,
+          projectId: project.id,
+          vertical: project.vertical,
+          month: edition.month,
+          teamLabel: team.label,
+          teamId: team.id,
+          meetings: team.meetings,
+          deliverablesDone: team.deliverablesDone,
+          deliverablesTotal: team.deliverablesTotal,
+          score,
+          messages: 140 + (hashSeed(`${team.id}|msg`) % 400),
+        });
+      }
+    }
+  }
+  return out;
+}
+
+// ─── Filtros: meses y verticales disponibles ───
+
+export function getAllProjectMonths(): string[] {
+  const found = new Set<string>();
+  for (const p of showcaseProjects) for (const e of p.editions) found.add(e.month);
+  // Orden descendente por fecha (asume formato "Mes AAAA")
+  return [...found];
+}
+
+export function getAllProjectVerticals(): string[] {
+  const found = new Set<string>();
+  for (const p of showcaseProjects) found.add(p.vertical);
+  return [...found].sort();
+}
+
+export function getAllProjectSectors(): string[] {
+  const found = new Set<string>();
+  for (const p of showcaseProjects) found.add(p.sector);
+  return [...found].sort();
+}
+
+export function filterShowcaseProjects(
+  opts: { query: string; sector: string; vertical: string; month: string },
+): ShowcaseProject[] {
+  const q = opts.query.trim().toLowerCase();
+  return showcaseProjects.filter((p) => {
+    const sectorOk = opts.sector === "Todos" || p.sector === opts.sector;
+    const verticalOk = opts.vertical === "Todas" || p.vertical === opts.vertical;
+    const monthOk =
+      opts.month === "Todos los meses" ||
+      p.editions.some((e) => e.month === opts.month);
+    const queryOk =
+      !q ||
+      p.title.toLowerCase().includes(q) ||
+      p.solves.toLowerCase().includes(q) ||
+      p.vertical.toLowerCase().includes(q);
+    return sectorOk && verticalOk && monthOk && queryOk;
+  });
+}
+
+export type ShowcaseSelection =
+  | { kind: "project"; project: ShowcaseProject }
+  | { kind: "hack"; hack: ShowcaseHackTeam }
+  | { kind: "team"; entry: CompareEntry };

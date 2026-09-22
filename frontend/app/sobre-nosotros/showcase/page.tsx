@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/seo";
+import { getLastModified } from "@/lib/lastModified";
+import Footer from "@/components/organisms/shared/Footer";
+import HeroShowcase from "@/components/organisms/sobre-nosotros/showcase/HeroShowcase";
+import Showcase from "@/components/organisms/sobre-nosotros/showcase/Showcase";
 
 const title = "Showcase de Talento Real";
 const description =
@@ -19,5 +23,16 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return null;
+  const lastUpdated = getLastModified(
+    "app/sobre-nosotros/showcase/page.tsx",
+  );
+  const pageUrl = `${siteConfig.url}/sobre-nosotros/showcase`;
+
+  return (
+    <main className="flex flex-col bg-[#000115]">
+      <HeroShowcase />
+      <Showcase />
+      <Footer lastUpdated={{ date: lastUpdated, url: pageUrl }} />
+    </main>
+  );
 }
