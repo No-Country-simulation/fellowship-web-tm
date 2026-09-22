@@ -728,9 +728,9 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### TestimoniosCaso
 
-- **Descripción:** "10 — Quién lo dice". Sección oscura con dos testimonios en cards con borde izquierdo rosa (Amanda Gelumbauskas de Oracle, Christian Velasco Argañaraz de Alura). Debajo, chips con las organizaciones que participaron: Oracle, Alura Latam, John Deere, Ficohsa, Banco Azteca, Get on Board, MCIO, Instituto PROA, SoftSell.
+- **Descripción:** "10 — Quién lo dice". Sección oscura con dos testimonios en cards con borde izquierdo rosa (Amanda Gelumbauskas de Oracle, Christian Velasco Argañaraz de Alura), cada uno con foto de perfil circular (`Avatar`, con fallback de iniciales si la imagen no carga) junto al nombre y rol. Mismas fotos que usan estos dos testimonios en `CasoOracle` (home): `/people/amanda-gelumbauskas-2.jpg` y `/people/christian-velaszo-arganaraz.jpg`. Debajo, chips con las organizaciones que participaron: Oracle, Alura Latam, John Deere, Ficohsa, Banco Azteca, Get on Board, MCIO, Instituto PROA, SoftSell.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
+- **Dependencias:** `@/components/ui/avatar`, `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
   ```tsx
   import TestimoniosCaso from "@/components/organisms/sobre-nosotros/casos-exito/TestimoniosCaso";
