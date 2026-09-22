@@ -705,9 +705,10 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### FunnelCompleto
 
-- **Descripción:** "08 — De punta a punta". Sección oscura con funnel de 6 etapas (Participación → Finalización → Talento job-ready → Interacciones → Entrevistas → Contratados) con barras animadas al entrar en pantalla. La etapa final está resaltada en rosa.
+- **Descripción:** "08 — De punta a punta" ("De la formación a la contratación, medido completo"). Sección oscura con funnel de 6 etapas (Participación 1.240 → Finalización 892 → Talento job-ready 574 → Interacciones 498 → Entrevistas 412 → Contratados 74) con barras animadas al entrar en pantalla; el ancho de cada barra es el valor como % de Participación (el primer escalón). La etapa final está resaltada en rosa. Es el único contenido de la sección, por eso las barras (10px de alto) y la tipografía son más grandes que en otras listas de la página: el valor de cada fila (info primaria, 17px extrabold DM Sans) se ve claramente más grande que su etiqueta (info secundaria, 14px semibold).
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Importante:** El funnel tiene que ser descendente en todo momento (cada etapa es un subconjunto de la anterior) — si se cambia algún valor, hay que revisar que siga bajando de punta a punta y recalcular el `widthPct` de esa fila y de las siguientes.
 - **Uso:**
   ```tsx
   import FunnelCompleto from "@/components/organisms/sobre-nosotros/casos-exito/FunnelCompleto";
