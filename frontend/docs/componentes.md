@@ -617,9 +617,9 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### HeroCasoExito
 
-- **Descripción:** Hero con eyebrow "Caso de éxito · Hackathon ONE", titular en dos líneas (la segunda con gradiente) y descripción con los números macro: 830 estudiantes de ONE, 3 desafíos con IA, equipos multidisciplinarios. Debajo, 4 stats con conteo animado (830 participantes, 106 equipos, 3 desafíos con IA, 100% remota · LATAM) y línea de impacto sobre las +600.000 personas impactadas por ONE en LATAM.
+- **Descripción:** Hero con eyebrow "Hackathon ONE G9", titular en dos líneas (la segunda con gradiente) y descripción con los números macro: 830 estudiantes de ONE, 3 desafíos con IA, equipos multidisciplinarios. Debajo, los logos de Oracle, Alura y ONE (mismos archivos y alturas que en la sección "Hackathon Oracle Next Education" de la home, `CasoOracle`). Después, 4 stats con conteo animado (830 participantes, 106 equipos, 3 desafíos con IA, 100% remota · LATAM) y línea de impacto sobre las +600.000 personas impactadas por ONE en LATAM.
 - **Props:** Ninguna.
-- **Dependencias:** `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
+- **Dependencias:** `next/image`, `@/components/ui/reveal`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
   ```tsx
   import HeroCasoExito from "@/components/organisms/sobre-nosotros/casos-exito/HeroCasoExito";
@@ -639,7 +639,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### AlcanceRegional
 
-- **Descripción:** "02 — Alcance regional". Sección oscura que muestra el alcance geográfico del caso: +21 países, 2 idiomas (ES + PT) y distribución por país con barras horizontales (Brasil, Argentina, Colombia, México, Perú, Venezuela) más una nota de +15 países adicionales.
+- **Descripción:** "02 — Alcance regional". Sección oscura que muestra el alcance geográfico del caso: +21 países, 2 idiomas (ES + PT) y distribución por país con barras horizontales, ordenadas de mayor a menor (Brasil 197, México 120, Colombia 111, Argentina 98, Perú 43, Venezuela 35; el ancho de cada barra es proporcional al valor más alto) más una nota de +15 países adicionales.
 - **Props:** Ninguna.
 - **Dependencias:** `@/components/ui/reveal`, `@/components/ui/sectionBadge`.
 - **Uso:**
