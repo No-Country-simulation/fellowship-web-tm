@@ -672,7 +672,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ### DemoDay
 
-- **Descripción:** "05 — Demo Day". Sección clara que recrea la presentación final en vivo: mockup de pantalla compartida con el producto FinAI (stats de conversión, gráfico de altas por semana, funnel de pasos), columna de participantes que presentan (Ana, Valeria, Diego con badge "HABLA" en la activa, oculta en mobile/tablet), panel "Quién observa" (3 jurados + avatares de +12 empresas invitadas) y stats en vivo (24 equipos presentando, 157 asistentes, 14 países, 100% remoto). El layout usa 3 columnas en desktop.
+- **Descripción:** "05 — Demo Day". Sección clara que recrea la presentación final en vivo: mockup de pantalla compartida con el producto FinAI (stats de conversión, gráfico de altas por semana, funnel de pasos), columna de participantes que presentan (Ana, Valeria, Diego con badge "HABLA" en la activa, oculta en mobile/tablet), panel "Quién observa" (3 jurados + avatares de +12 empresas invitadas) y stats en vivo (24 equipos presentando, 157 asistentes, 14 países, 100% remoto). El layout usa 3 columnas en desktop. El contenedor es `max-w-[1120px] mx-auto px-6`, igual que el resto de las secciones de esta página — antes era `w-full px-6 md:px-12` (sin límite de ancho), por eso quedaba más ancho que las demás.
 - **Props:** Ninguna.
 - **Dependencias:** `next/image`, `lucide-react` (íconos `ChevronRight`, `Mic`), `@/components/ui/reveal`, `@/components/ui/sectionBadge`, `react` (`useEffect`, `useRef`, `useState` — es `"use client"`).
 - **Uso:**
