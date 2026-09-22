@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
-import type { EditionStatus } from "@/lib/showcase-data";
+
+type Status = "live" | "done";
 
 type Props = {
-  status: EditionStatus;
+  status: Status;
   className?: string;
 };
 
