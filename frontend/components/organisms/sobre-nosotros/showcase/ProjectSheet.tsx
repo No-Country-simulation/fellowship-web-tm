@@ -9,14 +9,16 @@ import {
   SheetDescription,
   SheetTitle,
 } from "@/components/ui/sheet";
+import GithubIcon from "@/components/organisms/sobre-nosotros/showcase/GithubIcon";
 import {
   BRAND_COLORS,
   countTeams,
   pluralize,
+  teamMessages,
+  teamScore,
   type ShowcaseProject,
   type ShowcaseTeam,
 } from "@/lib/showcase";
-import { cn } from "@/lib/utils";
 
 interface ProjectSheetProps {
   project: ShowcaseProject | null;
@@ -26,8 +28,11 @@ interface ProjectSheetProps {
   teamHref?: (team: ShowcaseTeam) => string;
 }
 
+// La fila tiene dos zonas clickeables por separado (info del equipo y botón
+// de repositorio), así que el contenedor es un <div>, no un <Link>/<a>: un
+// <a> (el botón de repo) no puede ir anidado dentro de otro <Link>.
 const rowClass =
-  "block w-full rounded-[14px] border border-[#1C1B29] bg-[#0c0d21] px-4 py-[15px] text-left";
+  "flex flex-wrap items-center gap-x-4 gap-y-3 rounded-[14px] border border-[#1C1B29] bg-[#0c0d21] px-4 py-[15px] transition duration-200 hover:border-[#2D2B40]";
 
 function TeamRow({
   team,
@@ -36,7 +41,10 @@ function TeamRow({
   team: ShowcaseTeam;
   href?: string;
 }) {
-  const body = (
+  const score = teamScore(team.id);
+  const messages = teamMessages(team.id);
+
+  const info = (
     <>
       <p className="mb-[11px] text-[14.5px] font-bold text-white">{team.label}</p>
       <div className="flex">
@@ -44,7 +52,7 @@ function TeamRow({
           <span
             key={`${name}-${i}`}
             title={name}
-            className="-ml-[9px] flex size-8 items-center justify-center rounded-full border-2 border-[#0c0d21] text-[11px] font-bold text-black first:ml-0"
+            className="-ml-[9px] flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-[#0c0d21] text-[11px] font-bold text-black first:ml-0"
             style={{ backgroundColor: BRAND_COLORS[i % BRAND_COLORS.length] }}
           >
             {name.slice(0, 1)}
@@ -52,23 +60,50 @@ function TeamRow({
         ))}
       </div>
       <p className="mt-2.5 text-[11.5px] text-[#939393]">
-        {team.meetings} reuniones · {team.deliverablesDone}/{team.deliverablesTotal} entregables
+        {team.meetings} reuniones · {team.deliverablesDone}/{team.deliverablesTotal} entregables ·{" "}
+        {messages} mensajes
       </p>
     </>
   );
 
-  if (!href) return <div className={rowClass}>{body}</div>;
-
   return (
-    <Link
-      href={href}
-      className={cn(
-        rowClass,
-        "transition duration-200 hover:-translate-y-0.5 hover:border-[#2D2B40] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#02BEEF]"
+    <div className={rowClass}>
+      {href ? (
+        <Link
+          href={href}
+          className="min-w-0 flex-1 rounded-[10px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#02BEEF]"
+        >
+          {info}
+        </Link>
+      ) : (
+        <div className="min-w-0 flex-1">{info}</div>
       )}
-    >
-      {body}
-    </Link>
+
+      <div className="flex shrink-0 items-center gap-3">
+        <div className="flex items-center gap-2">
+          <div className="h-[6px] w-44 overflow-hidden rounded-full bg-[#2D2B40]">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#FF0094] to-[#02BEEF]"
+              style={{ width: `${score}%` }}
+            />
+          </div>
+          <span className="text-[13px] font-extrabold text-white">{score}</span>
+        </div>
+
+        {team.repoUrl && (
+          <a
+            href={team.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Ver repositorio de ${team.label}`}
+            aria-label={`Ver repositorio de ${team.label}`}
+            className="flex size-7 shrink-0 items-center justify-center rounded-lg border border-[#2D2B40] bg-[#000115] text-[#939393] transition-colors hover:border-[#02BEEF] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#02BEEF]"
+          >
+            <GithubIcon className="size-[14px]" />
+          </a>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -90,7 +125,7 @@ export default function ProjectSheet({
               <p className="mb-[7px] text-[11px] font-bold uppercase tracking-[0.06em] text-[#939393]">
                 {project.vertical}
               </p>
-              <SheetTitle className="text-[22px] leading-[1.2]">
+              <SheetTitle className="text-2xl leading-[1.2]">
                 {project.title}
               </SheetTitle>
             </div>
@@ -102,7 +137,7 @@ export default function ProjectSheet({
             </SheetClose>
           </div>
 
-          <SheetDescription className="mt-3.5 text-sm leading-[1.65]">
+          <SheetDescription className="mt-3.5 max-w-[56ch] text-sm leading-[1.65]">
             {project.solves}
           </SheetDescription>
 

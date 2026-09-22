@@ -752,7 +752,7 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 ## Sheet (utilidad compartida)
 
-- **Descripción:** Panel lateral que entra desde la derecha (ancho `min(460px, 92vw)`), con overlay oscuro. Está construido sobre `Dialog` de Radix, así que resuelve solo el foco, la tecla Esc, el click en el overlay y el bloqueo del scroll del fondo. Exporta `Sheet`, `SheetTrigger`, `SheetClose`, `SheetContent`, `SheetTitle` y `SheetDescription`.
+- **Descripción:** Panel lateral que entra desde la derecha, con overlay oscuro. Ancho `94vw` hasta los 960px de viewport; desde ahí, `50vw` con un mínimo de 640px y un máximo de 920px (bastante más ancho que un sheet chico, pensado para el detalle de un proyecto con varios equipos). Está construido sobre `Dialog` de Radix, así que resuelve solo el foco, la tecla Esc, el click en el overlay y el bloqueo del scroll del fondo. Exporta `Sheet`, `SheetTrigger`, `SheetClose`, `SheetContent`, `SheetTitle` y `SheetDescription`.
 - **Props:** Las de los primitivos de Radix (`open`, `onOpenChange`, etc.). `SheetContent` acepta `className` para ajustar el panel.
 - **Dependencias:** `radix-ui`, `@/lib/utils`.
 - **Ubicación:** `@/components/ui/sheet` (no `organisms`, es una utilidad de UI reutilizable).
@@ -775,28 +775,28 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
 
 ### ProjectSheet
 
-- **Descripción:** Sheet de proyecto. Se abre al tocar una card de proyecto y muestra la vertical, el título, qué resuelve, chips ("N equipos participantes" y la edición o "N ediciones") y la lista de equipos con avatares superpuestos, reuniones y entregables. Si el proyecto corrió en más de una edición, los equipos se agrupan por mes ("Simulación laboral de Julio 2026") con un separador, porque el "Equipo 1" de un mes no es el de otro. No muestra estado ("En curso" / "Finalizada") en ningún lado.
-- **Props:** `project: ShowcaseProject | null`, `open: boolean`, `onOpenChange: (open: boolean) => void`, `teamHref?: (team: ShowcaseTeam) => string`. Si se pasa `teamHref`, cada equipo es un `Link` a su página (ver `TeamDetail`); si no, es solo informativo. Para linkear a la página del equipo se usa `teamHref` de `@/lib/showcase`.
-- **Dependencias:** `next/link`, `lucide-react` (íconos `Users`, `X`), `@/components/ui/sheet`, `@/lib/showcase`, `@/lib/utils`, `"use client"`.
+- **Descripción:** Sheet de proyecto. Se abre al tocar una card de proyecto y muestra la vertical, el título, qué resuelve, chips ("N equipos participantes" y la edición o "N ediciones") y la lista de equipos. Cada fila de equipo tiene: avatares superpuestos, "N reuniones · N/N entregables · N mensajes", el índice de actividad (barra + valor, `teamScore` de `@/lib/showcase`) y un botón de repositorio (ícono de GitHub, abre `team.repoUrl` en otra pestaña) — solo se muestra si el equipo tiene `repoUrl`. La fila tiene dos zonas clickeables independientes (la info del equipo, que navega a su página, y el botón de repositorio, que abre el link), por eso el contenedor de la fila es un `<div>` y no un `Link`: un `<a>` no puede ir anidado dentro de otro `Link`/`<a>`. Si el proyecto corrió en más de una edición, los equipos se agrupan por mes ("Simulación laboral de Julio 2026") con un separador, porque el "Equipo 1" de un mes no es el de otro. No muestra estado ("En curso" / "Finalizada") en ningún lado.
+- **Props:** `project: ShowcaseProject | null`, `open: boolean`, `onOpenChange: (open: boolean) => void`, `teamHref?: (team: ShowcaseTeam) => string`. Si se pasa `teamHref`, la info de cada equipo es un `Link` a su página (ver `TeamDetail`); si no, es solo informativa. Para linkear a la página del equipo se usa `teamHref` de `@/lib/showcase`.
+- **Dependencias:** `next/link`, `lucide-react` (íconos `Users`, `X`), `@/components/ui/sheet`, `GithubIcon`, `@/lib/showcase` (`teamScore`, `teamMessages`), `"use client"`.
 - **Uso:**
   ```tsx
   import ProjectSheet from "@/components/organisms/sobre-nosotros/showcase/ProjectSheet";
   import { teamHref } from "@/lib/showcase";
   <ProjectSheet project={selected} open={open} onOpenChange={setOpen} teamHref={teamHref} />;
   ```
-- **Importante:** El padre debe conservar el proyecto seleccionado al cerrar (poner solo `open` en `false`, sin volver `project` a `null`); si no, el contenido desaparece antes de que termine la animación de salida. El sheet todavía no está montado en ninguna página: lo abre la grilla de proyectos del showcase (a cargo de otra persona del equipo), que decide cuándo abrirlo con `open` y `onOpenChange`.
+- **Importante:** El padre debe conservar el proyecto seleccionado al cerrar (poner solo `open` en `false`, sin volver `project` a `null`); si no, el contenido desaparece antes de que termine la animación de salida. Lo monta `Showcase.tsx` (la grilla de proyectos del showcase).
 
 ### TeamDetail
 
 - **Descripción:** Página de un equipo, en la ruta dinámica `/sobre-nosotros/showcase/[equipo]` (el `id` del equipo, ej. `tv-jul-1`). De arriba hacia abajo: link "Volver al showcase"; encabezado con el nombre del proyecto, badges (equipo, sector, "Simulación laboral · mes", "Feedback del equipo") y los botones "Compartir proyecto" y "Ver repositorio" (este se muestra siempre: si el equipo tiene `repoUrl` es un link que abre en otra pestaña; si no, queda deshabilitado); tarjetas "Necesidad del negocio" y "Solución del equipo"; "Demo Day" (marco de video con duración + notas); "Stack tecnológico"; "Equipo · N integrantes" con la lista de integrantes (avatar, rol, bandera y país, promedio semanal) junto al mismo panel "Trayectoria de Actividad" de la home (`TrayectoriaActividad`, con los mismos datos de ejemplo Talento 1 a 5); y una franja final con link a `/#live`. No lleva hero propio ni cuadrado de iniciales al lado del título. La página (`[equipo]/page.tsx`) responde 404 si el `id` no existe y, mientras los datos sean de ejemplo, sale con `robots: { index: false }` y no está en el sitemap.
 - **Props:** `detail: ShowcaseTeamDetail` (se obtiene con `getTeamDetail(id)` de `@/lib/showcase`).
-- **Dependencias:** `next/link`, `lucide-react` (íconos `ArrowUpRight`, `ChevronLeft`, `Play`, `TrendingUp`), `@/components/ui/reveal`, `TrayectoriaActividad`, `ShareProjectDialog`, `GithubIcon`, `@/lib/showcase`. Es un Server Component.
+- **Dependencias:** `next/link`, `lucide-react` (íconos `ArrowUpRight`, `ChevronLeft`, `Play`, `TrendingUp`), `@/components/ui/reveal`, `TrayectoriaActividad`, `ShareProjectDialog`, `GithubIcon`, `LinkedinIcon`, `@/lib/showcase`. Es un Server Component.
 - **Uso:**
   ```tsx
   import TeamDetail from "@/components/organisms/sobre-nosotros/showcase/TeamDetail";
   <TeamDetail detail={detail} />;
   ```
-- **Importante:** Los integrantes de los datos de ejemplo solo tienen nombre; rol, país y trayectoria semanal se generan de forma determinística en `getTeamDetail`. Cuando haya datos reales, se reemplaza esa función y el resto no cambia.
+- **Importante:** Los integrantes de los datos de ejemplo solo tienen nombre de pila; apellido, rol, país, LinkedIn, GitHub y trayectoria semanal se generan de forma determinística en `getTeamDetail`/`buildMember`. Cada integrante se muestra con nombre completo y, debajo del país, dos íconos chicos (LinkedIn y GitHub, `LinkedinIcon`/`GithubIcon`) que abren su perfil en otra pestaña. Cuando haya datos reales, se reemplaza esa función y el resto no cambia.
 
 ### ShareProjectDialog
 
@@ -818,6 +818,17 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
   ```tsx
   import GithubIcon from "@/components/organisms/sobre-nosotros/showcase/GithubIcon";
   <GithubIcon className="size-4" />;
+  ```
+
+### LinkedinIcon
+
+- **Descripción:** Ícono de LinkedIn inline (SVG), mismo criterio que `GithubIcon`.
+- **Props:** `className?: string`.
+- **Dependencias:** Ninguna.
+- **Uso:**
+  ```tsx
+  import LinkedinIcon from "@/components/organisms/sobre-nosotros/showcase/LinkedinIcon";
+  <LinkedinIcon className="size-[13px]" />;
   ```
 
 ### TrayectoriaActividad (compartido)
