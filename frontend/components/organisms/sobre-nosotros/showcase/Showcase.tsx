@@ -1,21 +1,22 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { Search, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FilterDropdown from "./FilterDropdown";
-import ProjectCard from "./ProjectCard";
-import HackCard from "./HackCard";
+import ShowcaseCard from "./ShowcaseCard";
 import CompareList from "./CompareList";
 import ShowcasePagination from "./ShowcasePagination";
 import ProjectSheet from "./ProjectSheet";
 import {
   HACK_TEAMS,
   buildCompareEntries,
+  countTeams,
   filterShowcaseProjects,
   getAllProjectMonths,
   getAllProjectSectors,
   getAllProjectVerticals,
+  pluralize,
   showcaseProjects,
   teamHref,
   type ShowcaseProject,
@@ -110,8 +111,8 @@ export default function Showcase({ onSelectItem }: Props) {
   }
 
   return (
-    <section className="border-t border-[#1C1B29] py-[110px]">
-      <div className="mx-auto max-w-[1120px] px-6">
+    <section className="px-6 pb-[110px] pt-[20px]">
+      <div className="mx-auto max-w-[1120px]">
         {/* Tabs */}
         <div
           role="group"
@@ -198,14 +199,28 @@ export default function Showcase({ onSelectItem }: Props) {
               </div>
             ) : (
               <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(258px,1fr))]">
-                {pageItems.map((p, i) => (
-                  <ProjectCard
-                    key={p.id}
-                    project={p}
-                    delay={i * 60}
-                    onSelect={() => handleProjectClick(p)}
-                  />
-                ))}
+                {pageItems.map((p, i) => {
+                  const teamCount = countTeams(p);
+                  const editions = p.editions.length;
+                  return (
+                    <ShowcaseCard
+                      key={p.id}
+                      title={p.title}
+                      solves={p.solves}
+                      vertical={p.vertical}
+                      bgColor="#FF0094"
+                      delay={i * 60}
+                      onSelect={() => handleProjectClick(p)}
+                      meta={
+                        <>
+                          <Users className="h-3 w-3" />
+                          {pluralize(teamCount, "equipo", "equipos")}
+                          {editions > 1 ? ` · ${editions} ediciones` : ""}
+                        </>
+                      }
+                    />
+                  );
+                })}
               </div>
             )}
             <ShowcasePagination
@@ -220,18 +235,34 @@ export default function Showcase({ onSelectItem }: Props) {
         {tab === "hack" && (
           <div className="pt-6">
             <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(258px,1fr))]">
-              {HACK_TEAMS.map((h, i) => (
-                <HackCard
-                  key={h.id}
-                  hack={h}
-                  delay={i * 60}
-                  onSelect={
-                    onSelectItem
-                      ? () => onSelectItem({ kind: "hack", hack: h })
-                      : undefined
-                  }
-                />
-              ))}
+              {HACK_TEAMS.map((h, i) => {
+                const sealInitials = h.seal ? h.seal.slice(0, 2).toUpperCase() : null;
+                return (
+                  <ShowcaseCard
+                    key={h.id}
+                    title={h.title}
+                    solves={h.solves}
+                    vertical={h.vertical}
+                    bgColor="#02BEEF"
+                    delay={i * 60}
+                    onSelect={
+                      onSelectItem
+                        ? () => onSelectItem({ kind: "hack", hack: h })
+                        : undefined
+                    }
+                    meta={
+                      h.seal && sealInitials ? (
+                        <>
+                          <span className="flex h-[18px] w-[18px] items-center justify-center rounded-[5px] border border-white/30 bg-white/15 text-[8.5px] font-extrabold text-white">
+                            {sealInitials}
+                          </span>
+                          {h.seal}
+                        </>
+                      ) : undefined
+                    }
+                  />
+                );
+              })}
             </div>
           </div>
         )}
