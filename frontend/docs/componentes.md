@@ -773,6 +773,93 @@ Sección de la página `/sobre-nosotros/casos-exito`. Cubre el caso Oracle Next 
 
 Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los tipos viven en `@/lib/showcase` (`ShowcaseProject`, `ShowcaseEdition`, `ShowcaseTeam`); son ilustrativos hasta que exista la fuente real.
 
+### HeroShowcase
+
+- **Descripción:** Hero de la página showcase. Eyebrow "Sobre Nosotros — Showcase", título en dos líneas (la segunda con gradiente rosa → cyan) y descripción. Todo centrado (`items-center text-center`). Sin glows radiales de fondo — comparte el fondo liso `#000115` con la grilla para que se lean como un solo bloque. Las dos líneas del título tienen el mismo peso visual grande: línea 1 en `clamp(32px,5vw,52px)` en blanco, línea 2 en `clamp(40px,6.5vw,72px)` con gradiente de marca.
+- **Props:** Ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import HeroShowcase from "@/components/organisms/sobre-nosotros/showcase/HeroShowcase";
+  <HeroShowcase />;
+  ```
+
+### Showcase
+
+- **Descripción:** Componente orquestador de la grilla del showcase. Tres tabs (Simulaciones laborales / Hackathones / Comparar equipos) con estado local, más búsqueda por texto y tres filtros (Sector, Vertical, Fecha) que solo se muestran en los tabs de sim y hack. Paginación de 6 items por página. Al cambiar cualquier filtro o la búsqueda, resetea la página a 1 (hecho en los handlers, sin `useEffect`, para evitar renders en cascada). Monta el `ProjectSheet` al hacer click en una card de proyecto, y le pasa `teamHref` de `@/lib/showcase` para que cada equipo linkee a su página.
+- **Props:** `onSelectItem?: (selection: ShowcaseSelection) => void` — escape hatch opcional para que la página pueda reaccionar a la selección (por ahora no lo usa nadie).
+- **Dependencias:** `lucide-react` (íconos `Search`, `Users`), `@/components/ui/reveal` (vía `ShowcaseCard`), `FilterDropdown`, `ShowcaseCard`, `CompareList`, `ShowcasePagination`, `ProjectSheet`, `@/lib/showcase` (`HACK_TEAMS`, `buildCompareEntries`, `countTeams`, `filterShowcaseProjects`, `getAllProjectMonths`, `getAllProjectSectors`, `getAllProjectVerticals`, `pluralize`, `showcaseProjects`, `teamHref`, tipos `ShowcaseProject`, `ShowcaseSelection`), `"use client"`.
+- **Uso:**
+  ```tsx
+  import Showcase from "@/components/organisms/sobre-nosotros/showcase/Showcase";
+  <Showcase />;
+  ```
+
+### ShowcaseCard
+
+- **Descripción:** Card unificada para los dos tipos de item del showcase (proyectos de simulación laboral y equipos de hackathon). El fondo lo define el prop `bgColor` — `#FF0094` para simulación laboral, `#02BEEF` para hackathon — con texto blanco encima y separadores en blanco translúcido (`border-white/25`). El footer tiene dos zonas: el vertical a la izquierda (dot blanco + texto) y un slot `meta: ReactNode` a la derecha, que cada caller arma según el tipo (conteo de equipos + ediciones para sim, badge con iniciales + nombre del sello para hack). Hover: `-translate-y-[3px]` y `brightness-110` — mantiene el color de marca, solo sube luminosidad. No muestra badge de estado (los datos mock están todos finalizados).
+- **Props:** `title: string`, `solves: string`, `vertical: string`, `bgColor: string`, `meta?: ReactNode`, `delay?: number` (default `0`), `onSelect?: () => void`.
+- **Dependencias:** `@/components/ui/reveal`, `@/lib/utils`.
+- **Uso:**
+  ```tsx
+  import ShowcaseCard from "@/components/organisms/sobre-nosotros/showcase/ShowcaseCard";
+  <ShowcaseCard
+    title={p.title}
+    solves={p.solves}
+    vertical={p.vertical}
+    bgColor="#FF0094"
+    onSelect={() => handleProjectClick(p)}
+    meta={<><Users className="h-3 w-3" />3 equipos</>}
+  />;
+  ```
+
+### FilterDropdown
+
+- **Descripción:** Dropdown reutilizable para los filtros del showcase (Sector, Vertical, Fecha en la grilla; Sector y Mes en "Comparar equipos"). Botón con formato `label: value` y chevron que rota al abrir. Al abrir, panel con la lista de opciones y la activa resaltada con `bg-[rgba(255,0,148,0.1)]`. Cierra al hacer click afuera (listener en `mousedown` sobre el documento, limpiado en el `useEffect` de cleanup).
+- **Props:** `label: string`, `value: string`, `options: string[]`, `onChange: (value: string) => void`, `className?: string`.
+- **Dependencias:** `lucide-react` (ícono `ChevronDown`), `@/lib/utils`, `"use client"`.
+- **Uso:**
+  ```tsx
+  import FilterDropdown from "@/components/organisms/sobre-nosotros/showcase/FilterDropdown";
+  <FilterDropdown
+    label="Vertical"
+    value={vertical}
+    options={["Todas", ...verticals]}
+    onChange={handleVerticalChange}
+  />;
+  ```
+
+### ShowcasePagination
+
+- **Descripción:** Paginación de la grilla de proyectos. Cuatro botones (primera / anterior / siguiente / última) más los números de página. Retorna `null` si hay una sola página. El número activo se resalta con `bg-[#0c0d21]` y una sombra interior `inset 0 0 0 1px #2D2B40`; los botones de navegación se deshabilitan en los extremos.
+- **Props:** `page: number`, `totalPages: number`, `onChange: (page: number) => void`.
+- **Dependencias:** `lucide-react` (íconos `ChevronLeft`, `ChevronRight`, `ChevronsLeft`, `ChevronsRight`), `@/lib/utils`, `"use client"`.
+- **Uso:**
+  ```tsx
+  import ShowcasePagination from "@/components/organisms/sobre-nosotros/showcase/ShowcasePagination";
+  <ShowcasePagination page={page} totalPages={totalPages} onChange={setPage} />;
+  ```
+
+### CompareList
+
+- **Descripción:** Pestaña "Comparar equipos". Leaderboard de equipos ordenado por score descendente, con dos dropdowns propios (Sector, Mes) usando `FilterDropdown`. Cada fila muestra rank, proyecto + equipo + vertical, cantidad de reuniones, una barra de score con gradiente rosa → cyan, y el valor numérico. Debajo, una sub-línea con entregables, mensajes y el mes de la simulación a la que pertenece. Muestra estado vacío si no hay equipos que matcheen los filtros.
+- **Props:** `entries: CompareEntry[]`, `sectors: string[]`, `months: string[]`, `sector: string`, `month: string`, `onSectorChange: (v: string) => void`, `onMonthChange: (v: string) => void`, `onSelect?: (entry: CompareEntry) => void`.
+- **Dependencias:** `@/components/ui/reveal`, `FilterDropdown`, `@/lib/showcase` (tipo `CompareEntry`), `"use client"`.
+- **Nota:** en rediseño — va a cambiar a un layout de dropdown de proyecto + gráfico de líneas de trayectoria semanal + grid de tiles seleccionables.
+- **Uso:**
+  ```tsx
+  import CompareList from "@/components/organisms/sobre-nosotros/showcase/CompareList";
+  <CompareList
+    entries={compareEntries}
+    sectors={compareVerticals}
+    months={months}
+    sector={compareSector}
+    month={compareMonth}
+    onSectorChange={setCompareSector}
+    onMonthChange={setCompareMonth}
+  />;
+  ```
+
 ### ProjectSheet
 
 - **Descripción:** Sheet de proyecto. Se abre al tocar una card de proyecto y muestra la vertical, el título, qué resuelve, chips ("N equipos participantes" y la edición o "N ediciones") y la lista de equipos. Cada fila de equipo tiene: avatares superpuestos, "N reuniones · N/N entregables · N mensajes", el índice de actividad (barra + valor, `teamScore` de `@/lib/showcase`) y un botón de repositorio (ícono de GitHub, abre `team.repoUrl` en otra pestaña) — solo se muestra si el equipo tiene `repoUrl`. La fila tiene dos zonas clickeables independientes (la info del equipo, que navega a su página, y el botón de repositorio, que abre el link), por eso el contenedor de la fila es un `<div>` y no un `Link`: un `<a>` no puede ir anidado dentro de otro `Link`/`<a>`. Si el proyecto corrió en más de una edición, los equipos se agrupan por mes ("Simulación laboral de Julio 2026") con un separador, porque el "Equipo 1" de un mes no es el de otro. No muestra estado ("En curso" / "Finalizada") en ningún lado.
@@ -847,4 +934,4 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
 
 ---
 
-**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`, `sobre-nosotros/casos-exito/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
+**Nota:** Todos los componentes se encuentran en `@/components/organisms` bajo Atomic Design, organizados en subcarpetas por página (`home/`, `simulacion-laboral/<pagina>/`, `para-instituciones/`, `sobre-nosotros/casos-exito/`, `sobre-nosotros/showcase/`) y una carpeta `shared/` para los componentes usados en varias páginas (`Navbar`, `Footer`, `CTAFinal`, `TrayectoriaActividad`). Los componentes `ShowcaseSection`, `StatsSection` y `ParadigmaSection` no se movieron a esa estructura porque no los usa ninguna página actualmente — fueron reemplazados por `LiveSimulation`, `SimulationDefinition`, `FraseSection` y `HeroSection` actualizado.
