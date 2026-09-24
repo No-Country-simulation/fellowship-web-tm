@@ -2,7 +2,17 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { ChevronDown, TrendingUp, Users, X } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  CircleCheck,
+  MessageSquare,
+  TrendingUp,
+  Users,
+  Video,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import GithubIcon from "./GithubIcon";
@@ -179,7 +189,13 @@ const PH = H - T - B;
 const x = (i: number) => L + (PW * i) / (WEEKS - 1);
 const y = (v: number) => T + PH * (1 - v / 100);
 
-function CompareChart({ items }: { items: { team: ShowcaseTeam; color: string }[] }) {
+function CompareChart({
+  items,
+  hoveredId,
+}: {
+  items: { team: ShowcaseTeam; color: string }[];
+  hoveredId: string | null;
+}) {
   return (
     <svg
       viewBox={`0 0 ${W} ${H}`}
@@ -211,21 +227,44 @@ function CompareChart({ items }: { items: { team: ShowcaseTeam; color: string }[
           Seleccioná equipos para ver su trayectoria
         </text>
       )}
+      {/* Cada línea nueva se dibuja de izquierda a derecha y sus puntos
+          aparecen uno por uno (animaciones .cmp-line / .cmp-dot en
+          globals.css). Al pasar el mouse por un equipo elegido, su línea se
+          resalta y las demás se atenúan. */}
       {items.map(({ team, color }) => {
         const wk = teamActivity(team.id);
         const pts = wk.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+        const dimmed = hoveredId !== null && hoveredId !== team.id;
+        const focused = hoveredId === team.id;
         return (
-          <g key={team.id}>
+          <g
+            key={team.id}
+            className="transition-opacity duration-300"
+            style={{ opacity: dimmed ? 0.18 : 1 }}
+          >
             <polyline
               points={pts}
+              pathLength={1}
               fill="none"
               stroke={color}
-              strokeWidth={2}
+              strokeWidth={focused ? 2.8 : 2}
               strokeLinejoin="round"
               strokeLinecap="round"
+              className="cmp-line transition-[stroke-width] duration-200"
+              style={{ filter: focused ? `drop-shadow(0 0 4px ${color})` : undefined }}
             />
             {wk.map((v, i) => (
-              <circle key={i} cx={x(i).toFixed(1)} cy={y(v).toFixed(1)} r={2.6} fill={color} />
+              <circle
+                key={i}
+                cx={x(i).toFixed(1)}
+                cy={y(v).toFixed(1)}
+                r={i === WEEKS - 1 ? 3.6 : 2.6}
+                fill={i === WEEKS - 1 ? "#0C0C16" : color}
+                stroke={i === WEEKS - 1 ? color : undefined}
+                strokeWidth={i === WEEKS - 1 ? 2 : undefined}
+                className="cmp-dot"
+                style={{ animationDelay: `${0.1 + i * 0.09}s` }}
+              />
             ))}
           </g>
         );
@@ -243,6 +282,7 @@ function TeamTile({
   lastColor,
   disabled,
   onToggle,
+  onHover,
 }: {
   team: ShowcaseTeam;
   edition: ShowcaseEdition;
@@ -250,8 +290,10 @@ function TeamTile({
   lastColor?: string;
   disabled: boolean;
   onToggle: () => void;
+  onHover: (hovering: boolean) => void;
 }) {
   const selected = !!selectedColor;
+  const score = teamScore(team.id);
   // Al deseleccionar, el color se mantiene (lastColor) hasta que termina de desvanecerse.
   const style = {
     "--team-color": selectedColor ?? lastColor ?? "#fff",
@@ -269,46 +311,75 @@ function TeamTile({
       aria-disabled={disabled}
       title={`${team.label} · ${edition.month}`}
       onClick={() => !disabled && onToggle()}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
       style={style}
       className={cn(
-        "relative flex flex-col items-center rounded-[10px] border border-[#2D2B40] bg-[#181932] px-2 py-3.5 text-center text-[#939393] transition-[border-color,box-shadow,background-color,opacity] duration-200 ease-in-out hover:border-[#44425e]",
+        "relative flex flex-col rounded-xl border border-[#2D2B40] bg-[#181932] p-3.5 text-left transition-[border-color,box-shadow,background-color,opacity] duration-200 ease-in-out hover:border-[#44425e]",
         disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
       )}
     >
-      <span className="mb-2.5 text-[14.5px] font-extrabold text-white">{teamCode(team)}</span>
-      <span className="relative block w-full">
-        <span
-          className={cn(
-            "flex flex-col items-center gap-1 transition-[opacity,translate,filter] duration-[280ms] ease-in-out",
-            selected && "-translate-y-2 opacity-0 blur-[2px]",
-          )}
-        >
-          <Stat label="Score" value={teamScore(team.id)} />
-          <Stat label="Msjs" value={teamMessages(team.id)} />
-          <Stat label="Reun." value={team.meetings} />
-          <Stat label="Entreg." value={`${team.deliverablesDone}/${team.deliverablesTotal}`} />
+      {/* Código del equipo + check que aparece al seleccionarlo */}
+      <span className="flex items-center justify-between">
+        <span className="text-[13px] font-extrabold tracking-[.02em] text-white">
+          {teamCode(team)}
         </span>
         <span
           aria-hidden
           className={cn(
-            "pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-[.06em] text-[var(--team-color)] transition-[opacity,translate,scale] delay-[80ms] duration-[280ms] ease-in-out",
-            selected ? "opacity-100" : "translate-y-2 scale-[.94] opacity-0",
+            "flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[var(--team-color)] text-white shadow-[0_0_10px_-1px_var(--team-color)] transition-[opacity,scale] duration-[280ms] ease-[cubic-bezier(.34,1.56,.64,1)]",
+            selected ? "scale-100 opacity-100" : "scale-50 opacity-0",
           )}
         >
-          <i className="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[var(--team-color)] text-[11px] not-italic text-white shadow-[0_0_12px_-1px_var(--team-color)]">
-            ✓
-          </i>
-          Seleccionado
+          <Check className="h-2.5 w-2.5" strokeWidth={3.5} />
         </span>
+      </span>
+
+      {/* Score: el dato principal, grande y con su barra */}
+      <span className="mt-3 flex items-baseline gap-1">
+        <span className="text-[26px] font-extrabold leading-none text-white">{score}</span>
+        <span className="text-[9.5px] font-bold uppercase tracking-[.12em] text-[#939393]">
+          score
+        </span>
+      </span>
+      <span className="mt-2 block h-1 overflow-hidden rounded-full bg-[#2D2B40]">
+        <span
+          className="block h-full rounded-full transition-[background-color] duration-300"
+          style={{
+            width: `${score}%`,
+            background: selected ? "var(--team-color)" : "#55536e",
+          }}
+        />
+      </span>
+
+      {/* El resto de los datos, chicos y con ícono, separados del score */}
+      <span className="mt-3 grid grid-cols-3 gap-1 border-t border-[#2D2B40] pt-3">
+        <MiniStat icon={MessageSquare} label="Mensajes" value={teamMessages(team.id)} />
+        <MiniStat icon={Video} label="Reuniones" value={team.meetings} />
+        <MiniStat
+          icon={CircleCheck}
+          label="Entregables"
+          value={`${team.deliverablesDone}/${team.deliverablesTotal}`}
+        />
       </span>
     </button>
   );
 }
 
-function Stat({ label, value }: { label: string; value: number | string }) {
+function MiniStat({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: number | string;
+}) {
   return (
-    <span className="text-[11.5px] leading-[1.35] text-[#9CA3AF]">
-      {label} <b className="ml-[3px] font-bold text-white">{value}</b>
+    <span title={label} className="flex flex-col items-center gap-1">
+      <Icon aria-hidden className="h-3 w-3 text-[#939393]" />
+      <span className="text-[12px] font-bold leading-none text-white">{value}</span>
+      <span className="sr-only">{label}</span>
     </span>
   );
 }
@@ -412,6 +483,7 @@ export default function CompareList({ onPlay }: Props) {
   const [project, setProject] = useState<ShowcaseProject | null>(null);
   const [selected, setSelected] = useState<Selected[]>([]);
   const [lastColors, setLastColors] = useState<Record<string, string>>({});
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   function handleProjectChange(p: ShowcaseProject | null) {
     setProject(p);
@@ -485,7 +557,10 @@ export default function CompareList({ onPlay }: Props) {
                   Trayectoria semanal — índice de actividad
                 </span>
               </div>
-              <CompareChart items={items} />
+              <CompareChart
+                items={items}
+                hoveredId={items.some((it) => it.team.id === hoveredId) ? hoveredId : null}
+              />
             </div>
 
             <div className="flex min-w-0 flex-col rounded-[14px] border border-[#2D2B40] bg-[#0C0C16] px-[22px] py-5">
@@ -513,7 +588,7 @@ export default function CompareList({ onPlay }: Props) {
                         Edición: {edition.month}
                       </div>
                     )}
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(118px,1fr))] gap-3">
+                    <div className="grid grid-cols-[repeat(auto-fill,minmax(132px,1fr))] gap-3">
                       {edition.teams.map((team) => {
                         const color = colorOf(team.id);
                         return (
@@ -525,6 +600,9 @@ export default function CompareList({ onPlay }: Props) {
                             lastColor={lastColors[team.id]}
                             disabled={!color && full}
                             onToggle={() => toggleTeam(team.id)}
+                            onHover={(hovering) =>
+                              setHoveredId(hovering ? team.id : null)
+                            }
                           />
                         );
                       })}
