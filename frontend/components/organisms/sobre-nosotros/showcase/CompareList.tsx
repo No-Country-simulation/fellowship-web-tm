@@ -6,6 +6,7 @@ import {
   Check,
   ChevronDown,
   CircleCheck,
+  Link2,
   MessageSquare,
   TrendingUp,
   Users,
@@ -18,6 +19,8 @@ import { cn } from "@/lib/utils";
 import GithubIcon from "./GithubIcon";
 import TechChip from "./TechChip";
 import {
+  COMPARE_MAX_TEAMS,
+  buildCompareSearch,
   countTeams,
   pluralize,
   showcaseProjects,
@@ -25,6 +28,7 @@ import {
   teamHref,
   teamMessages,
   teamScore,
+  type CompareSelection,
   type ShowcaseEdition,
   type ShowcaseProject,
   type ShowcaseTeam,
@@ -33,19 +37,33 @@ import {
 // Réplica de showcase-v16-comparar-20-equipos.html: elegís un proyecto → tocás
 // equipos (hasta 5) → cada uno toma un color, se suma al gráfico y aparece su
 // tarjeta de detalle abajo. Volvés a tocarlo y se saca.
-const COMPARE_MAX = 5;
+const COMPARE_MAX = COMPARE_MAX_TEAMS;
 const COMPARE_COLORS = ["#FF0094", "#02BEEF", "#A855F7", "#646CF6", "#0CFCA7"];
 
 type Selected = { teamId: string; color: string };
 
+type ChartItem = { team: ShowcaseTeam; edition: ShowcaseEdition; color: string };
+
 type Props = {
   onPlay?: () => void;
+  // Proyecto y equipos que vienen de un link compartido (?comparar=…&equipos=…)
+  initial?: CompareSelection | null;
 };
 
 // "Equipo 3" → "E03"
 function teamCode(team: ShowcaseTeam) {
   const n = team.label.match(/\d+/)?.[0] ?? "0";
   return `E${n.padStart(2, "0")}`;
+}
+
+// "Julio 2026" → "Jul". Va junto al código porque "E01" se repite entre ediciones.
+function shortMonth(edition: ShowcaseEdition) {
+  return edition.month.slice(0, 3);
+}
+
+// Los colores se asignan en el orden en que se eligieron los equipos.
+function withColors(teamIds: string[]): Selected[] {
+  return teamIds.map((teamId, i) => ({ teamId, color: COMPARE_COLORS[i] }));
 }
 
 function PlayIcon({ className }: { className?: string }) {
@@ -192,84 +210,191 @@ const y = (v: number) => T + PH * (1 - v / 100);
 function CompareChart({
   items,
   hoveredId,
+  onHoverTeam,
 }: {
-  items: { team: ShowcaseTeam; color: string }[];
+  items: ChartItem[];
   hoveredId: string | null;
+  onHoverTeam: (teamId: string | null) => void;
 }) {
+  // Semana sobre la que está el mouse: muestra la guía vertical y el cuadrito
+  // con el valor de cada equipo en esa semana.
+  const [week, setWeek] = useState<number | null>(null);
+
+  const series = items.map((it) => ({ ...it, weeks: teamActivity(it.team.id) }));
+  const weekRows =
+    week === null
+      ? []
+      : [...series].sort((a, b) => b.weeks[week] - a.weeks[week]);
+
+  // El cuadrito se alinea al punto; en los bordes se corre para no salirse.
+  const tipAlign =
+    week === null ? "" : week <= 1 ? "translate-x-0" : week >= WEEKS - 2 ? "-translate-x-full" : "-translate-x-1/2";
+
   return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      role="img"
-      aria-label="Trayectoria semanal de los equipos seleccionados"
-      className="block h-auto w-full overflow-visible"
-    >
-      {[0, 25, 50, 75, 100].map((v) => (
-        <g key={v}>
-          <line x1={L} x2={W - R} y1={y(v)} y2={y(v)} stroke="#1C1B29" strokeWidth={1} />
-          <text x={L - 10} y={y(v) + 3} fill="#939393" fontSize={8.5} textAnchor="end">
-            {v}
-          </text>
-        </g>
-      ))}
-      {Array.from({ length: WEEKS }, (_, i) => (
-        <text key={i} x={x(i)} y={H - 8} fill="#939393" fontSize={8.5} textAnchor="middle">
-          S{i + 1}
-        </text>
-      ))}
-      {items.length === 0 && (
-        <text
-          x={L + PW / 2}
-          y={T + PH / 2 + 3}
-          fill="#939393"
-          fontSize={10}
-          textAnchor="middle"
+    <div className="flex flex-1 flex-col">
+      <div className="relative" onMouseLeave={() => setWeek(null)}>
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          role="img"
+          aria-label="Trayectoria semanal de los equipos seleccionados"
+          className="block h-auto w-full overflow-visible"
         >
-          Seleccioná equipos para ver su trayectoria
-        </text>
-      )}
-      {/* Cada línea nueva se dibuja de izquierda a derecha y sus puntos
-          aparecen uno por uno (animaciones .cmp-line / .cmp-dot en
-          globals.css). Al pasar el mouse por un equipo elegido, su línea se
-          resalta y las demás se atenúan. */}
-      {items.map(({ team, color }) => {
-        const wk = teamActivity(team.id);
-        const pts = wk.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-        const dimmed = hoveredId !== null && hoveredId !== team.id;
-        const focused = hoveredId === team.id;
-        return (
-          <g
-            key={team.id}
-            className="transition-opacity duration-300"
-            style={{ opacity: dimmed ? 0.18 : 1 }}
-          >
-            <polyline
-              points={pts}
-              pathLength={1}
-              fill="none"
-              stroke={color}
-              strokeWidth={focused ? 2.8 : 2}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              className="cmp-line transition-[stroke-width] duration-200"
-              style={{ filter: focused ? `drop-shadow(0 0 4px ${color})` : undefined }}
+          {[0, 25, 50, 75, 100].map((v) => (
+            <g key={v}>
+              <line x1={L} x2={W - R} y1={y(v)} y2={y(v)} stroke="#1C1B29" strokeWidth={1} />
+              <text x={L - 10} y={y(v) + 3} fill="#939393" fontSize={8.5} textAnchor="end">
+                {v}
+              </text>
+            </g>
+          ))}
+          {Array.from({ length: WEEKS }, (_, i) => (
+            <text
+              key={i}
+              x={x(i)}
+              y={H - 8}
+              fill={week === i ? "#fff" : "#939393"}
+              fontSize={8.5}
+              fontWeight={week === i ? 700 : 400}
+              textAnchor="middle"
+            >
+              S{i + 1}
+            </text>
+          ))}
+          {items.length === 0 && (
+            <text
+              x={L + PW / 2}
+              y={T + PH / 2 + 3}
+              fill="#939393"
+              fontSize={10}
+              textAnchor="middle"
+            >
+              Seleccioná equipos para ver su trayectoria
+            </text>
+          )}
+
+          {/* Guía vertical de la semana señalada */}
+          {week !== null && (
+            <line
+              x1={x(week)}
+              x2={x(week)}
+              y1={T}
+              y2={T + PH}
+              stroke="#44425e"
+              strokeWidth={1}
+              strokeDasharray="3 3"
             />
-            {wk.map((v, i) => (
-              <circle
+          )}
+
+          {/* Cada línea nueva se dibuja de izquierda a derecha y sus puntos
+              aparecen uno por uno (animaciones .cmp-line / .cmp-dot en
+              globals.css). Al pasar el mouse por un equipo elegido (tile o
+              leyenda), su línea se resalta y las demás se atenúan. */}
+          {series.map(({ team, color, weeks }) => {
+            const pts = weeks.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+            const dimmed = hoveredId !== null && hoveredId !== team.id;
+            const focused = hoveredId === team.id;
+            return (
+              <g
+                key={team.id}
+                className="transition-opacity duration-300"
+                style={{ opacity: dimmed ? 0.18 : 1 }}
+              >
+                <polyline
+                  points={pts}
+                  pathLength={1}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={focused ? 2.8 : 2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  className="cmp-line transition-[stroke-width] duration-200"
+                  style={{ filter: focused ? `drop-shadow(0 0 4px ${color})` : undefined }}
+                />
+                {weeks.map((v, i) => {
+                  const last = i === WEEKS - 1;
+                  return (
+                    <circle
+                      key={i}
+                      cx={x(i).toFixed(1)}
+                      cy={y(v).toFixed(1)}
+                      r={week === i ? 4.2 : last ? 3.6 : 2.6}
+                      fill={last ? "#0C0C16" : color}
+                      stroke={last ? color : undefined}
+                      strokeWidth={last ? 2 : undefined}
+                      className="cmp-dot transition-[r] duration-150"
+                      style={{ animationDelay: `${0.1 + i * 0.09}s` }}
+                    />
+                  );
+                })}
+              </g>
+            );
+          })}
+
+          {/* Zonas invisibles (una por semana) que detectan el mouse */}
+          {items.length > 0 &&
+            Array.from({ length: WEEKS }, (_, i) => (
+              <rect
                 key={i}
-                cx={x(i).toFixed(1)}
-                cy={y(v).toFixed(1)}
-                r={i === WEEKS - 1 ? 3.6 : 2.6}
-                fill={i === WEEKS - 1 ? "#0C0C16" : color}
-                stroke={i === WEEKS - 1 ? color : undefined}
-                strokeWidth={i === WEEKS - 1 ? 2 : undefined}
-                className="cmp-dot"
-                style={{ animationDelay: `${0.1 + i * 0.09}s` }}
+                x={x(i) - PW / (WEEKS - 1) / 2}
+                y={T}
+                width={PW / (WEEKS - 1)}
+                height={PH}
+                fill="transparent"
+                onMouseEnter={() => setWeek(i)}
               />
             ))}
-          </g>
-        );
-      })}
-    </svg>
+        </svg>
+
+        {week !== null && weekRows.length > 0 && (
+          <div
+            role="tooltip"
+            className={cn(
+              "pointer-events-none absolute top-0 z-10 min-w-[128px] rounded-lg border border-[#2D2B40] bg-[#181932] px-3 py-2 shadow-[0_12px_28px_rgba(0,0,0,.5)]",
+              tipAlign,
+            )}
+            style={{ left: `${(x(week) / W) * 100}%` }}
+          >
+            <div className="mb-1.5 text-[9.5px] font-bold uppercase tracking-[.14em] text-[#939393]">
+              Semana {week + 1}
+            </div>
+            <div className="flex flex-col gap-1">
+              {weekRows.map(({ team, edition, color, weeks }) => (
+                <div key={team.id} className="flex items-center justify-between gap-4 text-[11.5px]">
+                  <span className="flex items-center gap-1.5 text-[#C7C9D3]">
+                    <span className="h-[7px] w-[7px] rounded-full" style={{ background: color }} />
+                    {teamCode(team)} · {shortMonth(edition)}
+                  </span>
+                  <b className="font-bold text-white">{weeks[week]}</b>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Leyenda: qué color es cada equipo */}
+      {items.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 border-t border-[#1C1B29] pt-3">
+          {items.map(({ team, edition, color }) => (
+            <span
+              key={team.id}
+              onMouseEnter={() => onHoverTeam(team.id)}
+              onMouseLeave={() => onHoverTeam(null)}
+              className={cn(
+                "flex cursor-default items-center gap-1.5 text-[11.5px] font-semibold transition-colors",
+                hoveredId === team.id ? "text-white" : "text-[#C7C9D3]",
+              )}
+            >
+              <span
+                className="h-[3px] w-3.5 rounded-full"
+                style={{ background: color, boxShadow: `0 0 6px ${color}` }}
+              />
+              {teamCode(team)} · {shortMonth(edition)}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -479,11 +604,39 @@ function CompareCard({
 
 // ─── Sección completa ───
 
-export default function CompareList({ onPlay }: Props) {
-  const [project, setProject] = useState<ShowcaseProject | null>(null);
-  const [selected, setSelected] = useState<Selected[]>([]);
-  const [lastColors, setLastColors] = useState<Record<string, string>>({});
+export default function CompareList({ onPlay, initial }: Props) {
+  // Si se entró desde un link compartido, arranca con ese proyecto y equipos.
+  const [project, setProject] = useState<ShowcaseProject | null>(
+    () => showcaseProjects.find((p) => p.id === initial?.projectId) ?? null,
+  );
+  const [selected, setSelected] = useState<Selected[]>(() =>
+    withColors(initial?.teamIds ?? []),
+  );
+  const [lastColors, setLastColors] = useState<Record<string, string>>(() =>
+    Object.fromEntries(withColors(initial?.teamIds ?? []).map((s) => [s.teamId, s.color])),
+  );
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [shareStatus, setShareStatus] = useState<"copied" | "error" | null>(null);
+
+  // Copia el link de la comparación actual. Los equipos van ordenados por
+  // color, así quien lo abre ve cada equipo con el mismo color.
+  async function handleShare() {
+    if (!project) return;
+    const teamIds = [...selected]
+      .sort((a, b) => COMPARE_COLORS.indexOf(a.color) - COMPARE_COLORS.indexOf(b.color))
+      .map((s) => s.teamId);
+    const url = `${window.location.origin}${window.location.pathname}${buildCompareSearch({
+      projectId: project.id,
+      teamIds,
+    })}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setShareStatus("copied");
+    } catch {
+      setShareStatus("error");
+    }
+    setTimeout(() => setShareStatus(null), 2200);
+  }
 
   function handleProjectChange(p: ShowcaseProject | null) {
     setProject(p);
@@ -560,6 +713,7 @@ export default function CompareList({ onPlay }: Props) {
               <CompareChart
                 items={items}
                 hoveredId={items.some((it) => it.team.id === hoveredId) ? hoveredId : null}
+                onHoverTeam={setHoveredId}
               />
             </div>
 
@@ -617,13 +771,40 @@ export default function CompareList({ onPlay }: Props) {
 
       {project && items.length > 0 && (
         <div className="mt-7 border-t border-[#1C1B29] pt-6">
-          <div className="mb-4">
-            <h4 className="mb-[3px] text-[15px] font-extrabold text-white">
-              Comparación en detalle
-            </h4>
-            <p className="text-[12.5px] text-[#939393]">
-              Stack, mensajes y accesos rápidos de cada equipo que seleccionaste.
-            </p>
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h4 className="mb-[3px] text-[15px] font-extrabold text-white">
+                Comparación en detalle
+              </h4>
+              <p className="text-[12.5px] text-[#939393]">
+                Stack, mensajes y accesos rápidos de cada equipo que seleccionaste.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleShare}
+              className={cn(
+                "inline-flex cursor-pointer items-center gap-2 rounded-lg border bg-[#0C0C16] px-3.5 py-2 text-[12.5px] font-semibold transition duration-200",
+                shareStatus === "copied"
+                  ? "border-[#0CFCA7] text-[#0CFCA7]"
+                  : shareStatus === "error"
+                    ? "border-[#FF0094] text-[#FF0094]"
+                    : "border-[#2D2B40] text-[#C7C9D3] hover:border-[#02BEEF] hover:text-[#02BEEF]",
+              )}
+            >
+              {shareStatus === "copied" ? (
+                <Check className="h-3.5 w-3.5" strokeWidth={3} />
+              ) : (
+                <Link2 className="h-3.5 w-3.5" />
+              )}
+              <span aria-live="polite">
+                {shareStatus === "copied"
+                  ? "¡Link copiado!"
+                  : shareStatus === "error"
+                    ? "No se pudo copiar"
+                    : "Compartir comparación"}
+              </span>
+            </button>
           </div>
           {/* overflow-y-hidden: la animación de entrada (Reveal) baja cada
               tarjeta 28px; con overflow-x-auto eso generaba un scroll vertical

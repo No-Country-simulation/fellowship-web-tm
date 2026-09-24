@@ -441,6 +441,38 @@ export function buildCompareEntries(): CompareEntry[] {
   return out;
 }
 
+// ─── Link compartible de "Comparar equipos" ───
+// Formato: /sobre-nosotros/showcase?comparar=<proyecto>&equipos=<id>,<id>
+// El orden de los equipos importa: define qué color toma cada uno.
+
+export const COMPARE_MAX_TEAMS = 5;
+
+export interface CompareSelection {
+  projectId: string;
+  teamIds: string[];
+}
+
+export function buildCompareSearch({ projectId, teamIds }: CompareSelection) {
+  // Armado a mano (no con URLSearchParams) para que las comas queden legibles
+  // en el link en vez de "%2C".
+  const search = `?comparar=${encodeURIComponent(projectId)}`;
+  if (!teamIds.length) return search;
+  return `${search}&equipos=${teamIds.map(encodeURIComponent).join(",")}`;
+}
+
+// Lee el link y descarta lo que no sea válido (proyecto inexistente, equipos
+// de otro proyecto, repetidos o de más).
+export function parseCompareSearch(search: string): CompareSelection | null {
+  const params = new URLSearchParams(search);
+  const project = showcaseProjects.find((p) => p.id === params.get("comparar"));
+  if (!project) return null;
+  const validIds = new Set(project.editions.flatMap((e) => e.teams.map((t) => t.id)));
+  const teamIds = [...new Set((params.get("equipos") ?? "").split(","))]
+    .filter((id) => validIds.has(id))
+    .slice(0, COMPARE_MAX_TEAMS);
+  return { projectId: project.id, teamIds };
+}
+
 // ─── Filtros: meses y verticales disponibles ───
 
 export function getAllProjectMonths(): string[] {

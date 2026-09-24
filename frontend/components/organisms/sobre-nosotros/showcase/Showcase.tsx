@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Search, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FilterDropdown from "./FilterDropdown";
@@ -18,7 +18,9 @@ import {
   getAllProjectVerticals,
   pluralize,
   showcaseProjects,
+  parseCompareSearch,
   teamHref,
+  type CompareSelection,
   type ShowcaseProject,
   type ShowcaseSelection,
 } from "@/lib/showcase";
@@ -60,6 +62,20 @@ export default function Showcase({ onSelectItem }: Props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const tabsRef = useRef<HTMLDivElement>(null);
+
+  // Link compartido de "Comparar equipos" (?comparar=…&equipos=…): abre esa
+  // pestaña con el proyecto y los equipos ya elegidos. Se lee al montar (y no
+  // con useSearchParams) para que el resto de la página se siga generando
+  // como HTML estático, que es lo que lee Google.
+  const [compareInit, setCompareInit] = useState<CompareSelection | null>(null);
+  useEffect(() => {
+    const shared = parseCompareSearch(window.location.search);
+    if (!shared) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sincroniza con la URL una sola vez al entrar
+    setCompareInit(shared);
+    setTab("compare");
+    tabsRef.current?.scrollIntoView({ block: "start" });
+  }, []);
 
   const months = useMemo(() => getAllProjectMonths(), []);
   const verticals = useMemo(() => getAllProjectVerticals(), []);
@@ -268,7 +284,13 @@ export default function Showcase({ onSelectItem }: Props) {
         {tab === "play" && <ShowcasePlay />}
 
         {/* Comparar */}
-        {tab === "compare" && <CompareList onPlay={goToPlay} />}
+        {tab === "compare" && (
+          <CompareList
+            key={compareInit ? "shared" : "default"}
+            onPlay={goToPlay}
+            initial={compareInit}
+          />
+        )}
       </div>
 
       {/* Sheet de Lorenzo, montado acá. teamHref viene de @/lib/showcase */}
