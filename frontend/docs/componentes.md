@@ -786,9 +786,9 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
 
 ### Showcase
 
-- **Descripción:** Componente orquestador de la grilla del showcase. Tres tabs (Simulaciones laborales / Hackathones / Comparar equipos) con estado local, más búsqueda por texto y tres filtros (Sector, Vertical, Fecha) que solo se muestran en los tabs de sim y hack. Paginación de 6 items por página. Al cambiar cualquier filtro o la búsqueda, resetea la página a 1 (hecho en los handlers, sin `useEffect`, para evitar renders en cascada). Monta el `ProjectSheet` al hacer click en una card de proyecto, y le pasa `teamHref` de `@/lib/showcase` para que cada equipo linkee a su página.
+- **Descripción:** Componente orquestador de la grilla del showcase. Cuatro tabs (Simulaciones laborales / Hackathones / Showcase Play / Comparar equipos) con estado local, más búsqueda por texto y tres filtros (Sector, Vertical, Fecha) que solo se muestran en los tabs de sim y hack. La palabra "Play" del tab va con el gradiente rosa → cyan. Paginación de 6 items por página. Al cambiar cualquier filtro o la búsqueda, resetea la página a 1 (hecho en los handlers, sin `useEffect`, para evitar renders en cascada). Monta el `ProjectSheet` al hacer click en una card de proyecto, y le pasa `teamHref` de `@/lib/showcase` para que cada equipo linkee a su página.
 - **Props:** `onSelectItem?: (selection: ShowcaseSelection) => void` — escape hatch opcional para que la página pueda reaccionar a la selección (por ahora no lo usa nadie).
-- **Dependencias:** `lucide-react` (íconos `Search`, `Users`), `@/components/ui/reveal` (vía `ShowcaseCard`), `FilterDropdown`, `ShowcaseCard`, `CompareList`, `ShowcasePagination`, `ProjectSheet`, `@/lib/showcase` (`HACK_TEAMS`, `buildCompareEntries`, `countTeams`, `filterShowcaseProjects`, `getAllProjectMonths`, `getAllProjectSectors`, `getAllProjectVerticals`, `pluralize`, `showcaseProjects`, `teamHref`, tipos `ShowcaseProject`, `ShowcaseSelection`), `"use client"`.
+- **Dependencias:** `lucide-react` (íconos `Search`, `Users`), `@/components/ui/reveal` (vía `ShowcaseCard`), `FilterDropdown`, `ShowcaseCard`, `CompareList`, `ShowcasePlay`, `ShowcasePagination`, `ProjectSheet`, `@/lib/showcase` (`HACK_TEAMS`, `countTeams`, `filterShowcaseProjects`, `getAllProjectMonths`, `getAllProjectSectors`, `getAllProjectVerticals`, `pluralize`, `showcaseProjects`, `teamHref`, tipos `ShowcaseProject`, `ShowcaseSelection`), `"use client"`.
 - **Uso:**
   ```tsx
   import Showcase from "@/components/organisms/sobre-nosotros/showcase/Showcase";
@@ -797,9 +797,9 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
 
 ### ShowcaseCard
 
-- **Descripción:** Card unificada para los dos tipos de item del showcase (proyectos de simulación laboral y equipos de hackathon). El fondo lo define el prop `bgColor` — `#FF0094` para simulación laboral, `#02BEEF` para hackathon — con texto blanco encima y separadores en blanco translúcido (`border-white/25`). El footer tiene dos zonas: el vertical a la izquierda (dot blanco + texto) y un slot `meta: ReactNode` a la derecha, que cada caller arma según el tipo (conteo de equipos + ediciones para sim, badge con iniciales + nombre del sello para hack). Hover: `-translate-y-[3px]` y `brightness-110` — mantiene el color de marca, solo sube luminosidad. No muestra badge de estado (los datos mock están todos finalizados).
-- **Props:** `title: string`, `solves: string`, `vertical: string`, `bgColor: string`, `meta?: ReactNode`, `delay?: number` (default `0`), `onSelect?: () => void`.
-- **Dependencias:** `@/components/ui/reveal`, `@/lib/utils`.
+- **Descripción:** Card unificada para los dos tipos de item del showcase (proyectos de simulación laboral y equipos de hackathon), con el estilo neutro de `showcase-sheet-grande.html`: fondo `#0C0C16`, borde `#1C1B29`, texto gris, y una línea de 3px arriba + un punto junto al vertical con el color de acento del vertical (`verticalColor` de `@/lib/showcase`, siempre el mismo color para el mismo vertical). El footer tiene dos zonas: el vertical a la izquierda y un slot `meta: ReactNode` a la derecha, que cada caller arma según el tipo (conteo de equipos + ediciones para sim, badge con iniciales + nombre del sello para hack). Hover: `-translate-y-[3px]` y el borde se aclara a `#2D2B40`. No muestra badge de estado (los datos mock están todos finalizados).
+- **Props:** `title: string`, `solves: string`, `vertical: string`, `meta?: ReactNode`, `delay?: number` (default `0`), `onSelect?: () => void`.
+- **Dependencias:** `@/components/ui/reveal`, `@/lib/showcase` (`verticalColor`), `@/lib/utils`.
 - **Uso:**
   ```tsx
   import ShowcaseCard from "@/components/organisms/sobre-nosotros/showcase/ShowcaseCard";
@@ -807,7 +807,6 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
     title={p.title}
     solves={p.solves}
     vertical={p.vertical}
-    bgColor="#FF0094"
     onSelect={() => handleProjectClick(p)}
     meta={<><Users className="h-3 w-3" />3 equipos</>}
   />;
@@ -842,22 +841,35 @@ Sección de la página `/sobre-nosotros/showcase`. Los datos de ejemplo y los ti
 
 ### CompareList
 
-- **Descripción:** Pestaña "Comparar equipos". Leaderboard de equipos ordenado por score descendente, con dos dropdowns propios (Sector, Mes) usando `FilterDropdown`. Cada fila muestra rank, proyecto + equipo + vertical, cantidad de reuniones, una barra de score con gradiente rosa → cyan, y el valor numérico. Debajo, una sub-línea con entregables, mensajes y el mes de la simulación a la que pertenece. Muestra estado vacío si no hay equipos que matcheen los filtros.
-- **Props:** `entries: CompareEntry[]`, `sectors: string[]`, `months: string[]`, `sector: string`, `month: string`, `onSectorChange: (v: string) => void`, `onMonthChange: (v: string) => void`, `onSelect?: (entry: CompareEntry) => void`.
-- **Dependencias:** `@/components/ui/reveal`, `FilterDropdown`, `@/lib/showcase` (tipo `CompareEntry`), `"use client"`.
-- **Nota:** en rediseño — va a cambiar a un layout de dropdown de proyecto + gráfico de líneas de trayectoria semanal + grid de tiles seleccionables.
+- **Descripción:** Pestaña "Comparar equipos", réplica del mockup `showcase-v16-comparar-20-equipos.html`. Arriba, un selector de proyecto (dropdown propio con cruz para volver al inicio); sin proyecto muestra un estado vacío punteado. Con proyecto: a la izquierda el gráfico SVG "Trayectoria semanal" (grilla 0–100, S1–S8, una línea con puntos por equipo elegido, datos de `teamActivity`) y a la derecha los tiles de equipos agrupados por edición (`E01`, `E02`… con Score / Msjs / Reun. / Entreg.). Se eligen hasta 5 equipos: cada uno toma el primer color libre de la paleta (`#FF0094`, `#02BEEF`, `#A855F7`, `#646CF6`, `#0CFCA7`), el tile se tiñe y las stats se cambian por "✓ Seleccionado" con animación; al llegar a 5 el resto queda deshabilitado. Debajo, "Comparación en detalle": una tarjeta por equipo elegido (puntaje, integrantes, reuniones, mensajes, entregables, stack y tres accesos: repositorio, página del equipo y Showcase Play). La sección se sale del ancho de 1120px hasta `min(1464px, 100vw - 48px)` para que entren las 5 tarjetas.
+- **Props:** `onPlay?: () => void` — lo llama el botón "Ver en Showcase Play" de cada tarjeta (hoy solo cambia a esa pestaña).
+- **Dependencias:** `next/link`, `lucide-react` (`ChevronDown`, `TrendingUp`, `Users`, `X`), `@/components/ui/reveal`, `GithubIcon`, `TechChip`, `@/lib/utils`, `@/lib/showcase` (`countTeams`, `pluralize`, `showcaseProjects`, `teamActivity`, `teamHref`, `teamMessages`, `teamScore`), `"use client"`.
 - **Uso:**
   ```tsx
   import CompareList from "@/components/organisms/sobre-nosotros/showcase/CompareList";
-  <CompareList
-    entries={compareEntries}
-    sectors={compareVerticals}
-    months={months}
-    sector={compareSector}
-    month={compareMonth}
-    onSectorChange={setCompareSector}
-    onMonthChange={setCompareMonth}
-  />;
+  <CompareList onPlay={goToPlay} />;
+  ```
+
+### TechChip
+
+- **Descripción:** Cuadradito de 32px con el logo de una tecnología (del stack del proyecto), usado en las tarjetas de "Comparación en detalle". Los logos salen de la librería `simple-icons`; como no incluye AWS (lo sacaron por marca registrada), "AWS S3" usa el ícono `Cloud` de lucide, y cualquier tecnología que no esté en el mapa usa `Code`. Al pasar el mouse aparece un tooltip con el nombre. Para sumar una tecnología nueva, agregarla al mapa `BRAND_ICONS` con su ícono de `simple-icons`.
+- **Props:** `name: string` (el nombre tal cual está en `project.stack`), `color: string` (color del borde, fondo e ícono).
+- **Dependencias:** `simple-icons`, `lucide-react` (`Cloud`, `Code`).
+- **Uso:**
+  ```tsx
+  import TechChip from "@/components/organisms/sobre-nosotros/showcase/TechChip";
+  <TechChip name="React" color="#FF0094" />;
+  ```
+
+### ShowcasePlay
+
+- **Descripción:** Pestaña "Showcase Play". Por ahora es un placeholder (🎮, título, texto "Estamos preparando esta sección…" y chip "En desarrollo"), igual que en el mockup; todavía no tiene funcionalidad.
+- **Props:** ninguna.
+- **Dependencias:** `@/components/ui/reveal`.
+- **Uso:**
+  ```tsx
+  import ShowcasePlay from "@/components/organisms/sobre-nosotros/showcase/ShowcasePlay";
+  <ShowcasePlay />;
   ```
 
 ### ProjectSheet

@@ -1,16 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type ReactNode } from "react";
 import { Search, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FilterDropdown from "./FilterDropdown";
 import ShowcaseCard from "./ShowcaseCard";
 import CompareList from "./CompareList";
+import ShowcasePlay from "./ShowcasePlay";
 import ShowcasePagination from "./ShowcasePagination";
 import ProjectSheet from "./ProjectSheet";
 import {
   HACK_TEAMS,
-  buildCompareEntries,
   countTeams,
   filterShowcaseProjects,
   getAllProjectMonths,
@@ -25,15 +25,26 @@ import {
 
 const PAGE_SIZE = 6;
 
-type Tab = "sim" | "hack" | "compare";
+type Tab = "sim" | "hack" | "play" | "compare";
 
 type Props = {
   onSelectItem?: (selection: ShowcaseSelection) => void;
 };
 
-const TABS: { value: Tab; label: string }[] = [
+const TABS: { value: Tab; label: ReactNode }[] = [
   { value: "sim", label: "Simulaciones laborales" },
   { value: "hack", label: "Hackathones" },
+  {
+    value: "play",
+    label: (
+      <>
+        Showcase{" "}
+        <span className="bg-gradient-to-br from-[#FF0094] to-[#02BEEF] bg-clip-text font-extrabold text-transparent">
+          Play
+        </span>
+      </>
+    ),
+  },
   { value: "compare", label: "Comparar equipos" },
 ];
 
@@ -45,11 +56,10 @@ export default function Showcase({ onSelectItem }: Props) {
   const [fecha, setFecha] = useState("Todos los meses");
   const [page, setPage] = useState(1);
 
-  const [compareSector, setCompareSector] = useState("Todos");
-  const [compareMonth, setCompareMonth] = useState("Todos los meses");
-
   const [sheetProject, setSheetProject] = useState<ShowcaseProject | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   const months = useMemo(() => getAllProjectMonths(), []);
   const verticals = useMemo(() => getAllProjectVerticals(), []);
@@ -67,24 +77,12 @@ export default function Showcase({ onSelectItem }: Props) {
     safePage * PAGE_SIZE,
   );
 
-  const allCompareEntries = useMemo(() => buildCompareEntries(), []);
-  const compareEntries = useMemo(
-    () =>
-      allCompareEntries
-        .filter(
-          (t) =>
-            (compareSector === "Todos" || t.vertical === compareSector) &&
-            (compareMonth === "Todos los meses" || t.month === compareMonth),
-        )
-        .sort((a, b) => b.score - a.score),
-    [allCompareEntries, compareSector, compareMonth],
-  );
-
-  const compareVerticals = useMemo(() => {
-    const s = new Set<string>();
-    for (const t of allCompareEntries) s.add(t.vertical);
-    return [...s].sort();
-  }, [allCompareEntries]);
+  // El botón "Ver en Showcase Play" de Comparar equipos todavía no apunta a
+  // nada real: por ahora solo lleva a la pestaña de Showcase Play.
+  function goToPlay() {
+    setTab("play");
+    tabsRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
 
   // Handlers que resetean la página junto al filtro (sin useEffect)
   function handleQueryChange(v: string) {
@@ -115,6 +113,7 @@ export default function Showcase({ onSelectItem }: Props) {
       <div className="mx-auto max-w-[1120px]">
         {/* Tabs */}
         <div
+          ref={tabsRef}
           role="group"
           aria-label="Tipo de proyecto"
           className="inline-flex flex-wrap gap-1 rounded-xl border border-[#1C1B29] bg-[#0C0C16] p-1"
@@ -140,7 +139,7 @@ export default function Showcase({ onSelectItem }: Props) {
         </div>
 
         {/* Filtros + búsqueda */}
-        {tab !== "compare" && (
+        {(tab === "sim" || tab === "hack") && (
           <>
             <div className="mt-5 flex flex-wrap items-center gap-2.5">
               <div className="flex min-w-[240px] flex-1 items-center gap-2.5 rounded-lg border border-[#1C1B29] bg-[#0C0C16] px-3.5 py-2.5 transition focus-within:border-[#FF0094]">
@@ -208,12 +207,11 @@ export default function Showcase({ onSelectItem }: Props) {
                       title={p.title}
                       solves={p.solves}
                       vertical={p.vertical}
-                      bgColor="#FF0094"
                       delay={i * 60}
                       onSelect={() => handleProjectClick(p)}
                       meta={
                         <>
-                          <Users className="h-3 w-3" />
+                          <Users className="h-[13px] w-[13px] flex-none" />
                           {pluralize(teamCount, "equipo", "equipos")}
                           {editions > 1 ? ` · ${editions} ediciones` : ""}
                         </>
@@ -243,7 +241,6 @@ export default function Showcase({ onSelectItem }: Props) {
                     title={h.title}
                     solves={h.solves}
                     vertical={h.vertical}
-                    bgColor="#02BEEF"
                     delay={i * 60}
                     onSelect={
                       onSelectItem
@@ -253,7 +250,7 @@ export default function Showcase({ onSelectItem }: Props) {
                     meta={
                       h.seal && sealInitials ? (
                         <>
-                          <span className="flex h-[18px] w-[18px] items-center justify-center rounded-[5px] border border-white/30 bg-white/15 text-[8.5px] font-extrabold text-white">
+                          <span className="flex h-[18px] w-[18px] items-center justify-center flex-none rounded-[5px] border border-[#2D2B40] bg-[#181932] text-[8.5px] font-extrabold text-[#02BEEF]">
                             {sealInitials}
                           </span>
                           {h.seal}
@@ -267,23 +264,11 @@ export default function Showcase({ onSelectItem }: Props) {
           </div>
         )}
 
+        {/* Showcase Play */}
+        {tab === "play" && <ShowcasePlay />}
+
         {/* Comparar */}
-        {tab === "compare" && (
-          <CompareList
-            entries={compareEntries}
-            sectors={compareVerticals}
-            months={months}
-            sector={compareSector}
-            month={compareMonth}
-            onSectorChange={setCompareSector}
-            onMonthChange={setCompareMonth}
-            onSelect={
-              onSelectItem
-                ? (entry) => onSelectItem({ kind: "team", entry })
-                : undefined
-            }
-          />
-        )}
+        {tab === "compare" && <CompareList onPlay={goToPlay} />}
       </div>
 
       {/* Sheet de Lorenzo, montado acá. teamHref viene de @/lib/showcase */}

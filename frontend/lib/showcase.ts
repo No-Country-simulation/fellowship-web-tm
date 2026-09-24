@@ -70,6 +70,12 @@ function hashSeed(str: string) {
   return h;
 }
 
+// Color de acento de cada vertical (línea de arriba y punto de las cards).
+// Sale del nombre, así un mismo vertical siempre tiene el mismo color.
+export function verticalColor(vertical: string) {
+  return BRAND_COLORS[hashSeed(vertical) % BRAND_COLORS.length];
+}
+
 export function countTeams(project: ShowcaseProject) {
   return project.editions.reduce((total, edition) => total + edition.teams.length, 0);
 }
@@ -92,6 +98,20 @@ export function teamScore(teamId: string) {
 
 export function teamMessages(teamId: string) {
   return 140 + (hashSeed(`${teamId}|msg`) % 400);
+}
+
+// Índice de actividad semanal del equipo (8 semanas, 0-100) para el gráfico de
+// "Comparar equipos". Arranca en una base y tiende hacia un valor cercano al
+// score, con un poco de ruido por semana. Determinístico por equipo.
+export function teamActivity(teamId: string): number[] {
+  const seed = `${teamId}|activity`;
+  const base = 40 + (hashSeed(`${seed}|b`) % 24);
+  const end = Math.max(40, Math.min(90, teamScore(teamId) - 18 + (hashSeed(`${seed}|e`) % 22)));
+  return Array.from({ length: 8 }, (_, w) => {
+    const trend = base + (end - base) * (w / 7);
+    const wobble = (hashSeed(`${seed}|w${w}`) % 17) - 8;
+    return Math.max(20, Math.min(96, Math.round(trend + wobble)));
+  });
 }
 
 function slugify(str: string) {
